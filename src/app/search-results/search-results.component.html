@@ -1,0 +1,42 @@
+<div class="container">
+  <button class="btn btn-danger" (click)="returnback()">back</button>
+
+  <p *ngIf="!isDataFound" style="color: white;margin-top: 8em;">No Data Found</p>
+
+  <div class="table-container">
+    <table *ngIf="isDataFound">
+      <thead>
+        <tr>
+          <td>Site Code</td>
+          <td>Site Name</td>
+          <td>BSC/RNC</td>
+          <td>Site Category</td>
+          <td>Office</td>
+          <td>Build date </td>
+          <td>Sharing</td>
+          <td>Host</td>
+          <td>Severity</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let site of sites|paginate:config; let i=index">
+          <td>{{site.site_Code}}</td>
+          <td>{{site.site_name}}</td>
+          <td>{{site.BSC_RNC}}</td>
+          <td>{{site.Site_category}}</td>
+          <td>{{site.office}}</td>
+          <td>{{site.build_date}}</td>
+          <td>{{site.sharing}}</td>
+          <td>{{site.host}}</td>
+          <td>{{site.severity}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="isDataFound" style="color: white;">
+    <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+  </div>
+
+
+
+</div>

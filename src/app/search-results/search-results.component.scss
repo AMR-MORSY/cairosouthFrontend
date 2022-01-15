@@ -1,0 +1,66 @@
+// *{
+    // margin: 0;
+    // padding: 0;
+// }
+.container{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.table-container{
+ margin-top: 120px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+  
+  table{
+      margin-bottom: 2em;
+      thead{
+          background-color: burlywood;
+          tr{
+              td{
+                  text-align: center;
+              }
+          }
+      }
+      tbody{
+          tr{
+              background-color: cornsilk;
+              border-bottom: 2px solid black;
+
+              td{
+                  padding:0 2em ;
+              }
+          }
+      }
+  }
+
+ 
+ 
+ 
+}
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+

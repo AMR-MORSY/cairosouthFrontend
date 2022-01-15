@@ -1,0 +1,130 @@
+<nav class="navbar  mb-5 navbar-expand-lg " [style.background]="isLogin? 'black':'none'">
+  <a class="navbar-brand font-weight-bolder" routerLink='home'>Whoops</a>
+  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" -->
+  <!-- aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
+  <!-- <i class="fa fa-bars"></i> -->
+  <!-- </button> -->
+  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+    aria-controls="offcanvasExample">
+    <i class="fa fa-bars"></i>
+  </button>
+
+
+  <div class="collapse flex-grow-0   navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav  mr-5">
+      <li class="nav-item active">
+        <a class="nav-link" Active routerLink='home'>Home </a>
+      </li>
+
+
+    </ul>
+    <form [formGroup]="searchForm" class="form-inline w-50  ml-5" (ngSubmit)="SubmitSearchForm(searchForm)">
+      <div class=" form-group">
+        <input class=" mr-sm-2 search" [hidden]="!isLogin" type="text" placeholder="Search sites"
+          formControlName="search" aria-label="Search">
+        <button type="submit" class=" searchBtn " [hidden]="!isLogin">Search </button>
+      </div>
+
+    </form>
+
+    <div [hidden]="!isLogin" class="image_container">
+
+      <img class="w-100 h-100" [src]='image_url'>
+
+    </div>
+
+    <ul class="navbar-nav mr-auto">
+      <li >
+        <p class="nav-link" *ngIf="isLogin" >{{userName}}</p>
+      </li>
+      <li class="nav-item">
+
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" *ngIf="isAdmin" role="button" id="dropdownMenuLink"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+            <li><a class="dropdown-item" routerLink='admin-questions'>Questions</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li> <a class="dropdown-item" routerLink='admin-users'>Users</a></li>
+          </ul>
+        </div>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="isLogin" routerLink='profile'>Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="!isLogin" routerLink='auth/login'>Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="isLogin" routerLink='auth/logout'>Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="!isLogin" routerLink='auth/register'>Register</a>
+      </li>
+
+    </ul>
+
+  </div>
+</nav>
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
+  <div class="offcanvas-body">
+
+      <button type="button" class="btn-close text-reset" style="color: white!important;" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <div class="side-bar">
+        <div [hidden]="!isLogin" class="image_container">
+          <img class="w-100 h-100" [src]='image_url'>
+        </div>
+        <ul class="list-unstyled components">
+          <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
+          <li class="active">
+            <a class="nav-link" Active routerLink='home'>Home </a>
+          </li>
+
+          <li>
+            <a href="#pageSubmenu" data-toggle="collapse" *ngIf="isAdmin" aria-expanded="false"
+              class="dropdown-toggle">Admin</a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li>
+                <a *ngIf="isSuperAdmin">Users</a>
+              </li>
+              <li>
+                <a href="#">Sites</a>
+              </li>
+
+            </ul>
+          </li>
+
+
+          <li>
+            <a *ngIf="isLogin" routerLink='profile'>Profile</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+        </ul>
+        <ul class="list-unstyled component">
+          <li >
+            <a  *ngIf="!isLogin" routerLink='auth/login'>Login</a>
+          </li>
+          <li>
+            <a  *ngIf="isLogin" routerLink='auth/logout'>Logout</a>
+          </li>
+          <li >
+            <a  *ngIf="!isLogin" routerLink='auth/register'>Register</a>
+          </li>
+        </ul>
+
+      </div>
+
+  </div>
+
+
+</div>

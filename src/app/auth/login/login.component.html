@@ -1,0 +1,59 @@
+<section id="loginForm">
+
+  <div class="container">
+
+      <div class="form_container">
+
+          <form [formGroup]="loginForm" (ngSubmit)="submitLogin(loginForm)">
+              <div class="form-group">
+
+
+
+              </div>
+              <div class="form-group ">
+                  <label for="email">Email:</label>
+                  <input type="email" formControlName='email' (keyup)="disableEmailNotfication()" name="email" class="form-control">
+
+                  <p class="form-control alert-danger"
+                      *ngIf="loginForm.get('email')?.errors!=null&& loginForm.get('email')?.errors?.required&&loginForm.get('email')?.touched ">
+                      Email Required</p>
+
+                  <p class="form-control alert-danger"
+                      *ngIf="loginForm.get('email')?.errors!=null&&loginForm.get('email')?.errors?.email&&loginForm.get('email')?.touched">
+                      Invalid Email</p>
+
+
+
+
+              </div>
+
+              <div class="form-group">
+                  <label for="password">Password:</label>
+                  <input type="password" formControlName='password'(keyup)="disablePassNotfication()" name="password" class="form-control">
+
+                  <p class="form-control alert-danger"
+                      *ngIf="loginForm.get('password')?.errors!=null&& loginForm.get('password')?.errors?.required&&loginForm.get('password')?.touched ">
+                      Password Required</p>
+
+                  <p class="form-control alert-danger"
+                      *ngIf="loginForm.get('password')?.errors!=null&&loginForm.get('password')?.errors?.pattern &&loginForm.get('password')?.touched ">
+                      Invalid Password</p>
+
+
+
+
+                  <div class="d-flex mt-2 border-top-transparent align-items-sm-start form-group w-100 flex-column ">
+                    <p class="form-control alert-danger text-center" *ngIf="isError">{{error}}</p>
+
+                      <button type="submit" [disabled]="loginForm.status=='INVALID'"
+                          class="btn btn-primary">Login</button>
+
+                  </div>
+              </div>
+          </form>
+      </div>
+
+  </div>
+
+
+</section>

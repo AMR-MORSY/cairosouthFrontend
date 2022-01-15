@@ -1,0 +1,25 @@
+.footer{
+  background: #040b14;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999999;
+
+
+  .container{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .social{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      a{
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
+}
