@@ -11,7 +11,8 @@ export class AppComponent implements AfterViewInit {
 title="CairoSouth";
 
 ngAfterViewInit(): void {
-  let x:any=document.querySelector('.loading');
+
+  let x:any=document.querySelector('loading');
   x.style.display="none";
 }
 

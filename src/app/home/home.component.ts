@@ -9,32 +9,31 @@ import jwt_decode from "jwt-decode";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   public sites: any;
-  public isLogin:boolean=false;
-  public userEmail:any;
-  
+  public isLogin: boolean = false;
+  public userEmail: any;
 
 
-  closeloginMessage()
-  {
-    let x:any=document.getElementById("hello-container");
-    x.style.display="none";
+
+  closeloginMessage() {
+    let x: any = document.getElementById("hello-container");
+    x.style.display = "none";
 
   }
   public checkIfLoggin() {
     // let email: any = this._AuthService.user_email.getValue();
     // let storage: any = localStorage.getItem('userEmail');
     // if (email == null && storage == null) {
-      // this.isLogin = false;
+    // this.isLogin = false;
     // }
     // else if (email == null && storage != null) {
-      // this.userEmail = storage;
-      // this.isLogin = true;
+    // this.userEmail = storage;
+    // this.isLogin = true;
     // }
     // else if (email != null) {
-      // this.userEmail = email;
-      // this.isLogin = true;
+    // this.userEmail = email;
+    // this.isLogin = true;
     // }
   }
 
@@ -43,14 +42,14 @@ export class HomeComponent implements OnInit {
 
     setInterval(() => {
 
-      let x:any=document.getElementById("hello-container");
-      x.style.display="flex";
+      let x: any = document.getElementById("hello-container");
+      x.style.display = "flex";
 
-    },5000);
+    }, 5000);
 
   }
 
-  constructor(private _sitesService: SitesService, private _Router: Router, private _AuthService:AuthenticationService) {
+  constructor(private _sitesService: SitesService, private _Router: Router, private _AuthService: AuthenticationService) {
     let x: any = document.querySelector(".navbar");
     x.style.display = "flex";
 
@@ -61,14 +60,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // this._AuthService.user_email.subscribe(() => {
-      // this.checkIfLoggin();
-      // if (!this.isLogin) {
-        // this.displayLoginMessage();
-      // }
+    // this.checkIfLoggin();
+    // if (!this.isLogin) {
+    // this.displayLoginMessage();
+    // }
 
-        // })
-      // }
+    // })
+    // }
 
 
   }
+
+  ngAfterViewInit(): void {
+
+    let x:any = document.getElementById('loading');
+    x.style.display = "none";
+  }
+
+
 }
