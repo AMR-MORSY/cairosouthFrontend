@@ -1,4 +1,4 @@
-<app-loading-screen></app-loading-screen>
+<app-loading-screen [hidden]="fadefinished"></app-loading-screen>
 <div id="hello-container">
   <div class="hello">
     <div class="close" (click)="closeloginMessage()">
@@ -58,6 +58,8 @@
     </ngx-typed-js>
 
     </div>
+
+
 
 
 </div>

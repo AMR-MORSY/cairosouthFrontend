@@ -34,20 +34,26 @@ export class AuthenticationService {
    }
 
   signIn(Data: any): Observable<any> {
-    return this._HttpClient.post("http://localhost:8000/api/login", Data);
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/login", Data);
   };
 
   makeRegisteration(formData: any): Observable<any> {
 
-    return this._HttpClient.post("http://cairosouth.herokuapp.com/public/api/signup", formData);
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/signup", formData);
   }
 
-  signOut(token: any) {
-
-    return this._HttpClient.get(`http://cairosouth.herokuapp.com/public/api/logout.php?token=${token}`);
-
+  signOut(token:any) {
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/logout/${token}`);
 
   }
+
+  sendPassResEmail(email:any) {
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/sendEmail",email);
+  }
+  sendPassResForm(passResForm:any) {
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/sendEmail",passResForm);
+  }
+
 
 
 }

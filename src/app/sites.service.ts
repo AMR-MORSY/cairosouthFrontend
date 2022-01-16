@@ -26,18 +26,18 @@ export class SitesService {
 
   searchSites(search:any,token:any):Observable<any>{
     return this._HttpClient
-    .get(`http://localhost:8000/api/searchSites/${search}/${token}`);
+    .get(`https://cairo-south.herokuapp.com/api/search/${search}/${token}`);
   }
 
   searchSitesPagination(search:any,token:any,newpage:any):Observable<any>{
     return this._HttpClient
-    .get(`http://localhost:8000/api/searchSites/${search}/${token}?page=${newpage}`);
+    .get(`https://cairo-south.herokuapp.com/api/search/${search}/${token}?page=${newpage}`);
 
   }
 
   showStatistics(user_token:any):Observable<any>
   {
-    return this._HttpClient.post("http://localhost:8000/api/statistics",user_token);
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/statistics",user_token);
   }
 
 

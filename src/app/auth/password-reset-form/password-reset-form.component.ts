@@ -1,66 +1,55 @@
-import { Router } from '@angular/router';
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-password-reset-form',
+  templateUrl: './password-reset-form.component.html',
+  styleUrls: ['./password-reset-form.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class PasswordResetFormComponent implements OnInit {
 
   isError_email: boolean = false;
-  isError_pass: boolean = false;
-  isError_user_name: boolean = false;
-  error_email: any;
-  error_pass: any;
-  error_user_name: any;
+isError_pass: boolean = false;
+
+error_email: any;
+error_pass: any;
+
 
   constructor(private _AuthService: AuthenticationService, private _Router: Router) { }
-  registerForm = new FormGroup({
-    name: new FormControl(null, [Validators.required,Validators.minLength(3)]),
+
+  resetForm = new FormGroup({
+
     email: new FormControl(null, [Validators.email, Validators.required]),
     password: new FormControl(null, [Validators.required, Validators.pattern('')]),
     password_confirmation: new FormControl(null, [Validators.required]),
   })
   dissablePassNotifications()
   {
-
    this. isError_pass = false;
-
-  }
-  dissableUserNotifications()
-  {
-   this. isError_user_name=false;
-
   }
   dissableconfPassNotifications()
   {
    this. isError_pass = false;
-
   }
   dissableemailNotifications()
   {
     this.isError_email= false;
-
   }
 
-  submitRegisterForm(registerForm: FormGroup) {
-    this._AuthService.makeRegisteration(registerForm.value).subscribe((feedback) => {
+  submitResetForm(resetForm:any) {
+    this._AuthService.sendPassResForm(resetForm.value).subscribe((feedback:any) => {
       console.log(feedback);
-      if (feedback.message!='failed')
+      if (feedback.message=='success')
       {
-        // let token:any=JSON.stringify(feedback.access_token);
-
         this._AuthService.saveCurrentUser(feedback.access_token);
 
 
       }
       else
       {
-        let error:any=feedback.errors;
+        let error:any=feedback.error;
         console.log(error);
         if (error.email != null) {
           this.error_email = error.email;
@@ -72,10 +61,6 @@ export class RegisterComponent implements OnInit {
            this.error_pass = error.password;
            this.isError_pass=true;
            }
-           if (error.user_name != null) {
-            this.error_user_name = error.user_name;
-             this.isError_user_name=true;
-            }
 
 
       }
@@ -83,6 +68,8 @@ export class RegisterComponent implements OnInit {
 
     });
   }
+
+
 
   ngOnInit(): void {
   }

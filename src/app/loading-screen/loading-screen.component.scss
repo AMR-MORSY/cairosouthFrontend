@@ -6,20 +6,23 @@
     left: 0;
     bottom: 0;
     z-index: 999999999999;
-    background-color: #333;
-    display: flex;
+     background-color: black;
 
-
+}
 .sk-cube-grid {
   width: 40px;
   height: 40px;
   margin: 300px auto;
 }
 
+.display-none{
+  display: none;
+}
+
 .sk-cube-grid .sk-cube {
   width: 33%;
   height: 33%;
-  background-color: #fff;
+  background-color: #FF6600;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
           animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
@@ -71,7 +74,7 @@
             transform: scale3D(0, 0, 1);
   }
 }
-}
+
 
 
 

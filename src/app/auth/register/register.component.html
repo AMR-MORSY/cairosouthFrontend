@@ -1,79 +1,3 @@
-<!-- <section id="regForm">
-
-  <div class="container">
-      <div class="form_container">
-      <form [formGroup]='registerForm' enctype="multipart/form-data" (ngSubmit)='submitRegisterForm(registerForm)' class=" mb-5">
-
-          <div class="form-group m-auto">
-
-
-          </div>
-
-          <div class="form-group  my-2 ">
-              <label for="user_name" class=" mt-2">User Name</label>
-              <input type="text" formControlName='name' (keyup)=" dissableUserNotifications()" class="form-control my-2" id="user_name">
-              <div class="alert-danger form-control my-3"
-                  *ngIf="registerForm.get('user_name')?.errors!=null && registerForm.get('user_name')?.errors?.minlength ">
-                  Min Length 3 characters</div>
-                  <p class="form-control alert-danger text-center font-weight-bolder alert w-50 " *ngIf="isError_user_name">{{error_user_name}}
-                  </p>
-              <div class=" alert-danger form-control my-3"
-                  *ngIf="registerForm.get('user_name')?.errors!=null && registerForm.get('user_name')?.errors?.maxlength ">
-                  Max Length 10 characters</div>
-              <div class=" alert-danger form-control" *ngIf="registerForm.get('user_name')?.errors!=null && registerForm.get('first_name')?.errors?.required &&
-          registerForm.get('user_name')?.touched">
-                  First Name is Required</div>
-
-          </div>
-
-          <div class="form-group my-2 ">
-              <label for="email" class="mt-2">Email:</label>
-              <input type="email" formControlName='email' (keyup)="dissableemailNotifications()" class="form-control my-2" id="email">
-              <div class=" alert-danger form-control"
-                  *ngIf="registerForm.get('email')?.errors!=null && registerForm.get('email')?.errors?.email">
-                  Invalid Email</div>
-              <div class=" alert-danger form-control" *ngIf="registerForm.get('email')?.errors!=null && registerForm.get('email')?.errors?.required
-           && registerForm.get('email')?.touched">
-                  Email is Required</div>
-                  <p class="form-control alert-danger text-center font-weight-bolder alert w-50 " *ngIf="isError_email">{{error_email}}
-                  </p>
-
-          </div>
-
-          <div class="form-group">
-              <label for="password" class="mt-2">Password</label>
-              <input type="password" formControlName='password' (keyup)="dissablePassNotifications()" class="form-control my-2" id="password">
-              <div class=" alert-danger form-control"
-                  *ngIf="registerForm.get('password')?.errors!=null && registerForm.get('password')?.errors?.pattern ">
-                  Upper-Case letter&3-8 letters/numbers</div>
-              <div class=" alert-danger form-control" *ngIf="registerForm.get('password')?.errors!=null &&
-                                                                registerForm.get('password')?.errors?.required
-                && registerForm.get('password')?.touched">
-                  Password is Required</div>
-
-
-          </div>
-          <div class="form-group  my-2 ">
-            <label for="rePass" class="mt-2">Confirm Password</label>
-              <input type="password" formControlName='password_confirmation' (keyup)=" dissableconfPassNotifications()"  class="form-control my-2" id="rePass">
-              <div class=" alert-danger form-control" *ngIf="registerForm.get('rePass')?.errors!=null &&
-               registerForm.get('rePass')?.errors?.required &&
-          registerForm.get('rePass')?.touched">
-                  Retype Password</div>
-          </div>
-          <p class=" alert-danger text-center font-weight-bolder alert  " *ngIf="isError_pass">{{error_pass}}
-          </p>
-
-
-
-          <button [disabled]='registerForm.status=="INVALID"' type="submit"
-class="btn btn-primary my-5">Submit</button>
-
-              <!-- <button class="btn btn-primary" type="submit">submit</button> -->
-      <!-- </form> -->
-      <!-- </div> -->
-  <!-- </div> -->
-<!-- </section> --> -->
 
 <div class="form-body">
   <div class="row">
@@ -100,18 +24,6 @@ class="btn btn-primary my-5">Submit</button>
                           </div>
                       </div>
 
-                     <!-- <div class="col-md-12"> -->
-                          <!-- <select class="form-select mt-3" required> -->
-                                <!-- <option selected disabled value="">Position</option> -->
-                                <!-- <option value="jweb">Junior Web Developer</option> -->
-                                <!-- <option value="sweb">Senior Web Developer</option> -->
-                                <!-- <option value="pmanager">Project Manager</option> -->
-                         <!-- </select> -->
-                          <!-- <div class="valid-feedback">You selected a position!</div> -->
-                          <!-- <div class="invalid-feedback">Please select a position!</div> -->
-                     <!-- </div> -->
-
-
                      <div class="col-md-12">
                         <input class="form-control" type="password" formControlName='password' (keyup)="dissablePassNotifications()" placeholder="Password" required>
                          <div class="valid-feedback"*ngIf="registerForm.get('password')?.errors!=null && registerForm.get('password')?.errors?.pattern">Password field is invalid!</div>
@@ -126,30 +38,7 @@ class="btn btn-primary my-5">Submit</button>
                      registerForm.get('password')?.errors?.required">Password Confirmation field cannot be blank!</div>
                      <div class=" alert-danger text-center font-weight-bolder alert  " *ngIf="isError_pass">{{error_pass}}
                     </div>
-                   </div>
-
-
-                     <!-- <div class="col-md-12 mt-3"> -->
-                      <!-- <label class="mb-3 mr-1" for="gender">Gender: </label> -->
-
-                      <!-- <input type="radio" class="btn-check" name="gender" id="male" autocomplete="off" required> -->
-                      <!-- <label class="btn btn-sm btn-outline-secondary" for="male">Male</label> -->
-
-                      <!-- <input type="radio" class="btn-check" name="gender" id="female" autocomplete="off" required> -->
-                      <!-- <label class="btn btn-sm btn-outline-secondary" for="female">Female</label> -->
-
-                      <!-- <input type="radio" class="btn-check" name="gender" id="secret" autocomplete="off" required> -->
-                      <!-- <label class="btn btn-sm btn-outline-secondary" for="secret">Secret</label> -->
-                         <!-- <div class="valid-feedback mv-up">You selected a gender!</div> -->
-                          <!-- <div class="invalid-feedback mv-up">Please select a gender!</div> -->
-                      <!-- </div> -->
-
-                  <!-- <div class="form-check"> -->
-                    <!-- <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required> -->
-                    <!-- <label class="form-check-label">I confirm that all data are correct</label> -->
-                   <!-- <div class="invalid-feedback">Please confirm that the entered data are all correct!</div> -->
-                  <!-- </div> -->
-
+                  </div>
 
                       <div class="form-button mt-3">
                           <button id="submit" type="submit" [disabled]='registerForm.status=="INVALID"' class="btn btn-primary">Register</button>

@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public sites: any;
   public isLogin: boolean = false;
   public userEmail: any;
+  public fadefinished:boolean=false;
 
 
 
@@ -73,9 +74,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    let x:any = document.getElementById('loading');
-    x.style.display = "none";
+     let x:any= document.getElementById('loading');
+    x.classList.add("animate__animated","animate__fadeOut");
+    setTimeout(() => {
+      this.fadefinished=true;
+
+    },3000);
+
+
   }
+
+
+
+
+
 
 
 }

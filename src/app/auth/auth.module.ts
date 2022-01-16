@@ -7,13 +7,17 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PasswordResetFormComponent } from './password-reset-form/password-reset-form.component';
+import { PasswordResetRequestComponent } from './password-reset-request/password-reset-request.component';
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    PasswordResetFormComponent,
+    PasswordResetRequestComponent
   ],
   imports: [
     CommonModule,
