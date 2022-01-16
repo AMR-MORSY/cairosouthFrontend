@@ -50,7 +50,7 @@ error_pass: any;
       else
       {
         let error:any=feedback.error;
-        console.log(error);
+       alert(`${error}`);
         if (error.email != null) {
           this.error_email = error.email;
            this.isError_email=true;

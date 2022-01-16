@@ -25,9 +25,9 @@ public isError: boolean = false;
 {
   this.isError=false;
 }
-submitEmail(submitData: any) {
+submitEmail(data: any) {
 
-  this._AuthService.sendPassResEmail(submitData.value).subscribe((response:any) => {
+  this._AuthService.sendPassResEmail(data.value).subscribe((response:any) => {
     console.log(response);
   });
   }
