@@ -50,7 +50,7 @@ error_pass: any;
       else
       {
         let error:any=feedback.error;
-       alert(`${error}`);
+       alert("Email doesn't exist");
         if (error.email != null) {
           this.error_email = error.email;
            this.isError_email=true;

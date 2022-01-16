@@ -37,7 +37,7 @@ export class SitesService {
 
   showStatistics(user_token:any):Observable<any>
   {
-    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/statistics",user_token);
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/statestics/${user_token}`);
   }
 
 
