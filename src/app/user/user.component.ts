@@ -1,6 +1,7 @@
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { SitesService } from './../sites.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit} from '@angular/core';
 import { AuthenticationService } from '../auth/authentication.service';
 import jwt_decode from "jwt-decode";
 
@@ -9,23 +10,32 @@ import jwt_decode from "jwt-decode";
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
-  public userId:any;
-  public user_token:any;
+export class UserComponent implements OnInit,AfterViewInit {
+  public offices:any;
+  public BSCs:any=[];
+  public sites_categories:any;
+  public sites_types:any;
+  public sites_severity:any;
+  public fadefinished:boolean=false;
+
 
   constructor(private _AuthService:AuthenticationService, private _siteServices:SitesService, private _Router:Router) { }
 
   public getSitesStatestics(token:any)
   {
     this._siteServices.showStatistics(token).subscribe((response)=>{
-      console.log(response);
+      console.log(response)
+      this.offices=Object.entries(response.offices);
+      this.BSCs=Object.entries(response.BSCs) ;
+      this.sites_categories=Object.entries(response.sites_categories);
+      this.sites_severity=Object.entries(response.sites_severity);
+      this.sites_types=Object.entries(response.sites_types);
+
+      console.log(this.BSCs);
 
     });
 
   }
-
-
-
 
 
 
@@ -39,11 +49,20 @@ export class UserComponent implements OnInit {
 
     }
     else {
-      this.user_token=null ;
-      this.userId=null;
+      this._Router.navigate(['/home']);
+
+
 
     }
   }
+
+  ngAfterViewInit(): void {
+    let x:any= document.getElementById('loading');
+   x.classList.add("animate__animated","animate__fadeOut");
+   setTimeout(() => {
+     this.fadefinished=true;
+   },3000);
+ }
 
 
 

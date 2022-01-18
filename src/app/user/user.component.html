@@ -1,0 +1,43 @@
+<app-loading-screen [hidden]="fadefinished"></app-loading-screen>
+<section id="cards">
+<div class="container">
+<div class="row">
+  <div class="col-md-3">
+    <div class="card  mb-3" style="max-width: 18rem;">
+      <div class="card-header"><h5 class="card-title h2">BSCs</h5> </div>
+      <div class="card-body">
+
+        <p class="card-text" *ngFor="let element of BSCs ">{{element[0]}}:{{element[1]}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card  mb-3" style="max-width: 18rem;">
+      <div class="card-header"><h5 class="card-title h2">Categories</h5></div>
+      <div class="card-body">
+
+        <p class="card-text" *ngFor="let category of sites_categories">{{category[0]}}:{{category[1]}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card  mb-3" style="max-width: 18rem;">
+      <div class="card-header"> <h5 class="card-title h2">Severity</h5></div>
+      <div class="card-body">
+
+        <p class="card-text" *ngFor="let severity of sites_severity ">{{severity[0]}}:{{severity[1]}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card  mb-3" style="max-width: 18rem;">
+      <div class="card-header">  <h5 class="card-title h2">Type</h5></div>
+      <div class="card-body">
+
+        <p class="card-text" *ngFor="let type of sites_types">{{type[0]}}:{{type[1]}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>

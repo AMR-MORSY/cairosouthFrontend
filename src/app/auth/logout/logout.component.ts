@@ -11,13 +11,13 @@ import { Component, OnInit } from '@angular/core';
 export class LogoutComponent implements OnInit {
 
   constructor(private _AuthService:AuthenticationService, private _Router:Router, private _AdminServices:AdminService) {
-    this._AuthService.currentUser.subscribe(() => {
+
       if (this._AuthService.currentUser.getValue() != null) {
 
         let token: any = this._AuthService.currentUser.getValue();
-        this._AuthService.signOut(token).subscribe((response)=>{
+        this._AuthService.signOut(token).subscribe((response:any)=>{
 
-          if (response!=null)
+          if (response.message=="Successfully logged out")
           {
             localStorage.removeItem('token');
             this._AuthService.currentUser.next(null);
@@ -38,7 +38,7 @@ export class LogoutComponent implements OnInit {
         alert('You already signed out');
       }
 
-    });
+    
 
 
 

@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'admin',canActivate:[AuthGuardGuard],canActivateChild:[AdminGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-  }
+  },
+  {
+    path: 'superAdmin',
+    loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule)
+  },
 ];
 
 @NgModule({
