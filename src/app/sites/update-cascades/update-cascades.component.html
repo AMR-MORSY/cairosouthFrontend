@@ -1,7 +1,25 @@
+
+<section id="show-nodal-site">
+  <div class="container">
+    <div class="site-container">
+      <div class="site-code">
+        <label for="code">Site Code:</label>
+        <input type="text" class="form-control" id="code" [(ngModel)]='nodalCode'>
+      </div>
+      <div class="site-name">
+        <label for="name">Site Name:</label>
+        <input type="text" class=" form-control" id="name" [(ngModel)]="nodalName">
+      </div>
+
+    </div>
+  </div>
+
+
+
+</section>
+
 <section id="insert-cascades">
   <div class="container">
-
-
     <div class="row">
       <div class="col-md-6">
         <form [formGroup]='searchCascades' (ngSubmit)="searchForCascadeSite(searchCascades)">

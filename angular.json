@@ -39,7 +39,8 @@
               "./node_modules/animate.css/animate.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "src/styles.scss"
+              "src/scss/_variables.scss",
+              "src/scss/styles.scss"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",

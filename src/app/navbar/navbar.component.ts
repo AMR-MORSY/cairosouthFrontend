@@ -1,4 +1,3 @@
-import { AdminService } from './../admin/admin.service';
 import jwt_decode from "jwt-decode";
 import { Router } from '@angular/router';
 
@@ -20,13 +19,14 @@ export class NavbarComponent implements OnInit {
   public userName: any;
   public profilePic: any;
   public isAdmin: boolean = false;
+
   public asset_url: string = './assets/grey_avatar_2.png';
   public image_url: any;
   public url: string = "http://localhost:8000/api/login";
   public profile_picture_path: any;
   public backgroundColor:any;
 
-  constructor(private _AuthService: AuthenticationService, private _AdminService: AdminService, private _sitesService:SitesService, private _Router: Router) { }
+  constructor(private _AuthService: AuthenticationService,  private _sitesService:SitesService, private _Router: Router) { }
   searchForm = new FormGroup({
     search: new FormControl(null, [Validators.requiredTrue])
   })
@@ -54,14 +54,20 @@ export class NavbarComponent implements OnInit {
     this.userName = decodedToken.name;
 
     let role: any = decodedToken.role;
-    if (role == 'admin' || role == "super admin") {
+    if ( role == "super admin") {
       this.isAdmin = true;
-      this._AdminService.isAdmin.next(true);
+      this.isSuperAdmin=true;
+
 
     }
-    else {
-      this.isAdmin = false;
+    else if(role=='admin') {
+      this.isSuperAdmin = false;
+      this.isAdmin=true;
 
+    }
+    else{
+      this.isAdmin=false;
+      this.isSuperAdmin=false;
     }
     let picture = decodedToken.picture;
     if (picture == null) {
@@ -93,8 +99,6 @@ export class NavbarComponent implements OnInit {
       }
       else {
         this.isLogin=false;
-        this.isAdmin = false;
-        this._AdminService.isAdmin.next(false);
         this.image_url = this.asset_url;
 
 

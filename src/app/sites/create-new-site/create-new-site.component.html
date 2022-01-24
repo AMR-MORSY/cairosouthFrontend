@@ -101,11 +101,11 @@
         <div class="col-5 mt-2">
           <label for="host">Host</label>
           <select formControlName="host" class=" d-block" id="host">
-            <option value=" " selected> </option>
+            <option value=''selected></option>
             <option value="OR">OR</option>
-            <option value="OR">VF</option>
-            <option value="OR">ET</option>
-            <option value="OR">WE</option>
+            <option value="VF">VF</option>
+            <option value="ET">ET</option>
+            <option value="WE">WE</option>
           </select>
 
         </div>
@@ -121,6 +121,32 @@
 
 
     <p id="datePickerOutput" [hidden]="hidden">{{datepicker|date:'MM-dd-YYYY'}}</p>
+  </div>
+
+</section>
+
+<section id='notification'[hidden]='isSiteNotInserted'>
+  <div class="container">
+    <div class="notification-body" >
+      <div class="notification-content">
+        <div class="close" (click)="closeNotification()"><i class="fas fa-times" ></i></div>
+        <div class="notification-title">
+          <h3>Add Cascades</h3>
+        </div>
+
+        <div class="notification-caption">
+          <p>Do you want to add Cascades for this new site?</p>
+        </div>
+        <div class="notification-footer">
+          <button class="btn btn-danger"(click)="closeNotification()">No</button>
+          <button class=" btn btn-primary" (click)="goToUpdateCascades()">Yes</button>
+        </div>
+
+
+      </div>
+
+    </div>
+
   </div>
 
 </section>

@@ -27,10 +27,8 @@ export class SitesService {
     if (storag != null) {
       this.site.next(storag)
     }
-    else
-    {
-      this.site.next(null)
-    }
+
+
 
   }
   private getSearchStr()
@@ -39,10 +37,8 @@ export class SitesService {
     if (storage != null) {
       this.searchStr.next(storage)
     }
-    else
-    {
-      this.searchStr.next(null);
-    }
+
+    
 
   }
 
@@ -73,5 +69,9 @@ export class SitesService {
   updateCascades(data:any):Observable<any>{
     return this._HttpClient.post("http://cairo-south.herokuapp.com/api/updateCascades",data);
   }
+  addNewSite(data:any):Observable<any>{
+    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/addsite",data);
+  }
+
 
 }

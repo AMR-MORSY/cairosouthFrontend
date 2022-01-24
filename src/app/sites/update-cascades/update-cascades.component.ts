@@ -24,6 +24,8 @@ export class UpdateCascadesComponent implements OnInit {
   public isDataFound: boolean = false;
   public isNoCascades:boolean=true;
   public searchRecivedSiteName = "";
+  public nodalCode:any="";
+  public nodalName:any="";
 
 
 
@@ -53,6 +55,8 @@ export class UpdateCascadesComponent implements OnInit {
       this.site = this._siteService.site.getValue();
       console.log(this.site);
       this.site_id = this.site[0].id
+      this.nodalCode=this.site[0].site_Code;
+      this.nodalName=this.site[0].site_name;
     })
   }
 
@@ -192,10 +196,13 @@ export class UpdateCascadesComponent implements OnInit {
       }
     })
   }
+
+
   ngOnInit(): void {
     this.fillCascadesContainer();
     this.getSite();
     this.getUserData();
+
   }
 
 }

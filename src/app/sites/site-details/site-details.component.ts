@@ -84,13 +84,18 @@ export class SiteDetailsComponent implements OnInit {
 
   }
 
-  goToUpdate()
+  public goToUpdate()
   {
     this._Router.navigate(['/sites/update-cascades']);
   }
-  goToCreatSite()
+ public  goToCreatSite()
   {
     this._Router.navigate(['/sites/create-new-site'])
+  }
+  public goToSiteModifications()
+  {
+    this._Router.navigate(['/modifications/show-site-modifications'])
+
   }
 
 

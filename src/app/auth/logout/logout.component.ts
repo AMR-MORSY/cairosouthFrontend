@@ -1,4 +1,4 @@
-import { AdminService } from './../../admin/admin.service';
+
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private _AuthService:AuthenticationService, private _Router:Router, private _AdminServices:AdminService) {
+  constructor(private _AuthService:AuthenticationService, private _Router:Router) {
 
       if (this._AuthService.currentUser.getValue() != null) {
 
@@ -22,7 +22,7 @@ export class LogoutComponent implements OnInit {
           {
             localStorage.removeItem('token');
             this._AuthService.currentUser.next(null);
-            this._AdminServices.isAdmin.next(false);
+
             this._Router.navigate(["/home"]);
 
           }
