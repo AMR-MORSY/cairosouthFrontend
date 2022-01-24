@@ -1,31 +1,30 @@
-<nav class="navbar  mb-5 navbar-expand-lg " [style.background]="isLogin? 'black':'none'">
-  <a class="navbar-brand font-weight-bolder" routerLink='home'>Whoops</a>
-  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" -->
-  <!-- aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-  <!-- <i class="fa fa-bars"></i> -->
-  <!-- </button> -->
-  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+<nav class="navbar  mb-5 navbar-expand-lg " >
+  <a class="navbar-brand font-weight-bolder" routerLink='home'>CairoSouth</a>
+
+  <button class="ofcan-btn btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
     aria-controls="offcanvasExample">
     <i class="fa fa-bars"></i>
   </button>
 
 
   <div class="collapse flex-grow-0   navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav  mr-5">
+    <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" Active routerLink='home'>Home </a>
       </li>
 
 
     </ul>
-    <form [formGroup]="searchForm" class="form-inline w-50  ml-5" (ngSubmit)="SubmitSearchForm(searchForm)">
+
       <div class=" form-group">
-        <input class=" mr-sm-2 search" [hidden]="!isLogin" type="text" placeholder="Search sites"
+        <form [formGroup]="searchForm" class="form-inline   ml-5" (ngSubmit)="SubmitSearchForm(searchForm)">
+        <input class=" mr-sm-2 search form-control" [hidden]="!isLogin" type="text" placeholder="Search sites"
           formControlName="search" aria-label="Search">
-        <button type="submit" class=" searchBtn " [hidden]="!isLogin">Search </button>
+        <button type="submit" class="form-control searchBtn " [hidden]="!isLogin">Search </button>
+      </form>
       </div>
 
-    </form>
+
 
     <div [hidden]="!isLogin" class="image_container">
 
@@ -33,9 +32,9 @@
 
     </div>
 
-    <ul class="navbar-nav mr-auto">
-      <li >
-        <p class="nav-link" *ngIf="isLogin" >{{userName}}</p>
+    <ul class="navbar-nav">
+      <li>
+        <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
       </li>
       <li class="nav-item">
 
@@ -77,52 +76,53 @@
 
   <div class="offcanvas-body">
 
-      <button type="button" class="btn-close text-reset" style="color: white!important;" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      <div class="side-bar">
-        <div [hidden]="!isLogin" class="image_container">
-          <img class="w-100 h-100" [src]='image_url'>
-        </div>
-        <ul class="list-unstyled components">
-          <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
-          <li class="active">
-            <a class="nav-link" Active routerLink='home'>Home </a>
-          </li>
-
-          <li>
-            <a href="#pageSubmenu" data-toggle="collapse" *ngIf="isAdmin" aria-expanded="false"
-              class="dropdown-toggle">Admin</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-              <li>
-                <a *ngIf="isSuperAdmin">Users</a>
-              </li>
-              <li>
-                <a href="#">Sites</a>
-              </li>
-
-            </ul>
-          </li>
-
-
-          <li>
-            <a *ngIf="isLogin" routerLink='profile'>Profile</a>
-          </li>
-          <li>
-            <a href="#">Contact</a>
-          </li>
-        </ul>
-        <ul class="list-unstyled component">
-          <li >
-            <a  *ngIf="!isLogin" routerLink='auth/login'>Login</a>
-          </li>
-          <li>
-            <a  *ngIf="isLogin" routerLink='auth/logout'>Logout</a>
-          </li>
-          <li >
-            <a  *ngIf="!isLogin" routerLink='auth/register'>Register</a>
-          </li>
-        </ul>
-
+    <button type="button" class="btn-close text-reset" style="color: white!important;" data-bs-dismiss="offcanvas"
+      aria-label="Close"></button>
+    <div class="side-bar">
+      <div [hidden]="!isLogin" class="image_container">
+        <img class="w-100 h-100" [src]='image_url'>
       </div>
+      <ul class="list-unstyled components">
+        <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
+        <li class="active">
+          <a class="nav-link" Active routerLink='home'>Home </a>
+        </li>
+
+        <li>
+          <a href="#pageSubmenu" data-toggle="collapse" *ngIf="isAdmin" aria-expanded="false"
+            class="dropdown-toggle">Admin</a>
+          <ul class="collapse list-unstyled" id="pageSubmenu">
+            <li>
+              <a *ngIf="isSuperAdmin">Users</a>
+            </li>
+            <li>
+              <a href="#">Sites</a>
+            </li>
+
+          </ul>
+        </li>
+
+
+        <li>
+          <a *ngIf="isLogin" routerLink='profile'>Profile</a>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+        </li>
+      </ul>
+      <ul class="list-unstyled component">
+        <li>
+          <a *ngIf="!isLogin" routerLink='auth/login'>Login</a>
+        </li>
+        <li>
+          <a *ngIf="isLogin" routerLink='auth/logout'>Logout</a>
+        </li>
+        <li>
+          <a *ngIf="!isLogin" routerLink='auth/register'>Register</a>
+        </li>
+      </ul>
+
+    </div>
 
   </div>
 

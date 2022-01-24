@@ -16,6 +16,7 @@ export class LogoutComponent implements OnInit {
 
         let token: any = this._AuthService.currentUser.getValue();
         this._AuthService.signOut(token).subscribe((response:any)=>{
+          console.log(response);
 
           if (response.message=="Successfully logged out")
           {
@@ -38,7 +39,7 @@ export class LogoutComponent implements OnInit {
         alert('You already signed out');
       }
 
-    
+
 
 
 

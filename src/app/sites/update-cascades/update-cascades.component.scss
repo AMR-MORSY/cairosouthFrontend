@@ -1,0 +1,41 @@
+#insert-cascades{
+  padding-top: 8rem;
+  .container{
+    margin: auto;
+    label{
+      color: white;
+    }
+    .button-cantainer{
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .table-container{
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      font-size: 1.5rem;
+      border: 3px solid #ff6600;
+      border-radius: 10px;
+      padding-top: 1rem;
+      p{
+        color: white;
+        font-size: 1rem;
+      }
+     table thead {
+
+       background-color: black;
+       border: 1px solid #ff6600;
+
+        td{
+          padding-right: 2rem;
+        }
+      }
+    }
+
+  }
+}

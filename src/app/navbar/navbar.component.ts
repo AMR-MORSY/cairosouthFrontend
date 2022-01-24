@@ -1,10 +1,11 @@
 import { AdminService } from './../admin/admin.service';
 import jwt_decode from "jwt-decode";
 import { Router } from '@angular/router';
-import { SitesService } from './../sites.service';
+
 import { AuthenticationService } from './../auth/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SitesService } from '../sites/sites.service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit {
   public profile_picture_path: any;
   public backgroundColor:any;
 
-  constructor(private _AuthService: AuthenticationService, private _AdminService: AdminService, private _sitesService: SitesService, private _Router: Router) { }
+  constructor(private _AuthService: AuthenticationService, private _AdminService: AdminService, private _sitesService:SitesService, private _Router: Router) { }
   searchForm = new FormGroup({
     search: new FormControl(null, [Validators.requiredTrue])
   })
@@ -39,7 +40,7 @@ export class NavbarComponent implements OnInit {
       localStorage.setItem("searchString", search)
       // let x: any = document.querySelector(".navbar");
       // x.style.display = "none";
-      this._Router.navigate(['/search-results']);
+      this._Router.navigate(['/sites/search-results']);
 
     }
 

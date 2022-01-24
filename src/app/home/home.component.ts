@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { SitesService } from './../sites.service';
+import { SitesService } from '../sites/sites.service';
 import { Component, OnInit, AfterViewChecked, AfterViewInit, AfterContentInit } from '@angular/core';
 import { AuthenticationService } from '../auth/authentication.service';
 import jwt_decode from "jwt-decode";
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
 
-  constructor(private _sitesService: SitesService, private _Router: Router, private _AuthService: AuthenticationService) {
+  constructor(private _sitesService:SitesService, private _Router: Router, private _AuthService: AuthenticationService) {
     let x: any = document.querySelector(".navbar");
     x.style.display = "flex";
 

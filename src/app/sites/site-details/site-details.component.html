@@ -1,0 +1,130 @@
+<section id="site_data">
+  <div class="container">
+    <div class="row">
+
+    <div class="col-3">
+      <div class="cascade-on">
+        <h3>Cascaded On:</h3>
+        <div class="cascades-container">
+        </div>
+
+      </div>
+
+    </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-3">
+            <label for="site-code">Site-Code</label>
+            <input type="text" class="form-control" id="site-code" [value]="site[0].site_Code">
+          </div>
+          <div class="col-5">
+            <label for="site-name">Site-Name</label>
+            <input type="text" class="form-control" id="site-name" [value]="site[0].site_name">
+          </div>
+          <div class="col-4 pt-2">
+          </div>
+          <div class="col-3">
+            <label for="type">Site-Type</label>
+            <input type="text" class="form-control" id="type" [value]="site[0].site_type">
+
+
+          </div>
+          <div class="col-5">
+            <label for="BSC">BSC/RNC</label>
+            <input type="text" class="form-control" id="BSC" [value]="site[0].BSC_RNC">
+
+          </div>
+          <div class="col-4 pt-2">
+            <button class="btn btn-dark mt-4 ">Update Site</button>
+
+          </div>
+          <div class="col-3">
+            <label for="category">Site-Category</label>
+            <input type="text" class="form-control" id="category" [value]="site[0].Site_category">
+          </div>
+          <div class="col-5">
+            <label for="severity">Site-Severity</label>
+            <input type="text" class="form-control" id="severity" [value]="site[0].severity">
+          </div>
+          <div class="col-4 ">
+            <button class="btn btn-danger mt-4 ">Delete Site</button>
+          </div>
+          <div class="col-3">
+            <label for="office">Office</label>
+            <input type="text" class="form-control" id="office" [value]="site[0].office">
+          </div>
+          <div class="col-5">
+            <label for="build-date">Build-Date</label>
+            <input type="text" class="form-control" id="build-date" [value]="site[0].build_date">
+          </div>
+          <div class="col-4 pt-2">
+            <button class="btn btn-danger mt-3" (click)="goToCreatSite()">Create Site</button>
+
+          </div>
+          <div class="col-3">
+            <label for="sharing">Sharing</label>
+            <input type="text" class="form-control" id="sharing" [value]="site[0].sharing">
+          </div>
+          <div class="col-5">
+            <label for="host">Host</label>
+            <input type="text" class="form-control" id="host" [value]="site[0].host">
+          </div>
+          <div class="col-4">
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-12">
+            <div class="direct-cascades">
+              <h3>Direct Cascades:</h3>
+              <div class="cascades-container">
+              </div>
+            </div>
+
+          </div>
+          <div class="col-12">
+            <button type="button" (click)="goToUpdate()" class="btn btn-primary mt-4" >
+              Update Cascades
+            </button>
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+</section>

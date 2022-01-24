@@ -1,14 +1,14 @@
 import { Router } from '@angular/router';
-import { SitesService } from './../sites.service';
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../auth/authentication.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AuthenticationService } from '../../auth/authentication.service';
+import { SitesService } from '../sites.service';
 
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss']
 })
-export class SearchResultsComponent implements OnInit {
+export class SearchResultsComponent implements OnInit, AfterViewInit {
 
   public searchStr: any;
   public sites: any;
@@ -16,6 +16,7 @@ export class SearchResultsComponent implements OnInit {
   public pagination_link: any;
   public isDataFound: boolean = false;
   public token: any;
+  public fadefinished:boolean=false;
 
   constructor(private _sitesService: SitesService, private _Router: Router, private _AuthServices: AuthenticationService) { }
   public returnback() {
@@ -41,7 +42,7 @@ export class SearchResultsComponent implements OnInit {
   public goToSiteDetailsWithSite(site: any) {
     this._sitesService.site.next(site);
     localStorage.setItem("site",JSON.stringify(site));
-    this._Router.navigate(['/site-details']);
+    this._Router.navigate(['/sites/site-details']);
 
 
   }
@@ -88,7 +89,8 @@ export class SearchResultsComponent implements OnInit {
           if (response.message=="token expired, please login")
           {
            alert("token expired, please login");
-            this._Router.navigate(['/auth/login']);
+           this._Router.navigate(['/auth/login']);
+
           }
         })
       }
@@ -112,5 +114,12 @@ export class SearchResultsComponent implements OnInit {
   ngOnInit(): void {
     this.displaySites();
   }
+  ngAfterViewInit(): void {
+    let x:any= document.getElementById('loading');
+   x.classList.add("animate__animated","animate__fadeOut");
+   setTimeout(() => {
+     this.fadefinished=true;
+   },3000);
+ }
 
 }

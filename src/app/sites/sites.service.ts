@@ -10,31 +10,41 @@ export class SitesService {
 
   public searchStr = new BehaviorSubject(null);
   public site = new BehaviorSubject(null);
-  public token = new BehaviorSubject(null);
+  public cascades=new BehaviorSubject(null)
+
 
   constructor(private _HttpClient: HttpClient) {
-    let storage: any = localStorage.getItem('searchString')
-    if (storage != null) {
-      this.searchStr.next(storage)
-    }
 
+    this.getSearchStr();
+    this.getSite();
+
+
+  }
+  private getSite()
+  {
     let storag: any = localStorage.getItem('site');
     storag = JSON.parse(storag);
     if (storag != null) {
       this.site.next(storag)
     }
-
-   let tokenStorage:any=localStorage.getItem('token');
-
-   if (tokenStorage!=null)
-   {
-     this.token.next(tokenStorage)
-   }
-
-
+    else
+    {
+      this.site.next(null)
+    }
 
   }
+  private getSearchStr()
+  {
+    let storage: any = localStorage.getItem('searchString')
+    if (storage != null) {
+      this.searchStr.next(storage)
+    }
+    else
+    {
+      this.searchStr.next(null);
+    }
 
+  }
 
   showAllSites(): Observable<any> {
     return this._HttpClient.get("http://localhost:8000/api/sites");
@@ -57,8 +67,11 @@ export class SitesService {
   }
 
   getCascades(data:any):Observable<any>{
+
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/cascades/${data.site_id}/${data.token}`);
   }
-
+  updateCascades(data:any):Observable<any>{
+    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/updateCascades",data);
+  }
 
 }

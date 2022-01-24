@@ -1,0 +1,59 @@
+<section id="insert-cascades">
+  <div class="container">
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <form [formGroup]='searchCascades' (ngSubmit)="searchForCascadeSite(searchCascades)">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="site-code">Site-Code:</label>
+              <input type="text" class="form-control" formControlName="search" id="site-code"
+                [value]="searchRecivedSiteCode">
+            </div>
+            <div class="col-md-6">
+              <label for="site-name">Site-Name:</label>
+              <input type="text" class="form-control" id="site-name" [value]="searchRecivedSiteName">
+            </div>
+            <div class="col-md-8">
+              <div class="button-cantainer">
+                <button class="btn btn-danger" [disabled]='searchCascades.status=="INVALID"'
+                  type="submit">Search</button>
+                <button class="btn btn-danger" [disabled]='isSearchOk' (click)="displaySearchedCascades()">Add Cascades
+                  list</button>
+              </div>
+
+
+
+            </div>
+
+
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <td>Site Code</td>
+                <td>Site Name</td>
+                <td>Action</td>
+              </tr>
+            </thead>
+            <tbody *ngIf="isDataFound">
+              <tr *ngFor="let site of cascadesContainer; let i=index">
+                <td>{{site.site_Code}}</td>
+                <td>{{site.site_name}}</td>
+                <td><button class="btn btn-danger" (click)="deleteSite(i)">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="!isDataFound">No Cascades</p>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="insertCascadesIntoDB()">insert into Database</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -9,27 +9,28 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
-import { SiteDetailsComponent } from './site-details/site-details.component';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { UserComponent } from './user/user.component';
 import { FooterComponent } from './footer/footer.component';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-
     NavbarComponent,
     HomeComponent,
-    SearchResultsComponent,
-    SiteDetailsComponent,
     LoadingScreenComponent,
     UserComponent,
-    FooterComponent
+    FooterComponent,
+  
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,HttpClientModule,FormsModule,ReactiveFormsModule, NgxPaginationModule, NgxTypedJsModule,
+    CommonModule,
+    AppRoutingModule,HttpClientModule,FormsModule,ReactiveFormsModule, NgxPaginationModule, NgxTypedJsModule, BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
