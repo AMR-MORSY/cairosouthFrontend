@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SitesService } from 'src/app/sites/sites.service';
+import { ModificationsService } from '../modifications.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-show-site-modifications',
@@ -13,7 +15,7 @@ export class ShowSiteModificationsComponent implements OnInit {
   public site_id:any;
 
 
-  constructor(private _siteService:SitesService ) { }
+  constructor(private _siteService:SitesService,private _ModificationsServices:ModificationsService ) { }
 
   private getSite() {
     this._siteService.site.subscribe(() => {
@@ -27,7 +29,17 @@ export class ShowSiteModificationsComponent implements OnInit {
 
   private getSiteModifications()
   {
-    
+
+  }
+  public downloadsites()
+  {
+    let filename="allSites.xlsx";
+    this._ModificationsServices.download({'filename':filename}).subscribe((data)=>{
+      console.log(data);
+      saveAs(new Blob([data],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}),filename)
+
+    });
+
   }
 
   ngOnInit(): void {
