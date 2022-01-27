@@ -2,7 +2,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import jwt_decode from "jwt-decode";
-
+import { DatePipe } from '@angular/common';
 import { SitesService } from '../sites.service';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { Router } from '@angular/router';
@@ -36,8 +36,8 @@ export class CreateNewSiteComponent implements OnInit {
 
   })
 
-  constructor(private _SitesServices: SitesService, private _AuthServices: AuthenticationService, private _Router:Router) {
-    this.datePickerConfig = Object.assign({}, { containerClass: 'theme-orange' }, { dateInputFormat: 'MM-DD-YYYY' }, { isAnimated: true });
+  constructor(private _SitesServices: SitesService,public datepipe: DatePipe, private _AuthServices: AuthenticationService, private _Router:Router) {
+    this.datePickerConfig = Object.assign({}, { containerClass: 'theme-orange' }, { dateInputFormat: 'YYYY-MM-DD' }, { isAnimated: true });
   }
 
 
@@ -57,7 +57,7 @@ export class CreateNewSiteComponent implements OnInit {
   }
   public closeNotification() {
     this.isSiteNotInserted = true;
-    
+
 
   }
   public goToUpdateCascades()
@@ -95,9 +95,10 @@ export class CreateNewSiteComponent implements OnInit {
 
   submitCreateSiteForm(data: any) {
     let createdSite: any = data.value;
-    let x: any = document.getElementById("datePickerOutput");
-    let y: any = x.innerHTML;
-    createdSite.build_date = y;
+
+    let newBuildate=this.datepipe.transform(this.datepicker, 'yyyy-MM-dd')
+    createdSite.build_date = newBuildate;
+    console.log(createdSite);
 
     createdSite = JSON.stringify(createdSite);
 

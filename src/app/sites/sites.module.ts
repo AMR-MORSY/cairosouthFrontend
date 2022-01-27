@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { CreateNewSiteComponent } from './create-new-site/create-new-site.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -34,6 +35,7 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
 
     CommonModule,
   HttpClientModule,FormsModule,ReactiveFormsModule, NgxPaginationModule,SitesRoutingModule,BsDatepickerModule.forRoot()
-  ]
+  ],
+  providers: [DatePipe],
 })
 export class SitesModule { }
