@@ -1,8 +1,9 @@
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { SitesService } from '../sites/sites.service';
 import { Component, OnInit, AfterViewChecked, AfterViewInit, AfterContentInit } from '@angular/core';
 import { AuthenticationService } from '../auth/authentication.service';
 import jwt_decode from "jwt-decode";
+
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public sites: any;
   public isLogin: boolean = false;
   public userEmail: any;
-  public fadefinished:boolean=false;
+  public fadefinished: boolean = false;
 
 
 
@@ -22,21 +23,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     x.style.display = "none";
 
   }
-  public checkIfLoggin() {
-    // let email: any = this._AuthService.user_email.getValue();
-    // let storage: any = localStorage.getItem('userEmail');
-    // if (email == null && storage == null) {
-    // this.isLogin = false;
-    // }
-    // else if (email == null && storage != null) {
-    // this.userEmail = storage;
-    // this.isLogin = true;
-    // }
-    // else if (email != null) {
-    // this.userEmail = email;
-    // this.isLogin = true;
-    // }
-  }
+
 
 
   displayLoginMessage() {
@@ -50,9 +37,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   }
 
-  constructor(private _sitesService:SitesService, private _Router: Router, private _AuthService: AuthenticationService) {
+  constructor(private _sitesService: SitesService, private _Router: Router, private _AuthService: AuthenticationService) {
     let x: any = document.querySelector(".navbar");
     x.style.display = "flex";
+
+    this._Router.events.subscribe((event: any) => {
+      console.log(event);
+      if (event instanceof NavigationEnd) {
+
+        let x: any = document.getElementById('loading');
+        x.classList.add("animate__animated", "animate__fadeOut");
+        setTimeout(() => {
+          this.fadefinished = true;
+
+        }, 3000);
+
+
+
+      }
+    })
 
 
   }
@@ -60,26 +63,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    // this._AuthService.user_email.subscribe(() => {
-    // this.checkIfLoggin();
-    // if (!this.isLogin) {
-    // this.displayLoginMessage();
-    // }
-
-    // })
-    // }
 
 
   }
 
   ngAfterViewInit(): void {
 
-     let x:any= document.getElementById('loading');
-    x.classList.add("animate__animated","animate__fadeOut");
-    setTimeout(() => {
-      this.fadefinished=true;
+    // let x: any = document.getElementById('loading');
+    // x.classList.add("animate__animated", "animate__fadeOut");
+    // setTimeout(() => {
+    //   this.fadefinished = true;
 
-    },3000);
+    // }, 3000);
 
 
   }

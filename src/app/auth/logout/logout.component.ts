@@ -26,7 +26,12 @@ export class LogoutComponent implements OnInit {
             this._Router.navigate(["/home"]);
 
           }
-          else
+          else if  (response.message == "token expired, please login") {
+            alert("token expired, please login");
+
+            this._Router.navigate(['/auth/login']);
+          }
+           else
           {
             alert('You already signed out');
           }
