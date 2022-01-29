@@ -42,22 +42,27 @@ export class HomeComponent implements OnInit, AfterViewInit {
     x.style.display = "flex";
 
     this._Router.events.subscribe((event: any) => {
-      console.log(event);
+      let x: any = document.getElementById('loading');
+
       if (event instanceof NavigationEnd) {
 
-        let x: any = document.getElementById('loading');
-        x.classList.add("animate__animated", "animate__fadeOut");
-        setTimeout(() => {
-          this.fadefinished = true;
+        if (x != null) {
+          x.classList.add("animate__animated", "animate__fadeOut");
+          setTimeout(() => {
+            this.fadefinished = true;
 
-        }, 3000);
+          }, 3000);
+
+
+
+        }
 
 
 
       }
-    })
 
 
+    });
   }
 
 
@@ -65,19 +70,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
 
-  }
+    }
 
   ngAfterViewInit(): void {
 
-    // let x: any = document.getElementById('loading');
-    // x.classList.add("animate__animated", "animate__fadeOut");
-    // setTimeout(() => {
-    //   this.fadefinished = true;
+      // let x: any = document.getElementById('loading');
+      // x.classList.add("animate__animated", "animate__fadeOut");
+      // setTimeout(() => {
+      //   this.fadefinished = true;
 
-    // }, 3000);
+      // }, 3000);
 
 
-  }
+    }
 
 
 

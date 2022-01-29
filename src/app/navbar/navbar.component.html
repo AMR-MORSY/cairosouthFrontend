@@ -46,7 +46,7 @@
 
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-            <li><a class="dropdown-item" routerLink='admin-questions'>Sites</a></li>
+            <li><a class="dropdown-item" routerLink='sites/allSites'>Sites</a></li>
             <li><a class="dropdown-item" *ngIf="isSuperAdmin" href="#">Modifications</a></li>
             <li> <a class="dropdown-item" *ngIf="isSuperAdmin" routerLink='admin-users'>Users</a></li>
           </ul>
@@ -96,7 +96,7 @@
               <a *ngIf="isSuperAdmin">Users</a>
             </li>
             <li>
-              <a href="#">Sites</a>
+              <a routerLink='sites/allSites' >Sites</a>
             </li>
 
           </ul>

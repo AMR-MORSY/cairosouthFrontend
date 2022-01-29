@@ -19,11 +19,6 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
   public fadefinished:boolean=false;
 
   constructor(private _sitesService: SitesService, private _Router: Router, private _AuthServices: AuthenticationService) { }
-  public returnback() {
-
-
-    this._Router.navigate(['/home']);
-  }
 
   public sendSiteId(index: any) {
 

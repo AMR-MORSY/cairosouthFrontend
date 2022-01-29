@@ -98,6 +98,30 @@ export class SiteDetailsComponent implements OnInit {
 
   }
 
+  public goToUpdateSite()
+  {
+    this._Router.navigate(['sites/update-site']);
+  }
+
+  public getSiteNodal()
+  {
+    let tokenId = {
+      "token": this.token,
+      "site_id": this.site[0].id
+    }
+
+    this._siteService.getNodal(tokenId).subscribe((response: any) => {
+      console.log(response);
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+
+        this._Router.navigate(['/auth/login']);
+      }
+    });
+
+
+  }
+
 
   constructor(private _siteService: SitesService, private _Router: Router, private _AuthService: AuthenticationService) { }
 
@@ -107,6 +131,7 @@ export class SiteDetailsComponent implements OnInit {
     this.getSite();
     console.log(this.site[0].id);
     this.getSiteCascades();
+    this.getSiteNodal();
   }
 
 }

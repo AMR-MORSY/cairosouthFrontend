@@ -38,7 +38,7 @@ export class SitesService {
       this.searchStr.next(storage)
     }
 
-    
+
 
   }
 
@@ -65,12 +65,28 @@ export class SitesService {
   getCascades(data:any):Observable<any>{
 
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/cascades/${data.site_id}/${data.token}`);
+
+  }
+  getNodal(data:any):Observable<any>{
+
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/nodal/${data.site_id}/${data.token}`);
   }
   updateCascades(data:any):Observable<any>{
     return this._HttpClient.post("http://cairo-south.herokuapp.com/api/updateCascades",data);
   }
   addNewSite(data:any):Observable<any>{
     return this._HttpClient.post("http://cairo-south.herokuapp.com/api/addsite",data);
+  }
+
+  getAllSites(token:any):Observable<any>{
+
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/allSites/${token}`);
+  }
+
+  allSitesPagination( token: any, newpage: any): Observable<any> {
+    return this._HttpClient
+      .get(`https://cairo-south.herokuapp.com/api/allSites/${token}?page=${newpage}`);
+
   }
 
 

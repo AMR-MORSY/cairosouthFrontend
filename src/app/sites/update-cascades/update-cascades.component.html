@@ -62,8 +62,8 @@
             </thead>
             <tbody *ngIf="isDataFound">
               <tr *ngFor="let site of cascadesContainer; let i=index">
-                <td>{{site.site_Code}}</td>
-                <td>{{site.site_name}}</td>
+                <td>{{site.cascade_code}}</td>
+                <td>{{site.cascade_name}}</td>
                 <td><button class="btn btn-danger" (click)="deleteSite(i)">Delete</button></td>
               </tr>
             </tbody>

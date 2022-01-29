@@ -12,6 +12,8 @@ import { CreateNewSiteComponent } from './create-new-site/create-new-site.compon
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { DatePipe } from '@angular/common';
+import { AllSitesComponent } from './all-sites/all-sites.component';
+import { UpdateSiteComponent } from './update-site/update-site.component';
 
 
 
@@ -27,6 +29,8 @@ import { DatePipe } from '@angular/common';
     SearchResultsComponent,
     CreateNewSiteComponent,
     LoadingScreenComponent,
+    AllSitesComponent,
+    UpdateSiteComponent,
 
 
 
@@ -34,7 +38,7 @@ import { DatePipe } from '@angular/common';
   imports: [
 
     CommonModule,
-  HttpClientModule,FormsModule,ReactiveFormsModule, NgxPaginationModule,SitesRoutingModule,BsDatepickerModule.forRoot()
+  HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}), NgxPaginationModule,SitesRoutingModule,BsDatepickerModule.forRoot()
   ],
   providers: [DatePipe],
 })

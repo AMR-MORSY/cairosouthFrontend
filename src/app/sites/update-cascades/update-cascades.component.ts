@@ -65,7 +65,7 @@ export class UpdateCascadesComponent implements OnInit {
       "cascade_code": site.site_Code,
       "cascade_name": site.site_name,
       "nodal_code": this.site[0].site_Code,
-      "site_id": this.id
+      "site_id": this.site_id
     };
     return casscade;
   }
@@ -143,7 +143,7 @@ export class UpdateCascadesComponent implements OnInit {
       else if( response.message=="success")
       {
         alert("Cascedes inserted Successfully")
-        this._Router.navigate(['/sites/site-detailes']);
+        this._Router.navigate(['sites/site-details']);
       }
     })
   }
