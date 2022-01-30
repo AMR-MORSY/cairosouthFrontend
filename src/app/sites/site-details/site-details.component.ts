@@ -20,6 +20,13 @@ export class SiteDetailsComponent implements OnInit {
   public id: any;
   public site: any;
   public site_id: any;
+  public cascades:any;
+  public isCascadesFound:boolean=false;
+  public nodals:any;
+  public isNodalsFound:boolean=false;
+  public cascadesCount:any;
+  public isNodalFound:boolean=false;
+  public nodal:any;
 
 
   private decodeToken(token: any) {
@@ -66,7 +73,10 @@ export class SiteDetailsComponent implements OnInit {
 
   }
 
-
+public goToSiteDetails()
+{
+  
+}
   private getSiteCascades() {
     let tokenId = {
       "token": this.token,
@@ -75,10 +85,57 @@ export class SiteDetailsComponent implements OnInit {
 
     this._siteService.getCascades(tokenId).subscribe((response: any) => {
       console.log(response);
+      function updateCascades(nodals:any, cascades:any)
+      {
+        for(var i=0; i<cascades.length;i++)
+        {
+          let savedNodals:any=nodals.filter((site:any)=>{
+            return site.cascade_code==cascades[i].cascade_code;
+          })
+          if (savedNodals.length>0)
+          {
+            let index=cascades.indexOf(cascades[i])
+            cascades.splice(index,1)
+          }
+
+        }
+
+
+      }
       if (response.message == "token expired, please login") {
         alert("token expired, please login");
 
         this._Router.navigate(['/auth/login']);
+      }
+
+      else if (response.message=="success")
+      {
+        this.cascades=[];
+        this.nodals=[];
+        this.isCascadesFound=true;
+        this.cascades=response.cascades;
+        this.cascadesCount=response.count_cascades;
+        this.nodals=response.nodals
+
+        if (this.nodals.length==0)
+        {
+          this.isNodalsFound=false
+        }
+        else
+        {
+          // updateCascades(this.nodals,this.cascades);
+
+          this.isNodalsFound=true;
+
+        }
+
+
+
+      }
+      else
+      {
+        this.isNodalsFound=false;
+        this.isCascadesFound=false;
       }
     });
 
@@ -111,12 +168,24 @@ export class SiteDetailsComponent implements OnInit {
     }
 
     this._siteService.getNodal(tokenId).subscribe((response: any) => {
-      console.log(response);
+
       if (response.message == "token expired, please login") {
         alert("token expired, please login");
 
         this._Router.navigate(['/auth/login']);
       }
+      else if (response.message=="success")
+      {
+        this.isNodalFound=true;
+        this.nodal=response;
+
+
+      }
+      else
+      {
+        this.isNodalFound=false;
+      }
+
     });
 
 

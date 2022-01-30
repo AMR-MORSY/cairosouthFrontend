@@ -3,26 +3,24 @@
 // padding: 0;
 // }
 #site_data {
-  color: white;
-
-  margin-top: 5em;
-  .container {
-    margin: auto;
-  }
+    color: white;
+    margin-top: 5em;
+    .container {
+        margin: auto;
+    }
 }
 
 #site_data {
-
-
-  .direct-cascades,.cascade-on {
-    h3{
-      color:#ff6600 ;
-      font-size: 1.5rem;
+    .direct-cascades,
+    .cascade-on {
+        h3 {
+            color: #ff6600;
+            font-size: 1.5rem;
+        }
+        .cascades-container,
+        .nodal-container {
+            height: 300px;
+            background-color: burlywood;
+        }
     }
-    .cascades-container {
-      height: 300px;
-
-      background-color: burlywood;
-    }
-  }
 }
