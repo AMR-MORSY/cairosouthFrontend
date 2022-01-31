@@ -19,9 +19,6 @@ export class AllSitesComponent implements OnInit {
 
   constructor(private _AuthServices:AuthenticationService,private _Router:Router, private _sitesService:SitesService) {
 
-
-
-
     this.displaySites();
     this._Router.events.subscribe((event: any) => {
       console.log(event);

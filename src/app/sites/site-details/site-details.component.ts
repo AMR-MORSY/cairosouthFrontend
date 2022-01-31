@@ -75,7 +75,7 @@ export class SiteDetailsComponent implements OnInit {
 
 public goToSiteDetails()
 {
-  
+
 }
   private getSiteCascades() {
     let tokenId = {
@@ -84,21 +84,19 @@ public goToSiteDetails()
     }
 
     this._siteService.getCascades(tokenId).subscribe((response: any) => {
-      console.log(response);
+      
       function updateCascades(nodals:any, cascades:any)
       {
-        for(var i=0; i<cascades.length;i++)
+        for(var i=0; i<nodals.length;i++)
         {
-          let savedNodals:any=nodals.filter((site:any)=>{
-            return site.cascade_code==cascades[i].cascade_code;
-          })
-          if (savedNodals.length>0)
+          for (var j=0;j<cascades.length;j++)
           {
-            let index=cascades.indexOf(cascades[i])
-            cascades.splice(index,1)
+            if (nodals[i].cascade_code===cascades[j].cascade_code)
+            cascades.splice(cascades[j],1)
           }
 
         }
+        return cascades;
 
 
       }
@@ -123,7 +121,7 @@ public goToSiteDetails()
         }
         else
         {
-          // updateCascades(this.nodals,this.cascades);
+          this.cascades= updateCascades(this.nodals,this.cascades);
 
           this.isNodalsFound=true;
 
