@@ -16,7 +16,7 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
   public pagination_link: any;
   public isDataFound: boolean = false;
   public token: any;
-  public fadefinished:boolean=false;
+  public fadefinished: boolean = false;
 
   constructor(private _sitesService: SitesService, private _Router: Router, private _AuthServices: AuthenticationService) { }
 
@@ -28,7 +28,7 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
 
 
     });
-    this. goToSiteDetailsWithSite(site);
+    this.goToSiteDetailsWithSite(site);
 
 
   }
@@ -36,7 +36,7 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
 
   public goToSiteDetailsWithSite(site: any) {
     this._sitesService.site.next(site);
-    localStorage.setItem("site",JSON.stringify(site));
+    localStorage.setItem("site", JSON.stringify(site));
     this._Router.navigate(['/sites/site-details']);
 
 
@@ -67,7 +67,7 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
         this._sitesService.searchSites(this.searchStr, this.token).subscribe((response) => {
           console.log(response)
           this.sites = [];
-          if (response.data !=null) {
+          if (response.data != null) {
             this.sites = response.data;
             this.pagination_link = response.links.first;
             console.log(this.sites);
@@ -78,14 +78,21 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
             }
             this.isDataFound = true;
           }
+          else if (response.message=="failed")
+          {
+            let error=response.errors
+            alert(JSON.stringify(error));
+          }
+
+
+
+          if (response.message == "token expired, please login") {
+            alert("token expired, please login");
+            this._Router.navigate(['/auth/login']);
+
+          }
           else {
             this.isDataFound = false;
-          }
-          if (response.message=="token expired, please login")
-          {
-           alert("token expired, please login");
-           this._Router.navigate(['/auth/login']);
-
           }
         })
       }
@@ -110,11 +117,11 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
     this.displaySites();
   }
   ngAfterViewInit(): void {
-    let x:any= document.getElementById('loading');
-   x.classList.add("animate__animated","animate__fadeOut");
-   setTimeout(() => {
-     this.fadefinished=true;
-   },3000);
- }
+    let x: any = document.getElementById('loading');
+    x.classList.add("animate__animated", "animate__fadeOut");
+    setTimeout(() => {
+      this.fadefinished = true;
+    }, 3000);
+  }
 
 }
