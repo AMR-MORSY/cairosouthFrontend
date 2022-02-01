@@ -82,11 +82,10 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
           {
             let error=response.errors
             alert(JSON.stringify(error));
+            this.isDataFound=false;
           }
 
-
-
-          if (response.message == "token expired, please login") {
+          else if (response.message == "token expired, please login") {
             alert("token expired, please login");
             this._Router.navigate(['/auth/login']);
 
