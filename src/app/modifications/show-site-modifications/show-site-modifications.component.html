@@ -1,23 +1,54 @@
+<section id='new-site'>
+    <div class="container">
 
-<section id="show-nodal-site">
-  <div class="container">
-    <div class="site-container">
-      <div class="site-code">
-        <label for="code">Site Code:</label>
-        <input type="text" class="form-control" id="code" [(ngModel)]='nodalCode'>
-      </div>
-      <div class="site-name">
-        <label for="name">Site Name:</label>
-        <input type="text" class=" form-control" id="name" [(ngModel)]="nodalName">
-      </div>
+        <div class="row ">
+            <div class="col-3 mt-2 ">
+                <label for="site-code ">Site-Code</label>
+                <input type="text " class="form-control " [(ngModel)]="site.code" id="site-code ">
+            </div>
+            <div class="col-5 mt-2 ">
+                <label for="site-name ">Site-Name</label>
+                <input type="text " class="form-control " id="site-name " [(ngModel)]="site.site_name ">
+            </div>
+
+
+        </div>
+
+        <p *ngIf="!isModificationFound" class=" mt-5">No Modifications</p>
+        <div class="table-container">
+            <table *ngIf="isModificationFound">
+                <thead>
+                    <tr>
+                        <td>Subcontractor</td>
+                        <td>Requester</td>
+                        <td>Action</td>
+                        <td>Project</td>
+                        <td>status </td>
+                        <td>Request date</td>
+                        <td>Finish date</td>
+                        <td>Materials</td>
+                        <td>Cost</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let site of data; let i=index" (click)="sendSiteId(site.id)">
+                        <td>{{site.subcontractor}}</td>
+                        <td>{{site.requester}}</td>
+                        <td>{{site.action}}
+                        </td>
+                        <td>{{site.project}}</td>
+                        <td>{{site.status}}</td>
+                        <td>{{site.request_date}}</td>
+                        <td>{{site.finish_date}}</td>
+                        <td>{{site.materials}}</td>
+                        <td>{{site.cost}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
 
     </div>
-  </div>
 
-
-
-</section>
-
-<section id="site-modifications">
-  
 </section>

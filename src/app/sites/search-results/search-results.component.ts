@@ -28,7 +28,7 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
 
 
     });
-    this.goToSiteDetailsWithSite(site);
+    this.goToSiteDetailsWithSite(site[0]);
 
 
   }

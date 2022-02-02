@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthenticationService } from './../../auth/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { SitesService } from 'src/app/sites/sites.service';
@@ -10,23 +11,22 @@ import jwt_decode from "jwt-decode";
   styleUrls: ['./show-site-modifications.component.scss']
 })
 export class ShowSiteModificationsComponent implements OnInit {
-  public nodalCode: any = "";
-  public nodalName: any = "";
+
+
   public site: any;
   public site_id: any;
   public token: any;
   public id: any;
+  public data:any;
+  public isModificationFound:boolean=false;
 
-  constructor(private _siteService: SitesService, private _ModificationsServices: ModificationsService, private _AuthServices: AuthenticationService) { }
+  constructor(private _siteService: SitesService,private _Router:Router, private _ModificationsServices: ModificationsService, private _AuthServices: AuthenticationService) { }
 
   private getSite() {
     this._siteService.site.subscribe(() => {
       this.site = this._siteService.site.getValue();
-      console.log(this.site);
-      this.site_id = this.site[0].id
-      this.nodalCode = this.site[0].site_Code;
-      this.nodalName = this.site[0].site_name;
-    })
+      this.site_id = this.site.id
+    });
   }
 
   private generateRequestData() {
@@ -37,12 +37,35 @@ export class ShowSiteModificationsComponent implements OnInit {
     }
     return data;
   }
+  sendSiteId(index:any)
+  {
+
+  }
 
   private getSiteModifications() {
     let data = this.generateRequestData();
-    console.log(data)
+
     this._ModificationsServices.getSiteModifications(data).subscribe((response: any) => {
-      console.log(response);
+
+      let error="";
+      if (response.message=="failed")
+      {
+        error=JSON.stringify(response.errors);
+        alert(error);
+
+      }
+      else  if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+      else
+      {
+        this.data=response.data;
+        this.isModificationFound=true;
+        console.log(this.data)
+
+      }
+
 
     })
 

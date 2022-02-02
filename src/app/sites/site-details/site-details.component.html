@@ -38,23 +38,23 @@
                 <div class="row">
                     <div class="col-3">
                         <label for="site-code">Site-Code</label>
-                        <input type="text" class="form-control" id="site-code" [value]="site[0].site_Code">
+                        <input type="text" class="form-control" id="site-code" [value]="site.code">
                     </div>
                     <div class="col-5">
                         <label for="site-name">Site-Name</label>
-                        <input type="text" class="form-control" id="site-name" [value]="site[0].site_name">
+                        <input type="text" class="form-control" id="site-name" [value]="site.site_name">
                     </div>
                     <div class="col-4 pt-2">
                     </div>
                     <div class="col-3">
                         <label for="type">Site-Type</label>
-                        <input type="text" class="form-control" id="type" [value]="site[0].site_type">
+                        <input type="text" class="form-control" id="type" [value]="site.site_type">
 
 
                     </div>
                     <div class="col-5">
                         <label for="BSC">BSC/RNC</label>
-                        <input type="text" class="form-control" id="BSC" [value]="site[0].BSC_RNC">
+                        <input type="text" class="form-control" id="BSC" [value]="site.BSC_RNC">
 
                     </div>
                     <div class="col-4 pt-2">
@@ -63,22 +63,22 @@
                     </div>
                     <div class="col-3">
                         <label for="category">Site-Category</label>
-                        <input type="text" class="form-control" id="category" [value]="site[0].Site_category">
+                        <input type="text" class="form-control" id="category" [value]="site.site_category">
                     </div>
                     <div class="col-5">
                         <label for="severity">Site-Severity</label>
-                        <input type="text" class="form-control" id="severity" [value]="site[0].severity">
+                        <input type="text" class="form-control" id="severity" [value]="site.severity">
                     </div>
                     <div class="col-4 ">
                         <button class="btn btn-danger mt-4 ">Delete Site</button>
                     </div>
                     <div class="col-3">
                         <label for="office">Office</label>
-                        <input type="text" class="form-control" id="office" [value]="site[0].office">
+                        <input type="text" class="form-control" id="office" [value]="site.office">
                     </div>
                     <div class="col-5">
                         <label for="build-date">Build-Date</label>
-                        <input type="text" class="form-control" id="build-date" [value]="site[0].build_date">
+                        <input type="text" class="form-control" id="build-date" [value]="site.build_date">
                     </div>
                     <div class="col-4 pt-2">
                         <button class="btn btn-danger mt-3" (click)="goToCreatSite()">Create Site</button>
@@ -86,11 +86,11 @@
                     </div>
                     <div class="col-3">
                         <label for="sharing">Sharing</label>
-                        <input type="text" class="form-control" id="sharing" [value]="site[0].sharing">
+                        <input type="text" class="form-control" id="sharing" [value]="site.sharing">
                     </div>
                     <div class="col-5">
                         <label for="host">Host</label>
-                        <input type="text" class="form-control" id="host" [value]="site[0].host">
+                        <input type="text" class="form-control" id="host" [value]="site.host">
                     </div>
                     <div class="col-4">
                         <button class=" bt btn-secondary" (click)="goToSiteModifications()">Show Modificatios</button>
@@ -118,13 +118,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let nodal of nodals; let i=index " style="background-color: black;" (click)="goToSiteDetails()">
+                                            <tr *ngFor="let nodal of nodals; let i=index " style="background-color: black;" (click)="goToSiteDetailsFromNodals(nodal.site_id)">
                                                 <td *ngIf="isNodalsFound ">{{nodal.cascade_code}}</td>
                                                 <td *ngIf="isNodalsFound ">{{nodal.cascade_name}}</td>
                                                 <td *ngIf="isNodalsFound ">{{nodal.count_cascades}}</td>
                                             </tr>
 
-                                            <tr *ngFor="let site of cascades; let i=index ">
+                                            <tr *ngFor="let site of cascades; let i=index " (click)="goToSiteDetailsFromCascades(site.id)">
                                                 <td>{{site.cascade_code}}</td>
                                                 <td>{{site.cascade_name}}</td>
                                             </tr>

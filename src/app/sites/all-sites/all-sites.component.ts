@@ -67,7 +67,7 @@ export class AllSitesComponent implements OnInit {
 
 
     });
-    this. goToSiteDetailsWithSite(site);
+    this. goToSiteDetailsWithSite(site[0]);
 
 
   }

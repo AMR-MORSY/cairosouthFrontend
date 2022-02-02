@@ -1,11 +1,41 @@
-#show-nodal-site{
-  margin-top: 8em;
-  .container{
-    margin: auto;
-    .site-container{
-      width: 50%;
-      margin: auto;
-      color: white;
+@import "../../../scss/variables";
+#new-site {
+    margin-top: 8rem;
+    color: white;
+    .container {
+        margin: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        .table-container {
+            margin-top: 2rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            table {
+                font-size: 0.8rem;
+                width: 100%;
+                thead {
+                    background-color: burlywood;
+                    tr {
+                        td {
+                            text-align: center;
+                        }
+                    }
+                }
+                tbody {
+                    tr {
+                        background-color: cornsilk;
+                        border-bottom: 2px solid black;
+                        color: black;
+                        td {
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
 }

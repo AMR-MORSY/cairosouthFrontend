@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuardGuard } from './auth/auth-guard.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
@@ -22,7 +23,11 @@ const routes: Routes = [
     loadChildren: () => import('./modifications/modifications.module').then(m => m.ModificationsModule)
   },
 
- 
+  {
+    path:'**',component:NotFoundComponent
+  },
+
+
 ];
 
 @NgModule({

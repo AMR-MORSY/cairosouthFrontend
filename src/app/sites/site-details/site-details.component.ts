@@ -67,24 +67,102 @@ export class SiteDetailsComponent implements OnInit {
     this._siteService.site.subscribe(() => {
       this.site = this._siteService.site.getValue();
       console.log(this.site);
-      this.site_id = this.site[0].id
+      this.site_id = this.site.id
 
     })
 
   }
+///////////////////////////////////////////////////////////////
+  private getCascadeId(index:any)
+  {
+    let site= this.cascades.filter((site:any)=>{
+      return site.site_id==index;
 
-public goToSiteDetails()
+    });
+    return site.site_id;
+
+  }
+
+  private getSiteData(site_id:any)
+  {
+    let data={
+      "site_id":site_id,
+      "token":this.token
+
+    }
+
+    let site:any="failed";
+  
+
+    this._siteService.getsite(data).subscribe((response:any)=>{
+      console.log(response)
+      if (response.message=="success")
+      {
+          site=response;
+      }
+
+
+
+    })
+    return site;
+  }
+
+
+
+  private getNodalId(index:any)
+  {
+    let site= this.nodals.filter((site:any)=>{
+      return site.site_id==index;
+    });
+
+    let site_id=site[0].site_id
+    return site_id;
+  }
+
+  private goToSiteDetails(site:any)
+  {
+    console.log(site)
+    if (site=="failed")
+    {
+
+      this._Router.navigate(['/**']);
+    }
+    else
+    {
+       this._siteService.site.next(site);
+       localStorage.setItem("site", JSON.stringify(site));
+       this._Router.navigate(['/sites/site-details']);
+     }
+
+  }
+public goToSiteDetailsFromNodals(index:any,)
 {
+  let site_id:any=this.getNodalId(index);
+  let site=this.getSiteData(site_id);
+  this.goToSiteDetails(site);
+
+
 
 }
+
+public goToSiteDetailsFromCascades(index:any)
+{
+  let site_id:any=this.getCascadeId(index);
+  let site:any=this.getSiteData(site_id);
+
+  this.goToSiteDetails(site);
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
   private getSiteCascades() {
     let tokenId = {
       "token": this.token,
-      "site_id": this.site[0].id
+      "site_id": this.site.id
     }
 
     this._siteService.getCascades(tokenId).subscribe((response: any) => {
-      
+
       function updateCascades(nodals:any, cascades:any)
       {
         for(var i=0; i<nodals.length;i++)
@@ -111,6 +189,7 @@ public goToSiteDetails()
         this.cascades=[];
         this.nodals=[];
         this.isCascadesFound=true;
+        console.log(response)
         this.cascades=response.cascades;
         this.cascadesCount=response.count_cascades;
         this.nodals=response.nodals
@@ -122,6 +201,7 @@ public goToSiteDetails()
         else
         {
           this.cascades= updateCascades(this.nodals,this.cascades);
+          console.log(this.cascades)
 
           this.isNodalsFound=true;
 
@@ -143,6 +223,7 @@ public goToSiteDetails()
   {
     this._Router.navigate(['/sites/update-cascades']);
   }
+
  public  goToCreatSite()
   {
     this._Router.navigate(['/sites/create-new-site'])
@@ -162,7 +243,7 @@ public goToSiteDetails()
   {
     let tokenId = {
       "token": this.token,
-      "site_id": this.site[0].id
+      "site_id": this.site.id
     }
 
     this._siteService.getNodal(tokenId).subscribe((response: any) => {
@@ -196,7 +277,7 @@ public goToSiteDetails()
     this.getUserData();
     console.log(this.id);
     this.getSite();
-    console.log(this.site[0].id);
+    console.log(this.site.id);
     this.getSiteCascades();
     this.getSiteNodal();
   }

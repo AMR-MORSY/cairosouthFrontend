@@ -1,0 +1,18 @@
+#notfound {
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../../assets/vcTyd.png);
+    background-position: center;
+    background-size: 100%;
+    position: relative;
+    z-index: 9999999999999999999999999999999999;
+    .butun-container {
+        color: white;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 99999999999999999999999999999999999;
+        margin-bottom: 1.4rem;
+    }
+}

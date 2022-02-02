@@ -56,7 +56,12 @@ export class CreateNewSiteComponent implements OnInit {
 
   }
   public closeNotification() {
-    this.isSiteNotInserted = true;
+    this._SitesServices.site.next(this.newSite);
+    localStorage.setItem('site',JSON.stringify( this.newSite));
+    this.isSiteNotInserted=true;
+    this._Router.navigate(['/sites/site-details']);
+
+
 
 
   }
@@ -86,7 +91,8 @@ export class CreateNewSiteComponent implements OnInit {
         this.isSiteNotInserted=true;
       }
       else
-      {this.isSiteNotInserted=false;
+      {alert ("New site created Successfully");
+        this.isSiteNotInserted=false;
         this.newSite=response.site;
       }
     })

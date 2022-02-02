@@ -67,6 +67,11 @@ export class SitesService {
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/cascades/${data.site_id}/${data.token}`);
 
   }
+  getsite(data:any):Observable<any>{
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/site/${data.site_id}/${data.token}`);
+  }
+
+
   getNodal(data:any):Observable<any>{
 
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/nodal/${data.site_id}/${data.token}`);
