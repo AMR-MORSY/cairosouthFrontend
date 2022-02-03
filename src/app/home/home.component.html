@@ -1,61 +1,60 @@
-<app-loading-screen [hidden]="fadefinished"></app-loading-screen>
 <div id="hello-container">
-  <div class="hello">
-    <div class="close" (click)="closeloginMessage()">
-      <i class="fas fa-times"></i>
+    <div class="hello">
+        <div class="close" (click)="closeloginMessage()">
+            <i class="fas fa-times"></i>
+        </div>
+        <p>Please Login to search sites</p>
+
     </div>
-    <p>Please Login to search sites</p>
-
-  </div>
 
 
-  </div>
+</div>
 
 
 <!--  -->
 <!-- <div class="" *ngFor="let site of sites"> -->
 <!--  -->
-  <!-- <p>{{site.site_Code}}</p> -->
-  <!-- <p>{{site.site_name}}</p> -->
-  <!-- <hr> -->
+<!-- <p>{{site.site_Code}}</p> -->
+<!-- <p>{{site.site_name}}</p> -->
+<!-- <hr> -->
 <!-- </div> -->
 <!--  -->
 
 
 
 <div class="slider">
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <!-- <span class="sr-only">Previous</span> -->
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <!-- <span class="sr-only">Next</span> -->
   </button>
-  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
-      <div class="carousel-inner ">
-          <div class="carousel-item active" data-interval="3000">
-              <div class="d-flex align-items-center justify-content-center all-slides slide-1">
-                  <h1> We Build Great Brand</h1>
-              </div>
-          </div>
-          <div class="carousel-item " data-interval="3000">
-              <div class="d-flex align-items-center justify-content-center all-slides slide-2">
-                  <h1> Advanced in Digital Work</h1>
-              </div>
-          </div>
-          <div class="carousel-item " data-interval="3000">
-              <div class="d-flex align-items-center justify-content-center all-slides slide-3">
-                  <h1> Focused On Strategy</h1>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner ">
+            <div class="carousel-item active" data-interval="3000">
+                <div class="d-flex align-items-center justify-content-center all-slides slide-1">
+                    <h1> We Build Great Brand</h1>
+                </div>
+            </div>
+            <div class="carousel-item " data-interval="3000">
+                <div class="d-flex align-items-center justify-content-center all-slides slide-2">
+                    <h1> Advanced in Digital Work</h1>
+                </div>
+            </div>
+            <div class="carousel-item " data-interval="3000">
+                <div class="d-flex align-items-center justify-content-center all-slides slide-3">
+                    <h1> Focused On Strategy</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="typed">
-    <ngx-typed-js [strings]="['Bananas are awesome', 'Nobody can argue this fact.'] "  [loop]="true" [typeSpeed]="60" [showCursor]="false" [cursorChar]="'|'">
-      <h1 class="typing w-100" ></h1>
-    </ngx-typed-js>
+    <div class="typed">
+        <ngx-typed-js [strings]="['Bananas are awesome', 'Nobody can argue this fact.'] " [loop]="true" [typeSpeed]="60" [showCursor]="false" [cursorChar]="'|'">
+            <h1 class="typing w-100"></h1>
+        </ngx-typed-js>
 
     </div>
 
@@ -63,14 +62,3 @@
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-

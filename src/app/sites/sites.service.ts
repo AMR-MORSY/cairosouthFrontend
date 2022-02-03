@@ -42,10 +42,7 @@ export class SitesService {
 
   }
 
-  showAllSites(): Observable<any> {
-    return this._HttpClient.get("http://localhost:8000/api/sites");
 
-  }
 
   searchSites(search: any, token: any): Observable<any> {
     return this._HttpClient

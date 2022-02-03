@@ -10,7 +10,7 @@ import { SitesRoutingModule } from './sites-routing.module';
 import { CommonModule } from '@angular/common';
 import { CreateNewSiteComponent } from './create-new-site/create-new-site.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
+
 import { DatePipe } from '@angular/common';
 import { AllSitesComponent } from './all-sites/all-sites.component';
 import { UpdateSiteComponent } from './update-site/update-site.component';
@@ -28,7 +28,7 @@ import { UpdateSiteComponent } from './update-site/update-site.component';
     SiteDetailsComponent,
     SearchResultsComponent,
     CreateNewSiteComponent,
-    LoadingScreenComponent,
+  
     AllSitesComponent,
     UpdateSiteComponent,
 

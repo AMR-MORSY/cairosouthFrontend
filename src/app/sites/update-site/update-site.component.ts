@@ -132,17 +132,17 @@ export class UpdateSiteComponent implements OnInit {
     this._SitesServices.site.subscribe(() => {
       this.oldSite = this._SitesServices.site.getValue();
       console.log(this.oldSite);
-      this.site_id = this.oldSite[0].id
-      this.site_code=this.oldSite[0].site_Code;
-      this.site_name=this.oldSite[0].site_name;
-      this.site_office=this.oldSite[0].office;
-      this.site_severity=this.oldSite[0].severity;
-      this.site_BSC=this.oldSite[0].BSC_RNC;
-      this.site_host=this.oldSite[0].host;
-      this.site_sharing=this.oldSite[0].sharing;
-      this.site_type=this.oldSite[0].site_type;
-      this.site_build=this.oldSite[0].build_date;
-      this.site_category=this.oldSite[0].Site_category
+      this.site_id = this.oldSite.id
+      this.site_code=this.oldSite.site_Code;
+      this.site_name=this.oldSite.site_name;
+      this.site_office=this.oldSite.office;
+      this.site_severity=this.oldSite.severity;
+      this.site_BSC=this.oldSite.BSC_RNC;
+      this.site_host=this.oldSite.host;
+      this.site_sharing=this.oldSite.sharing;
+      this.site_type=this.oldSite.site_type;
+      this.site_build=this.oldSite.build_date;
+      this.site_category=this.oldSite.Site_category
     })
   }
 

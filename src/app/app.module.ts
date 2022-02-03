@@ -1,4 +1,4 @@
-import {  HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { HttpInterceptorService } from './http-interceptor.service';
 
 
 @NgModule({
@@ -26,15 +27,17 @@ import { NotFoundComponent } from './not-found/not-found.component';
     UserComponent,
     FooterComponent,
     NotFoundComponent,
-  
+
 
   ],
   imports: [
     BrowserModule,
     CommonModule,
-    AppRoutingModule,HttpClientModule,FormsModule,ReactiveFormsModule, NgxPaginationModule, NgxTypedJsModule, BrowserAnimationsModule,
+    AppRoutingModule,HttpClientModule,FormsModule,ReactiveFormsModule, NgxPaginationModule, NgxTypedJsModule, BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS, useClass:HttpInterceptorService,multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

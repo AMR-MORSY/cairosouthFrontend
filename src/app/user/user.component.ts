@@ -58,11 +58,11 @@ export class UserComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    let x:any= document.getElementById('loading');
-   x.classList.add("animate__animated","animate__fadeOut");
-   setTimeout(() => {
-     this.fadefinished=true;
-   },3000);
+    // let x:any= document.getElementById('loading');
+  //  x.classList.add("animate__animated","animate__fadeOut");
+  //  setTimeout(() => {
+    //  this.fadefinished=true;
+  //  },3000);
  }
 
 

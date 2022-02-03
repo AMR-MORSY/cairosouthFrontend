@@ -1,30 +1,30 @@
 <section id='new-site'>
-  <div class="container">
+    <div class="container">
 
-    <form [formGroup]="createSiteForm" (ngSubmit)="submitCreateSiteForm(createSiteForm)">
-      <div class="row">
-        <div class="col-3 mt-2">
-          <label for="site-code">Site-Code</label>
-          <input type="text" class="form-control" [(ngModel)]="site_code" formControlName="code" id="site-code" >
-        </div>
-        <div class="col-5 mt-2">
-          <label for="site-name">Site-Name</label>
-          <input type="text" class="form-control" formControlName="site_name" id="site-name" [(ngModel)]="site_name"  >
-        </div>
-        <div class="col-4 pt-2 mt-2">
-        </div>
-        <div class="col-3 mt-2">
-          <label for="type">Site-Type</label>
-          <select formControlName="site_type" id="type" class=" d-block" [(ngModel)]="site_type">
+        <form [formGroup]="createSiteForm" (ngSubmit)="submitCreateSiteForm(createSiteForm)">
+            <div class="row">
+                <div class="col-3 mt-2">
+                    <label for="site-code">Site-Code</label>
+                    <input type="text" class="form-control" [(ngModel)]="site_code" formControlName="code" id="site-code">
+                </div>
+                <div class="col-5 mt-2">
+                    <label for="site-name">Site-Name</label>
+                    <input type="text" class="form-control" formControlName="site_name" id="site-name" [(ngModel)]="site_name">
+                </div>
+                <div class="col-4 pt-2 mt-2">
+                </div>
+                <div class="col-3 mt-2">
+                    <label for="type">Site-Type</label>
+                    <select formControlName="site_type" id="type" class=" d-block" [(ngModel)]="site_type">
             <option value=""></option>
             <option value="Micro">Micro</option>
             <option value="Outdoor">Outdoor</option>
             <option value="Shelter">Shelter</option>
           </select>
-        </div>
-        <div class="col-5 mt-2">
-          <label for="BSC">BSC/RNC</label>
-          <select id="BSC" formControlName="BSC_RNC" class=" d-block" [(ngModel)]="site_BSC">
+                </div>
+                <div class="col-5 mt-2">
+                    <label for="BSC">BSC/RNC</label>
+                    <select id="BSC" formControlName="BSC_RNC" class=" d-block" [(ngModel)]="site_BSC">
             <option value=""></option>
             <option value="BADRASHEN-EXCH">BADRASHEN-EXCH</option>
             <option value="HADAYEK-HELWAN-HUA">HADAYEK-HELWAN-HUA</option>
@@ -44,13 +44,13 @@
           </select>
 
 
-        </div>
-        <div class="col-4 pt-2 mt-2">
-          <button class="btn btn-dark mt-4 ">Update Site</button>
-        </div>
-        <div class="col-3 mt-2">
-          <label for="category">Site-Category</label>
-          <select formControlName="site_category" id="category" class=" d-block" [(ngModel)]="site_category">
+                </div>
+                <div class="col-4 pt-2 mt-2">
+
+                </div>
+                <div class="col-3 mt-2">
+                    <label for="category">Site-Category</label>
+                    <select formControlName="site_category" id="category" class=" d-block" [(ngModel)]="site_category">
             <option value=""></option>
             <option value="BSC">BSC</option>
             <option value="LDN">LDN</option>
@@ -59,48 +59,47 @@
             <option value="Normal">Normal</option>
             <option value="VIP + NDL">VIP + NDL</option>
           </select>
-        </div>
-        <div class="col-5 mt-2">
-          <label for="severity">Site-Severity</label>
-          <select formControlName="severity" id="severity" class=" d-block" [(ngModel)]="site_severity">
+                </div>
+                <div class="col-5 mt-2">
+                    <label for="severity">Site-Severity</label>
+                    <select formControlName="severity" id="severity" class=" d-block" [(ngModel)]="site_severity">
             <option value=""></option>
             <option value="Bronze">Bronze</option>
             <option value="Golden">Golden</option>
             <option value="Silver">Silver</option>
 
           </select>
-        </div>
-        <div class="col-4 mt-2 ">
-          <button class="btn btn-danger mt-4 ">Delete Site</button>
-        </div>
-        <div class="col-3">
-          <label for="office">Office</label>
-          <select formControlName="office" id="office" class=" d-block" [(ngModel)]="site_office">
+                </div>
+                <div class="col-4 mt-2 ">
+
+                </div>
+                <div class="col-3">
+                    <label for="office">Office</label>
+                    <select formControlName="office" id="office" class=" d-block" [(ngModel)]="site_office">
             <option value=""></option>
             <option value="Maadi">Maadi</option>
             <option value="Mohandseen">Mohandseen</option>
             <option value="Shoubra">Shoubra</option>
           </select>
-        </div>
-        <div class="col-5 mt-2">
-          <label for="build-date">Build-Date</label>
-          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" [(ngModel)]="site_build" formControlName="build_date" placement="top" [(bsValue)]="datepicker"
-            class="form-control" id="build-date" >
+                </div>
+                <div class="col-5 mt-2">
+                    <label for="build-date">Build-Date</label>
+                    <input type="text" bsDatepicker [bsConfig]="datePickerConfig" [(ngModel)]="site_build" formControlName="build_date" placement="top" [(bsValue)]="datepicker" class="form-control" id="build-date">
 
-        </div>
-        <div class="col-4 pt-2 mt-2">
+                </div>
+                <div class="col-4 pt-2 mt-2">
 
-        </div>
-        <div class="col-3 mt-2">
-          <label for="sharing">Sharing</label>
-          <select formControlName="sharing" id="sharing" class=" d-block" [(ngModel)]="site_sharing">
+                </div>
+                <div class="col-3 mt-2">
+                    <label for="sharing">Sharing</label>
+                    <select formControlName="sharing" id="sharing" class=" d-block" [(ngModel)]="site_sharing">
             <option value="No" selected> No</option>
             <option value="Yes"> Yes </option>
           </select>
-        </div>
-        <div class="col-5 mt-2">
-          <label for="host">Host</label>
-          <select formControlName="host" class=" d-block" id="host" [(ngModel)]="site_host">
+                </div>
+                <div class="col-5 mt-2">
+                    <label for="host">Host</label>
+                    <select formControlName="host" class=" d-block" id="host" [(ngModel)]="site_host">
             <option value=''selected></option>
             <option value="OR">OR</option>
             <option value="VF">VF</option>
@@ -108,41 +107,46 @@
             <option value="WE">WE</option>
           </select>
 
-        </div>
-        <div class="col-4">
-        </div>
-      </div>
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+            <div class=" d-flex justify-content-lg-start align-items-center">
+                <button class="btn btn-danger mt-3" type="submit" [disabled]='createSiteForm.status=="INVALID"'>Update</button>
+                <button class="btn btn-danger mt-3 ml-3 ">Delete Site</button>
 
-      <button class="btn btn-danger mt-3" type="submit" [disabled]='createSiteForm.status=="INVALID"'>Create
-        Site</button>
-    </form>
-
-  </div>
-
-</section>
-
-<section id='notification'[hidden]='isSiteNotInserted'>
-  <div class="container">
-    <div class="notification-body" >
-      <div class="notification-content">
-        <div class="close" (click)="closeNotification()"><i class="fas fa-times" ></i></div>
-        <div class="notification-title">
-          <h3>Add Cascades</h3>
-        </div>
-
-        <div class="notification-caption">
-          <p>Do you want to add Cascades for this new site?</p>
-        </div>
-        <div class="notification-footer">
-          <button class="btn btn-danger"(click)="closeNotification()">No</button>
-          <button class=" btn btn-primary" (click)="goToUpdateCascades()">Yes</button>
-        </div>
+            </div>
 
 
-      </div>
+
+        </form>
 
     </div>
 
-  </div>
+</section>
+
+<section id='notification' [hidden]='isSiteNotInserted'>
+    <div class="container">
+        <div class="notification-body">
+            <div class="notification-content">
+                <div class="close" (click)="closeNotification()"><i class="fas fa-times"></i></div>
+                <div class="notification-title">
+                    <h3>Add Cascades</h3>
+                </div>
+
+                <div class="notification-caption">
+                    <p>Do you want to add Cascades for this new site?</p>
+                </div>
+                <div class="notification-footer">
+                    <button class="btn btn-danger" (click)="closeNotification()">No</button>
+                    <button class=" btn btn-primary" (click)="goToUpdateCascades()">Yes</button>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>

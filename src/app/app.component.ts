@@ -1,5 +1,7 @@
+import { LoaderService } from './loading-screen/loader.service';
 
-import { AfterViewInit, Component, } from '@angular/core';
+import { Component, } from '@angular/core';
+import { Router, Event, NavigationError, NavigationCancel, NavigationEnd, NavigationStart } from '@angular/router';
 
 
 @Component({
@@ -7,14 +9,33 @@ import { AfterViewInit, Component, } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
-title="CairoSouth";
+export class AppComponent {
+  title = "CairoSouth";
 
-ngAfterViewInit(): void {
+  public isLoading: boolean = false;
 
-  let x:any=document.querySelector('loading');
-  x.style.display="none";
-}
+  constructor(public _Loader: LoaderService, private _Router: Router) {
+
+    this._Loader.isLoading.subscribe(() => {
+      this.isLoading = this._Loader.isLoading.getValue();
+    })
+    this._Router.events.subscribe((event: any) => {
+
+      if (event instanceof NavigationStart) {
+        this.isLoading = true;
+
+      }
+
+      if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+        this.isLoading = false;
+
+      }
+    });
+
+
+  }
+
+
 
 
 
