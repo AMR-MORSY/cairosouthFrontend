@@ -8,7 +8,7 @@ import { SitesService } from '../sites.service';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss']
 })
-export class SearchResultsComponent implements OnInit, AfterViewInit {
+export class SearchResultsComponent implements OnInit {
 
   public searchStr: any;
   public sites: any;
@@ -36,7 +36,11 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
 
   public goToSiteDetailsWithSite(site: any) {
     this._sitesService.site.next(site);
+
+    console.log(site)
+  
     localStorage.setItem("site", JSON.stringify(site));
+
     this._Router.navigate(['/sites/site-details']);
 
 
@@ -115,12 +119,6 @@ export class SearchResultsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.displaySites();
   }
-  ngAfterViewInit(): void {
-    let x: any = document.getElementById('loading');
-    x.classList.add("animate__animated", "animate__fadeOut");
-    setTimeout(() => {
-      this.fadefinished = true;
-    }, 3000);
-  }
+
 
 }

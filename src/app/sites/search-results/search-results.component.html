@@ -20,10 +20,10 @@
             </thead>
             <tbody>
                 <tr *ngFor="let site of sites|paginate:config; let i=index" (click)="sendSiteId(site.id)">
-                    <td>{{site.site_Code}}</td>
+                    <td>{{site.site_code}}</td>
                     <td>{{site.site_name}}</td>
                     <td>{{site.BSC_RNC}}</td>
-                    <td>{{site.Site_category}}</td>
+                    <td>{{site.site_category}}</td>
                     <td>{{site.office}}</td>
                     <td>{{site.build_date}}</td>
                     <td>{{site.sharing}}</td>

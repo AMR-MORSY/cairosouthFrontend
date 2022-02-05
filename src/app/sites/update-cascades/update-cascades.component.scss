@@ -40,15 +40,28 @@
         color: white;
         font-size: 1rem;
       }
-     table thead {
+     table{
+      thead {
 
-       background-color: black;
-       border: 1px solid #ff6600;
+        background-color: black;
+        border: 1px solid #ff6600;
 
-        td{
-          padding-right: 2rem;
-        }
-      }
+         td{
+           padding-right: 2rem;
+           text-align: center;
+         }
+       }
+       tbody{
+         td{
+
+           padding-right: 2rem;
+           text-align: center;
+         }
+         }
+
+       }
+
+     
     }
 
   }

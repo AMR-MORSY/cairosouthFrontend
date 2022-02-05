@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="col-3">
                         <label for="site-code">Site-Code</label>
-                        <input type="text" class="form-control" id="site-code" [value]="site.site_Code">
+                        <input type="text" class="form-control" id="site-code" [value]="site.site_code">
                     </div>
                     <div class="col-5">
                         <label for="site-name">Site-Name</label>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-3">
                         <label for="category">Site-Category</label>
-                        <input type="text" class="form-control" id="category" [value]="site.Site_category">
+                        <input type="text" class="form-control" id="category" [value]="site.site_category">
                     </div>
                     <div class="col-5">
                         <label for="severity">Site-Severity</label>
@@ -81,7 +81,7 @@
                         <input type="text" class="form-control" id="build-date" [value]="site.build_date">
                     </div>
                     <div class="col-4 pt-2">
-                        <button class="btn btn-danger mt-3" (click)="goToCreatSite()">Create Site</button>
+
 
                     </div>
                     <div class="col-3">
@@ -118,13 +118,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let nodal of nodals; let i=index " style="background-color: black;" (click)="goToSiteDetailsFromNodals(nodal.site_id)">
+                                            <tr *ngFor="let nodal of nodals; let i=index " style="background-color: black;" (click)="goToSiteDetailsFromNodals(nodal.cascade_id)">
                                                 <td *ngIf="isNodalsFound ">{{nodal.cascade_code}}</td>
                                                 <td *ngIf="isNodalsFound ">{{nodal.cascade_name}}</td>
                                                 <td *ngIf="isNodalsFound ">{{nodal.count_cascades}}</td>
                                             </tr>
 
-                                            <tr *ngFor="let site of cascades; let i=index " (click)="goToSiteDetailsFromCascades(site.id)">
+                                            <tr *ngFor="let site of cascades; let i=index " (click)="goToSiteDetailsFromNodals(site.cascade_id)">
                                                 <td>{{site.cascade_code}}</td>
                                                 <td>{{site.cascade_name}}</td>
                                             </tr>
@@ -136,7 +136,7 @@
 
                     </div>
                     <div class="col-12 ">
-                        <button type="button " (click)="goToUpdate() " class="btn btn-primary mt-4 ">
+                        <button type="button " (click)="goToUpdateCascades() " class="btn btn-primary mt-4 ">
                 Update Cascades
               </button>
 

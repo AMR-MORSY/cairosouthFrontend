@@ -21,11 +21,12 @@ export class UpdateCascadesComponent implements OnInit {
   public searchRecivedSiteCode = "";
   public isSearchOk: boolean = true;
   public cascade: any;
-  public isDataFound: boolean = false;
-  public isNoCascades:boolean=true;
+
+  public isCascadesAvailable:boolean=false;
   public searchRecivedSiteName = "";
   public nodalCode:any="";
   public nodalName:any="";
+  public newCascades:any=[];
 
 
 
@@ -54,32 +55,37 @@ export class UpdateCascadesComponent implements OnInit {
     this._siteService.site.subscribe(() => {
       this.site = this._siteService.site.getValue();
       console.log(this.site);
-      this.site_id = this.site[0].id
-      this.nodalCode=this.site[0].site_Code;
-      this.nodalName=this.site[0].site_name;
+      this.site_id = this.site.id
+      this.nodalCode=this.site.site_code;
+      this.nodalName=this.site.site_name;
     })
   }
 
   private makeCascadeSiteObject(site: any) {
     let casscade = {
-      "cascade_code": site.site_Code,
+      "cascade_code": site.site_code,
       "cascade_name": site.site_name,
-      "nodal_code": this.site[0].site_Code,
-      "site_id": this.site_id
+      "cascade_id":site.id,
+      "nodal_code": this.nodalCode,
+      "nodal_id": this.site_id,
+      "nodal_name":this.nodalName
     };
     return casscade;
   }
+
   private checkTheCascadesCont(casc: any) {
     let cascade = this.cascadesContainer.filter((site: any) => {
       return site.cascade_code == casc.cascade_code;
     });
     if (cascade.length == 0)
-      this.cascadesContainer.push(casc);
+      {this.cascadesContainer.push(casc);
+      this.newCascades.push(casc)
+      }
     else
       alert('already in the list');
   }
   public displaySearchedCascades() {
-    this.isDataFound = true;
+    this.isCascadesAvailable = true;
     this.checkTheCascadesCont(this.cascade)
     console.log(this.cascadesContainer);
     this.searchRecivedSiteCode = '';
@@ -89,70 +95,92 @@ export class UpdateCascadesComponent implements OnInit {
   public deleteSite(index: any) {
     this.cascadesContainer.splice(index, 1);
   }
-  insertCascadesIntoDB() {
-    let Data = {
-      "cascades": this.cascadesContainer
-    };
-    let strData = JSON.stringify(Data);
-    let data = {
-      "token": this.token,
-      "id": this.id,
-      "cascades": strData
+  private displayAlertbefreInsertDB()
+  {
+    let cascades=[]
+    for (var i=0;i<this.newCascades.length;i++)
+    {
+      cascades.push(this.newCascades[i].cascade_code);
+      cascades.push(this.newCascades[i].cascade_name)
     }
-    console.log(data);
-    this._siteService.updateCascades(data).subscribe((response: any) => {
+    alert(`This will Add ${JSON.stringify(cascades)} to list of cascades of this site`)
+  }
+  insertCascadesIntoDB() {
+    if (this.newCascades.length==0)
+    {
+      alert('Nothing to cascade')
 
-      if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+    }
+    else
+    {
+      this.displayAlertbefreInsertDB()
+      let Data = {
+        "cascades": this.newCascades
+      };
+      let strData = JSON.stringify(Data);
+      let data = {
+        "token": this.token,
+        "id": this.id,
+        "cascades": strData
       }
-      if (response.message == "failed") {
-        let errors = [];
-        errors = response.errors;
-        let strError = JSON.stringify(errors);
-        let index = strError.indexOf('cascades.')
-        if (index == -1) {
-          alert(strError);
+      console.log(data);
+      this._siteService.updateCascades(data).subscribe((response: any) => {
+        console.log(response);
+
+        if (response.message == "token expired, please login") {
+          alert("token expired, please login");
+          this._Router.navigate(['/auth/login']);
         }
-        else {
-          let cascadeNum = getCascadeNum(strError)
-          let newError=getNewError(this.cascadesContainer,cascadeNum);
-          alert(newError);
-        }
-        function getCascadeNum(strError: any) {
-          let cascadesnuber: any = strError.substring(10, 13);
-          let numbers = [];
-          for (var i = 0; i < cascadesnuber.length; i++) {
-            if (cascadesnuber[i] != ".")
-              numbers.push(cascadesnuber[i]);
+        if (response.message == "failed") {
+          let errors = [];
+          errors = response.errors;
+          let strError = JSON.stringify(errors);
+          let index = strError.indexOf('cascades.')
+          if (index == -1) {
+            alert(strError);
           }
-          let strNumbers = numbers.toString();
-          return strNumbers
+          else {
+            let cascadeNum = getCascadeNum(strError)
+            let newError=getNewError(this.cascadesContainer,cascadeNum);
+            alert(newError);
+          }
+          function getCascadeNum(strError: any) {
+            let cascadesnuber: any = strError.substring(10, 13);
+            let numbers = [];
+            for (var i = 0; i < cascadesnuber.length; i++) {
+              if (cascadesnuber[i] != ".")
+                numbers.push(cascadesnuber[i]);
+            }
+            let strNumbers = numbers.toString();
+            return strNumbers
+          }
+          function getNewError(cascadesContainer:any, strNumbers:any) {
+            let casc = [];
+            let site: any = cascadesContainer[Number(strNumbers)];
+            console.log(site);
+            casc.push(site.cascade_code, site.cascade_name);
+            let strCasc: any = JSON.stringify(casc);
+            console.log(strCasc);
+            let newError = strError.replace(strNumbers, strCasc);
+            return newError;
+          }
         }
-        function getNewError(cascadesContainer:any, strNumbers:any) {
-          let casc = [];
-          let site: any = cascadesContainer[Number(strNumbers)];
-          console.log(site);
-          casc.push(site.cascade_code, site.cascade_name);
-          let strCasc: any = JSON.stringify(casc);
-          console.log(strCasc);
-          let newError = strError.replace(strNumbers, strCasc);
-          return newError;
+        else if( response.message=="success")
+        {
+          alert("Cascedes inserted Successfully")
+          this._Router.navigate(['sites/site-details']);
         }
-      }
-      else if( response.message=="success")
-      {
-        alert("Cascedes inserted Successfully")
-        this._Router.navigate(['sites/site-details']);
-      }
-    })
+      })
+
+    }
+
   }
 
   public clearForm() {
     this.cascadesContainer = [];
     this.searchRecivedSiteName = "";
     this.searchRecivedSiteCode = "";
-    this.isDataFound = false;
+    this.isCascadesAvailable = false;
   }
 
   public searchForCascadeSite(data:any) {
@@ -187,11 +215,39 @@ export class UpdateCascadesComponent implements OnInit {
       if (this._siteService.cascades.getValue()!=null)
       {
         this.cascadesContainer=this._siteService.cascades.getValue();
-        this.isNoCascades=false;
+        console.log(this.cascadesContainer)
+        if (this.cascadesContainer.length!=0)
+        this.isCascadesAvailable=true;
+        else
+        {
+          this.isCascadesAvailable=false;
+
+        }
       }
       else
       {
-        this.isNoCascades=true;
+        this.isCascadesAvailable=false;
+
+      }
+    })
+
+    this._siteService.nodals.subscribe(()=>{
+      if (this._siteService.nodals.getValue()!=null)
+      {
+       let nodals:any=this._siteService.nodals.getValue();
+        for (var i=0;i<nodals.length;i++)
+        {
+          this.cascadesContainer.push(nodals[i])
+        }
+
+
+        this.isCascadesAvailable=true;
+
+      }
+      else
+      {
+        if (this.isCascadesAvailable==false)
+        this.isCascadesAvailable=false;
 
       }
     })

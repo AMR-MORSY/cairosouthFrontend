@@ -57,18 +57,20 @@
               <tr>
                 <td>Site Code</td>
                 <td>Site Name</td>
+                <td>Cascades</td>
                 <td>Action</td>
               </tr>
             </thead>
-            <tbody *ngIf="isDataFound">
+            <tbody *ngIf="isCascadesAvailable">
               <tr *ngFor="let site of cascadesContainer; let i=index">
                 <td>{{site.cascade_code}}</td>
                 <td>{{site.cascade_name}}</td>
+                <td>{{site.count_cascades}}</td>
                 <td><button class="btn btn-danger" (click)="deleteSite(i)">Delete</button></td>
               </tr>
             </tbody>
           </table>
-          <p *ngIf="!isDataFound">No Cascades</p>
+          <p *ngIf="!isCascadesAvailable">No Cascades</p>
         </div>
         <button type="button" class="btn btn-primary" (click)="insertCascadesIntoDB()">insert into Database</button>
       </div>

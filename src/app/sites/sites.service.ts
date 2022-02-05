@@ -11,12 +11,16 @@ export class SitesService {
   public searchStr = new BehaviorSubject(null);
   public site = new BehaviorSubject(null);
   public cascades=new BehaviorSubject(null)
+  public nodals=new BehaviorSubject(null);
 
 
   constructor(private _HttpClient: HttpClient) {
 
     this.getSearchStr();
     this.getSite();
+
+    this.getcascades();
+    this.getNodals();
 
 
   }
@@ -26,6 +30,29 @@ export class SitesService {
     storag = JSON.parse(storag);
     if (storag != null) {
       this.site.next(storag)
+    }
+
+
+
+  }
+
+  private getcascades()
+  {
+    let storag: any = localStorage.getItem('cascades');
+    storag = JSON.parse(storag);
+    if (storag != null) {
+      this.cascades.next(storag)
+    }
+
+
+
+  }
+  private getNodals()
+  {
+    let storag: any = localStorage.getItem('nodals');
+    storag = JSON.parse(storag);
+    if (storag != null) {
+      this.nodals.next(storag)
     }
 
 
@@ -61,7 +88,7 @@ export class SitesService {
 
   getCascades(data:any):Observable<any>{
 
-    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/cascades/${data.site_id}/${data.token}`);
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/cascades/${data.nodal_id}/${data.token}`);
 
   }
   getsite(data:any):Observable<any>{

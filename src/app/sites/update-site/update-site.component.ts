@@ -36,7 +36,7 @@ export class UpdateSiteComponent implements OnInit {
 
 
   public createSiteForm = new FormGroup({
-    code: new FormControl(null,),
+    site_code: new FormControl(null,),
     site_name: new FormControl(null,),
     BSC_RNC: new FormControl(null,),
     office: new FormControl(null,),
@@ -133,7 +133,7 @@ export class UpdateSiteComponent implements OnInit {
       this.oldSite = this._SitesServices.site.getValue();
       console.log(this.oldSite);
       this.site_id = this.oldSite.id
-      this.site_code=this.oldSite.site_Code;
+      this.site_code=this.oldSite.site_code;
       this.site_name=this.oldSite.site_name;
       this.site_office=this.oldSite.office;
       this.site_severity=this.oldSite.severity;
@@ -142,7 +142,7 @@ export class UpdateSiteComponent implements OnInit {
       this.site_sharing=this.oldSite.sharing;
       this.site_type=this.oldSite.site_type;
       this.site_build=this.oldSite.build_date;
-      this.site_category=this.oldSite.Site_category
+      this.site_category=this.oldSite.site_category
     })
   }
 

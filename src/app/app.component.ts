@@ -1,6 +1,6 @@
 import { LoaderService } from './loading-screen/loader.service';
 
-import { Component, } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Router, Event, NavigationError, NavigationCancel, NavigationEnd, NavigationStart } from '@angular/router';
 
 
@@ -9,13 +9,19 @@ import { Router, Event, NavigationError, NavigationCancel, NavigationEnd, Naviga
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = "CairoSouth";
 
   public isLoading: boolean = false;
 
   constructor(public _Loader: LoaderService, private _Router: Router) {
 
+
+
+
+  }
+
+  ngOnInit(): void {
     this._Loader.isLoading.subscribe(() => {
       this.isLoading = this._Loader.isLoading.getValue();
     })
@@ -31,7 +37,6 @@ export class AppComponent {
 
       }
     });
-
 
   }
 

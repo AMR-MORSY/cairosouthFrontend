@@ -20,13 +20,13 @@ export class SiteDetailsComponent implements OnInit {
   public id: any;
   public site: any;
   public site_id: any;
-  public cascades:any;
-  public isCascadesFound:boolean=false;
-  public nodals:any;
-  public isNodalsFound:boolean=false;
-  public cascadesCount:any;
-  public isNodalFound:boolean=false;
-  public nodal:any;
+  public cascades: any;
+  public isCascadesFound: boolean = false;
+  public nodals: any;
+  public isNodalsFound: boolean = false;
+  public cascadesCount: any;
+  public isNodalFound: boolean = false;
+  public nodal: any;
 
 
   private decodeToken(token: any) {
@@ -63,114 +63,109 @@ export class SiteDetailsComponent implements OnInit {
 
   }
 
+  //////////////////////////////////////////////////////////////////////////////
+
+  /////////subscribe to the site stored in the behaviour subject
+
   private getSite() {
     this._siteService.site.subscribe(() => {
       this.site = this._siteService.site.getValue();
-      console.log(this.site);
+      console.log(this.site)
       this.site_id = this.site.id
+
+
+
+
 
     })
 
-  }
-///////////////////////////////////////////////////////////////
-  private getCascadeId(index:any)
-  {
-    let site= this.cascades.filter((site:any)=>{
-      return site.site_id==index;
 
-    });
-    return site.site_id;
 
   }
 
-  private getSiteData(site_id:any)
-  {
-    let data={
-      "site_id":site_id,
-      "token":this.token
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////click on Nodals or normal cascades to go to site details page again
+
+  public getSiteDataFromDB(site_id: any) {
+    let data = {
+      "site_id": site_id,
+      "token": this.token
 
     }
 
-    let site:any="failed";
-  
 
-    this._siteService.getsite(data).subscribe((response:any)=>{
+
+    this._siteService.getsite(data).subscribe((response: any) => {
       console.log(response)
-      if (response.message=="success")
-      {
-          site=response;
+
+
+      if (response.message == "success") {
+        this.site = response.site;
+        this.goToSiteDetails();
+        this.site_id = this.site.id
+        this._siteService.site.next(this.site);
+
+        localStorage.setItem("site", JSON.stringify(this.site));
+
+        this.getSiteCascades();
+        this.getSiteNodal();
+
+
+      }
+      else if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+
+        this._Router.navigate(['/auth/login']);
       }
 
 
 
+
+
     })
-    return site;
+
   }
 
 
 
-  private getNodalId(index:any)
-  {
-    let site= this.nodals.filter((site:any)=>{
-      return site.site_id==index;
-    });
-
-    let site_id=site[0].site_id
-    return site_id;
-  }
-
-  private goToSiteDetails(site:any)
-  {
-    console.log(site)
-    if (site=="failed")
-    {
+  private goToSiteDetails() {
+    console.log(this.site)
+    if (this.site == null) {
 
       this._Router.navigate(['/**']);
     }
-    else
-    {
-       this._siteService.site.next(site);
-       localStorage.setItem("site", JSON.stringify(site));
-       this._Router.navigate(['/sites/site-details']);
-     }
+
 
   }
-public goToSiteDetailsFromNodals(index:any,)
-{
-  let site_id:any=this.getNodalId(index);
-  let site=this.getSiteData(site_id);
-  this.goToSiteDetails(site);
+
+  ///////click on nodal//////
+  public goToSiteDetailsFromNodals(index: any) {
+
+    this.getSiteDataFromDB(index);
+
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////get main site's cascades
+  public getSiteCascades() {
 
 
-
-}
-
-public goToSiteDetailsFromCascades(index:any)
-{
-  let site_id:any=this.getCascadeId(index);
-  let site:any=this.getSiteData(site_id);
-
-  this.goToSiteDetails(site);
-
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-  private getSiteCascades() {
     let tokenId = {
       "token": this.token,
-      "site_id": this.site.id
+      "nodal_id": this.site_id
     }
 
     this._siteService.getCascades(tokenId).subscribe((response: any) => {
+      console.log(response);
+      this.cascades = [];
+      this.nodals = [];
 
-      function updateCascades(nodals:any, cascades:any)
-      {
-        for(var i=0; i<nodals.length;i++)
-        {
-          for (var j=0;j<cascades.length;j++)
-          {
-            if (nodals[i].cascade_code===cascades[j].cascade_code)
-            cascades.splice(cascades[j],1)
+      function updateCascades(nodals: any, cascades: any) {
+        for (var i = 0; i < nodals.length; i++) {
+          for (var j = 0; j < cascades.length; j++) {
+            if (nodals[i].cascade_code === cascades[j].cascade_code)
+              cascades.splice(cascades[j], 1)
           }
 
         }
@@ -184,66 +179,83 @@ public goToSiteDetailsFromCascades(index:any)
         this._Router.navigate(['/auth/login']);
       }
 
-      else if (response.message=="success")
-      {
-        this.cascades=[];
-        this.nodals=[];
-        this.isCascadesFound=true;
-        console.log(response)
-        this.cascades=response.cascades;
-        this.cascadesCount=response.count_cascades;
-        this.nodals=response.nodals
+      else if (response.message == "success") {
 
-        if (this.nodals.length==0)
-        {
-          this.isNodalsFound=false
+        this.isCascadesFound = true;
+        this.cascades = response.cascades;
+        this.cascadesCount = response.count_cascades;
+        this.nodals = response.nodals
+        this._siteService.nodals.next(this.nodals)
+        localStorage.setItem('nodals', JSON.stringify(this.nodals));
+        this._siteService.cascades.next(this.cascades);
+        localStorage.setItem('cascades', JSON.stringify(this.cascades));
+
+
+
+        if (this.nodals.length == 0) {
+          this.isNodalsFound = false
         }
-        else
-        {
-          this.cascades= updateCascades(this.nodals,this.cascades);
-          console.log(this.cascades)
+        else {
+          this.cascades = updateCascades(this.nodals, this.cascades);
+          this._siteService.cascades.next(this.cascades);
+          localStorage.setItem('cascades', JSON.stringify(this.cascades));
 
-          this.isNodalsFound=true;
+
+
+
+
+          this.isNodalsFound = true;
 
         }
 
 
 
       }
-      else
-      {
-        this.isNodalsFound=false;
-        this.isCascadesFound=false;
+      else {
+        this.isNodalsFound = false;
+        this.isCascadesFound = false;
       }
     });
 
-  }
 
-  public goToUpdate()
-  {
+
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////
+
+  ////////go to update site cascades page
+
+  public goToUpdateCascades() {
+     this._siteService.nodals.next(this.nodals)
+     localStorage.setItem('nodals', JSON.stringify(this.nodals));
+     this._siteService.cascades.next(this.cascades);
+     localStorage.setItem('cascades', JSON.stringify(this.cascades));
+
+
     this._Router.navigate(['/sites/update-cascades']);
   }
+  ///////////////////////////////////////////////////////
 
- public  goToCreatSite()
-  {
-    this._Router.navigate(['/sites/create-new-site'])
-  }
-  public goToSiteModifications()
-  {
+  ///////go to site modification page
+  public goToSiteModifications() {
     this._Router.navigate(['/modifications/show-site-modifications'])
 
   }
+  //////////////////////////////////////////////////////////////////////////////
 
-  public goToUpdateSite()
-  {
+  /////////go to update main site page
+
+  public goToUpdateSite() {
+
     this._Router.navigate(['sites/update-site']);
   }
+  ////////////////////////////////////////////////////////////////////////
 
-  public getSiteNodal()
-  {
+  ////////get the nodal-site the main site is connected to
+
+  public getSiteNodal() {
     let tokenId = {
       "token": this.token,
-      "site_id": this.site.id
+      "site_id": this.site_id
     }
 
     this._siteService.getNodal(tokenId).subscribe((response: any) => {
@@ -253,32 +265,34 @@ public goToSiteDetailsFromCascades(index:any)
 
         this._Router.navigate(['/auth/login']);
       }
-      else if (response.message=="success")
-      {
-        this.isNodalFound=true;
-        this.nodal=response;
+      else if (response.message == "success") {
+        this.isNodalFound = true;
+        this.nodal = response;
 
 
       }
-      else
-      {
-        this.isNodalFound=false;
+      else {
+        this.isNodalFound = false;
       }
 
     });
 
 
   }
+  ////////////////////////////////////////////////////////////////
 
 
   constructor(private _siteService: SitesService, private _Router: Router, private _AuthService: AuthenticationService) { }
 
   ngOnInit(): void {
+
+
     this.getUserData();
-    console.log(this.id);
+
     this.getSite();
-    console.log(this.site.id);
+
     this.getSiteCascades();
+
     this.getSiteNodal();
   }
 

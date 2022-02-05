@@ -20,26 +20,7 @@ export class AllSitesComponent implements OnInit {
   constructor(private _AuthServices:AuthenticationService,private _Router:Router, private _sitesService:SitesService) {
 
     this.displaySites();
-    this._Router.events.subscribe((event: any) => {
-      console.log(event);
-      let x: any = document.getElementById('loading');
-      if (event instanceof NavigationEnd) {
-        if (x!=null)
-        {
-          x.classList.add("animate__animated", "animate__fadeOut");
-        setTimeout(() => {
-          this.fadefinished = true;
-
-        }, 3000);
-
-        }
-
-
-
-
-
-      }
-    })
+    
   }
 
 
