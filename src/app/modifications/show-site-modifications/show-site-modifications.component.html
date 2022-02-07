@@ -14,7 +14,14 @@
 
         </div>
 
-        <p *ngIf="!isModificationFound" class=" mt-5">No Modifications</p>
+        <div *ngIf="!isModificationFound" class="no-modification">
+            <p class=" mt-5">No Modifications</p>
+
+            <button class="btn btn-danger" (click)="goToNewMod()">Create New Modification</button>
+
+        </div>
+
+
         <div class="table-container">
             <table *ngIf="isModificationFound">
                 <thead>
@@ -45,6 +52,11 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="delete-update" *ngIf="isModificationFound">
+            <button class="btn btn-danger" [disabled]="!isModificationClicked"> Delete</button>
+            <button class="btn btn-primary ml-3" [disabled]="!isModificationClicked"> Update</button>
         </div>
 
 

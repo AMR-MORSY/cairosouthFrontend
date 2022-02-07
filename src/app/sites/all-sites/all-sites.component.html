@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let site of sites|paginate:config; let i=index" (click)="sendSiteId(site.id)">
+                <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i" (mouseover)="shadeElement($event)" (click)=" sendSiteId(site.id) ">
                     <td>{{site.site_code}}</td>
                     <td>{{site.site_name}}</td>
                     <td>{{site.BSC_RNC}}</td>
@@ -33,19 +33,19 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="isDataFound" style="color: white;">
-        <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+    <div *ngIf="isDataFound " style="color: white; ">
+        <pagination-controls (pageChange)="pageChange($event) "></pagination-controls>
     </div>
 
 
 
 </div>
 
-<section id="create-site">
-    <div class="container">
-        <div class="create-btn-cont">
+<section id="create-site ">
+    <div class="container ">
+        <div class="create-btn-cont ">
 
-            <button class="btn btn-check" (click)="goToCreateNew()">Create New Site</button >
+            <button class="btn btn-check " (click)="goToCreateNew() ">Create New Site</button >
 
     </div>
 

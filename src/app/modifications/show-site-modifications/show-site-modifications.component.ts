@@ -19,12 +19,14 @@ export class ShowSiteModificationsComponent implements OnInit {
   public id: any;
   public data:any;
   public isModificationFound:boolean=false;
+  public isModificationClicked:boolean=false;
 
   constructor(private _siteService: SitesService,private _Router:Router, private _ModificationsServices: ModificationsService, private _AuthServices: AuthenticationService) { }
 
   private getSite() {
     this._siteService.site.subscribe(() => {
       this.site = this._siteService.site.getValue();
+
       this.site_id = this.site.id
     });
   }
@@ -42,10 +44,16 @@ export class ShowSiteModificationsComponent implements OnInit {
 
   }
 
+  public goToNewMod()
+  {
+    this._Router.navigate(['/modifications/create-new-modification'])
+
+  }
   private getSiteModifications() {
     let data = this.generateRequestData();
 
     this._ModificationsServices.getSiteModifications(data).subscribe((response: any) => {
+
 
       let error="";
       if (response.message=="failed")
