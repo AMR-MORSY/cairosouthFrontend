@@ -1,1 +1,123 @@
-<p>update-modification works!</p>
+<section id='new-site'>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-3 mt-2">
+        <label for="site-code">Site-Code</label>
+        <input type="text" class="form-control" [(ngModel)]="site_code" id="site-code">
+      </div>
+      <div class="col-5 mt-2">
+        <label for="site-name">Site-Name</label>
+        <input type="text" class="form-control"  id="site-name" [(ngModel)]="site_name">
+      </div>
+    </div>
+
+    <form [formGroup]="createModForm" (ngSubmit)="submitCreateModificationForm(createModForm)">
+      <div class="row">
+
+
+        <div class="col-3 mt-2">
+          <label for="subcontractor">Subcontractor</label>
+          <select formControlName="subcontractor" id="subcontractor" [(ngModel)]="subcontractor" class=" d-block">
+            <option value=""></option>
+            <option value="GP">GP</option>
+            <option value="Alandick">Alandick</option>
+            <option value="MBV">MBV</option>
+            <option value="Tri-Tech">Tri-Tech</option>
+            <option value="Siatnile">Siatnile</option>
+            <option value="Merc">Merc</option>
+            <option value="Systel">Systel</option>
+            <option value="TELE-TECH">TELE-TECH</option>
+            <option value="SAG">SAG</option>
+            <option value="LM">LM</option>
+            <option value="OT">OT</option>
+          </select>
+        </div>
+        <div class="col-3 mt-2">
+          <label for="requester">Requester</label>
+          <select id="requester" formControlName="requester" class=" d-block" [(ngModel)]="requester">
+            <option value=""></option>
+            <option value="Acquisition">Acquisition</option>
+            <option value="Civil Team">Civil Team</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Radio">Radio</option>
+            <option value="rollout">rollout</option>
+            <option value="Transmission">Transmission</option>
+            <option value="GA">GA</option>
+            <option value="Soc">Soc</option>
+            <option value="Sharing team">Sharing team</option>
+
+          </select>
+
+
+        </div>
+
+        <div class="col-3 mt-2">
+          <label for="action">Action</label>
+          <textarea formControlName="action" [(ngModel)]="action" cols="30" rows="3" id="action" class=" d-block">
+
+        </textarea>
+        </div>
+        <div class="col-3 mt-2">
+          <label for="project">Project</label>
+          <select formControlName="project" id="project" class=" d-block" [(ngModel)]="project">
+            <option value=""></option>
+            <option value="Normal Modification">Normal Modification</option>
+            <option value="NTRA">NTRA</option>
+            <option value="Repair">Repair</option>
+            <option value="LDN">LDN</option>
+            <option value="LTE">LTE</option>
+            <option value="Retrofitting">Retrofitting</option>
+            <option value="Sharing">Sharing</option>
+            <option value="Critical repair">Critical repair</option>
+            <option value="Adding sec">Adding sec</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label for="status">Status</label>
+          <select formControlName="status" id="status" [(ngModel)]="status" class=" d-block">
+            <option value="in progress">in progress</option>
+            <option value="done">Done</option>
+
+          </select>
+        </div>
+        <div class="col-3 mt-2">
+          <label for="request_date">Request Date</label>
+          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="request_date" [(ngModel)]="request_date" placement="top"
+            [(bsValue)]="requestdatepicker" class="form-control" id="request_date">
+
+        </div>
+        <div class="col-3 pt-2 mt-2">
+          <label for="finish_date">Finish Date</label>
+          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="finish_date" [(ngModel)]="finish_date" placement="top"
+            [(bsValue)]="finishdatepicker" class="form-control" id="finish_date">
+
+        </div>
+
+        <div class="col-3 mt-2">
+          <label for="materials">Materials</label>
+          <textarea formControlName="materials" cols="30" rows="3" id="materials" [(ngModel)]="materials" class=" d-block">
+
+          </textarea>
+        </div>
+        <div class="col-5 mt-2">
+          <label for="cost">Cost</label>
+          <input formControlName="cost" class=" d-block" id="cost" [(ngModel)]="cost">
+
+        </div>
+
+      </div>
+      <div class=" d-flex justify-content-lg-start align-items-center">
+        <button class="btn btn-danger mt-3" type="submit" [disabled]='createModForm.status=="INVALID"'>Update</button>
+
+
+      </div>
+
+
+
+    </form>
+
+  </div>
+
+</section>

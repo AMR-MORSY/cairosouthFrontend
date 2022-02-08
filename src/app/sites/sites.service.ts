@@ -103,6 +103,13 @@ export class SitesService {
   updateCascades(data:any):Observable<any>{
     return this._HttpClient.post("http://cairo-south.herokuapp.com/api/updateCascades",data);
   }
+
+  deleteCascades(data:any):Observable<any>{
+    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/deleteCascades",data);
+  }
+  deleteSite(data:any):Observable<any>{
+    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/deletesite",data);
+  }
   addNewSite(data:any):Observable<any>{
     return this._HttpClient.post("http://cairo-south.herokuapp.com/api/addsite",data);
   }

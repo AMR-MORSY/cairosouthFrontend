@@ -72,7 +72,7 @@
           </table>
           <p *ngIf="!isCascadesAvailable">No Cascades</p>
         </div>
-        <button type="button" class="btn btn-primary" (click)="insertCascadesIntoDB()">insert into Database</button>
+        <button type="button" class="btn btn-primary" [disabled]="!isInsertedToList" (click)="insertCascadesIntoDB()">insert into Database</button>
       </div>
     </div>
   </div>

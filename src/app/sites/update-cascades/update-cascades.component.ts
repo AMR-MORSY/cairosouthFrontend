@@ -27,6 +27,7 @@ export class UpdateCascadesComponent implements OnInit {
   public nodalCode: any = "";
   public nodalName: any = "";
   public newCascades: any = [];
+  public isInsertedToList:boolean=false;
 
 
 
@@ -91,10 +92,21 @@ export class UpdateCascadesComponent implements OnInit {
     this.searchRecivedSiteCode = '';
     this.searchRecivedSiteName = '';
     this.isSearchOk = true;
+    this.isInsertedToList=true;
   }
   public deleteSite(index: any) {
+    this.isInsertedToList=true;
     let deleted = this.cascadesContainer.splice(index, 1);
+    let deletedindex=this.newCascades.indexOf(deleted[0]);
+    console.log(deletedindex);
+    if (deletedindex!=-1)
+   { this.newCascades.splice(deletedindex,1);
+   }
+   else{
     this.deletedCascades.push(deleted[0]);
+
+   }
+
   }
 
 
@@ -122,7 +134,7 @@ export class UpdateCascadesComponent implements OnInit {
   private displayDeletedCascadesAlert() {
     if (this.deletedCascades.length != 0) {
       let deletedCascades = this.fillCascadesArray(this.deletedCascades)
-      alert(`This will Add ${JSON.stringify(deletedCascades)} to list of cascades of this site`)
+      alert(`This will remove ${JSON.stringify(deletedCascades)} from the list of cascades of this site`)
     }
   }
   private formateCascadesData(data_arr: any) {
@@ -135,6 +147,82 @@ export class UpdateCascadesComponent implements OnInit {
       "id": this.id,
       "cascades": strData
     }
+    return data;
+
+  }
+
+  private insertNewcascades(data:any)
+  {
+    this._siteService.updateCascades(data).subscribe((response: any) => {
+      console.log(response);
+
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+      if (response.message == "failed") {
+        let errors = [];
+        errors = response.errors;
+        let strError = JSON.stringify(errors);
+        let index = strError.indexOf('cascades.')
+        if (index == -1) {
+          alert(strError);
+        }
+        else {
+          let cascadeNum = getCascadeNum(strError)
+          let newError = getNewError(this.cascadesContainer, cascadeNum);
+          alert(newError);
+        }
+        function getCascadeNum(strError: any) {
+          let cascadesnuber: any = strError.substring(10, 13);
+          let numbers = [];
+          for (var i = 0; i < cascadesnuber.length; i++) {
+            if (cascadesnuber[i] != ".")
+              numbers.push(cascadesnuber[i]);
+          }
+          let strNumbers = numbers.toString();
+          return strNumbers
+        }
+        function getNewError(cascadesContainer: any, strNumbers: any) {
+          let casc = [];
+          let site: any = cascadesContainer[Number(strNumbers)];
+          console.log(site);
+          casc.push(site.cascade_code, site.cascade_name);
+          let strCasc: any = JSON.stringify(casc);
+          console.log(strCasc);
+          let newError = strError.replace(strNumbers, strCasc);
+          return newError;
+        }
+      }
+      else if (response.message == "success") {
+        alert("Cascedes inserted Successfully")
+        this._Router.navigate(['sites/site-details']);
+      }
+    })
+
+
+  }
+  private deleteCascadesFromDB(data:any)
+  {
+    this._siteService.deleteCascades(data).subscribe((response)=>{
+      console.log(response);
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+
+      if (response.message=="success")
+      {
+        alert("sites deleted successfully")
+        this._Router.navigate(['/sites/site-details'])
+      }
+      if(response.message=="failed")
+      {
+        let error=response.errors;
+        alert(JSON.stringify(error))
+       this.deletedCascades=[];
+      }
+    })
 
   }
 
@@ -147,58 +235,15 @@ export class UpdateCascadesComponent implements OnInit {
       this.displayNewCascadesAlert()
       let data = this.formateCascadesData(this.newCascades)
       console.log(data);
-      this._siteService.updateCascades(data).subscribe((response: any) => {
-        console.log(response);
-
-        if (response.message == "token expired, please login") {
-          alert("token expired, please login");
-          this._Router.navigate(['/auth/login']);
-        }
-        if (response.message == "failed") {
-          let errors = [];
-          errors = response.errors;
-          let strError = JSON.stringify(errors);
-          let index = strError.indexOf('cascades.')
-          if (index == -1) {
-            alert(strError);
-          }
-          else {
-            let cascadeNum = getCascadeNum(strError)
-            let newError = getNewError(this.cascadesContainer, cascadeNum);
-            alert(newError);
-          }
-          function getCascadeNum(strError: any) {
-            let cascadesnuber: any = strError.substring(10, 13);
-            let numbers = [];
-            for (var i = 0; i < cascadesnuber.length; i++) {
-              if (cascadesnuber[i] != ".")
-                numbers.push(cascadesnuber[i]);
-            }
-            let strNumbers = numbers.toString();
-            return strNumbers
-          }
-          function getNewError(cascadesContainer: any, strNumbers: any) {
-            let casc = [];
-            let site: any = cascadesContainer[Number(strNumbers)];
-            console.log(site);
-            casc.push(site.cascade_code, site.cascade_name);
-            let strCasc: any = JSON.stringify(casc);
-            console.log(strCasc);
-            let newError = strError.replace(strNumbers, strCasc);
-            return newError;
-          }
-        }
-        else if (response.message == "success") {
-          alert("Cascedes inserted Successfully")
-          this._Router.navigate(['sites/site-details']);
-        }
-      })
+      this.insertNewcascades(data)
 
     }
 
     if (this.deletedCascades.length != 0) {
       this.displayDeletedCascadesAlert()
       let data=this.formateCascadesData(this.deletedCascades)
+      console.log(data);
+      this.deleteCascadesFromDB(data);
     }
 
   }
@@ -214,7 +259,11 @@ export class UpdateCascadesComponent implements OnInit {
 
     this._siteService.searchSites(data.value.search, this.token).subscribe((response: any) => {
 
-      if (response.message == "failed") {
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+     else if (response.message == "failed") {
         let error: any = response.errors.search[0];
         if (error == null) {
           error = response.errors;
@@ -230,10 +279,7 @@ export class UpdateCascadesComponent implements OnInit {
         this.searchRecivedSiteName = searchRecivedSite.site_name;
         this.cascade = this.makeCascadeSiteObject(searchRecivedSite);
       }
-      if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
-      }
+
     })
   }
   public fillCascadesContainer() {

@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let site of data; let i=index" (click)="sendSiteId(site.id)">
+                    <tr *ngFor="let site of data; let i=index" class="hambozo"  [attr.data-index]="i" (mouseover)="shadeElement($event)" (click)="sendSiteId(site.id)">
                         <td>{{site.subcontractor}}</td>
                         <td>{{site.requester}}</td>
                         <td>{{site.action}}
@@ -55,12 +55,42 @@
         </div>
 
         <div class="delete-update" *ngIf="isModificationFound">
-            <button class="btn btn-danger" [disabled]="!isModificationClicked"> Delete</button>
-            <button class="btn btn-primary ml-3" [disabled]="!isModificationClicked"> Update</button>
+            <button class="btn btn-danger" [disabled]="!isModificationClicked" (click)="showNotification()"> Delete</button>
+            <button class="btn btn-primary" [disabled]="!isModificationClicked"(click)="goToUpdateModification()"> Update</button>
+        </div>
+        <div class="New-mod-btn">
+          <button class="btn btn-danger" (click)="goToNewMod()">Create New Modification</button>
         </div>
 
 
 
     </div>
+
+</section>
+
+
+<section id='notification'[hidden]='!isNotificationShown'>
+  <div class="container">
+    <div class="notification-body" >
+      <div class="notification-content">
+        <div class="close" (click)="closeNotification()"><i class="fas fa-times" ></i></div>
+        <div class="notification-title">
+          <h3>Delete Modification</h3>
+        </div>
+
+        <div class="notification-caption">
+          <p>Do you want to delete this Modification?</p>
+        </div>
+        <div class="notification-footer">
+          <button class="btn btn-danger" (click)="closeNotification()">No</button>
+          <button class=" btn btn-primary" (click)="deleteModification()">Yes</button>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>

@@ -22,13 +22,14 @@ import { UpdateSiteComponent } from './update-site/update-site.component';
 
 
 
+
 @NgModule({
   declarations: [
     UpdateCascadesComponent,
     SiteDetailsComponent,
     SearchResultsComponent,
     CreateNewSiteComponent,
-  
+
     AllSitesComponent,
     UpdateSiteComponent,
 
@@ -38,7 +39,7 @@ import { UpdateSiteComponent } from './update-site/update-site.component';
   imports: [
 
     CommonModule,
-  HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}), NgxPaginationModule,SitesRoutingModule,BsDatepickerModule.forRoot()
+  HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}), NgxPaginationModule,SitesRoutingModule,BsDatepickerModule.forRoot(),
   ],
   providers: [DatePipe],
 })

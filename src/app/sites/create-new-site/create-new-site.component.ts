@@ -101,14 +101,9 @@ export class CreateNewSiteComponent implements OnInit {
 
   submitCreateSiteForm(data: any) {
     let createdSite: any = data.value;
-
     let newBuildate=this.datepipe.transform(this.datepicker, 'yyyy-MM-dd')
     createdSite.build_date = newBuildate;
-    console.log(createdSite);
-
     createdSite = JSON.stringify(createdSite);
-
-
     this.getUserData();
     this.sendNewSiteTODB(createdSite, this.token, this.id);
 

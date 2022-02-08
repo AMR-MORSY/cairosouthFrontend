@@ -70,7 +70,7 @@
                         <input type="text" class="form-control" id="severity" [value]="site.severity">
                     </div>
                     <div class="col-4 ">
-                        <button class="btn btn-danger mt-4 ">Delete Site</button>
+                        <button class="btn btn-danger mt-4 " (click)="deleteSite()">Delete Site</button>
                     </div>
                     <div class="col-3">
                         <label for="office">Office</label>
@@ -176,5 +176,32 @@
 
 
 
+
+</section>
+
+
+<section id='notification'[hidden]='!isNotificationShown'>
+  <div class="container">
+    <div class="notification-body" >
+      <div class="notification-content">
+        <div class="close" (click)="closeNotification()"><i class="fas fa-times" ></i></div>
+        <div class="notification-title">
+          <h3>Delete Site</h3>
+        </div>
+
+        <div class="notification-caption">
+          <p>Are you shure?, this will delete all relevant data</p>
+        </div>
+        <div class="notification-footer">
+          <button class="btn btn-danger" (click)="closeNotification()">No</button>
+          <button class=" btn btn-primary" (click)="deleteSite()">Yes</button>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>

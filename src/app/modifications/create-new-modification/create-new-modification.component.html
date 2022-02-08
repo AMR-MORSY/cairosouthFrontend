@@ -1,125 +1,123 @@
 <section id='new-site'>
-    <div class="container">
+  <div class="container">
 
-        <form [formGroup]="createModForm" (ngSubmit)="submitCreateModificationForm(createModForm)">
-            <div class="row">
-                <div class="col-3 mt-2">
-                    <label for="site-code">Site-Code</label>
-                    <input type="text" class="form-control" [(ngModel)]="site_code" formControlName="site_code" id="site-code">
-                </div>
-                <div class="col-5 mt-2">
-                    <label for="site-name">Site-Name</label>
-                    <input type="text" class="form-control" formControlName="site_name" id="site-name" [(ngModel)]="site_name">
-                </div>
-                <div class="col-4 pt-2 mt-2">
-                </div>
-                <div class="col-3 mt-2">
-                    <label for="subcontractor">Subcontractor</label>
-                    <select formControlName="subcontractor" id="subcontractor" class=" d-block">
-          <option value=""></option>
-          <option value="Micro">GP</option>
-          <option value="Outdoor">Alandick/option>
-          <option value="Shelter">MBV</option>
-        </select>
-                </div>
-                <div class="col-5 mt-2">
-                    <label for="requester">Requester</label>
-                    <select id="requester" formControlName="requester" class=" d-block">
-          <option value=""></option>
-          <option value="BADRASHEN-EXCH">BADRASHEN-EXCH</option>
-          <option value="HADAYEK-HELWAN-HUA">HADAYEK-HELWAN-HUA</option>
-          <option value="HELWAN-EXCH">HELWAN-EXCH</option>
-          <option value="MAADI2-EXCH">MAADI2-EXCH</option>
-          <option value="Mokattam EXCH">Mokattam EXCH</option>
-          <option value="Obour_RNC25">Obour_RNC25</option>
-          <option value="Obour_RNC26">Obour_RNC26</option>
-          <option value="Obour_RNC2">Obour_RNC2</option>
-          <option value="Obour_RNC3">Obour_RNC3</option>
-          <option value="October_RNC9">October_RNC9</option>
-          <option value="October_RNC">October_RNC</option>
-          <option value="October_RNC33">October_RNC33</option>
-          <option value="RODA-EXCH-HUA">RODA-EXCH-HUA</option>
-          <option value="Sawah-2">Sawah-2</option>
-          <option value="ZAMALEK-EXCH">ZAMALEK-EXCH</option>
-        </select>
-
-
-                </div>
-                <div class="col-4 pt-2 mt-2">
-
-                </div>
-                <div class="col-3 mt-2">
-                    <label for="action">Action</label>
-                    <select formControlName="action" id="action" class=" d-block">
-          <option value=""></option>
-          <option value="BSC">BSC</option>
-          <option value="LDN">LDN</option>
-          <option value="NDL">NDL</option>
-          <option value="VIP">VIP</option>
-          <option value="Normal">Normal</option>
-          <option value="VIP + NDL">VIP + NDL</option>
-        </select>
-                </div>
-                <div class="col-5 mt-2">
-                    <label for="project">Project</label>
-                    <select formControlName="project" id="project" class=" d-block">
-          <option value=""></option>
-          <option value="Bronze">Bronze</option>
-          <option value="Golden">Golden</option>
-          <option value="Silver">Silver</option>
-
-        </select>
-                </div>
-                <div class="col-4 mt-2 ">
-
-                </div>
-                <div class="col-3">
-                    <label for="status">Status</label>
-                    <select formControlName="status" id="office" class=" d-block">
-          <option value="in progress" >in progress</option>
-          <option value="Done">Done</option>
-
-        </select>
-                </div>
-                <div class="col-5 mt-2">
-                    <label for="request-date">Request Date</label>
-                    <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="request_date" placement="top" [(bsValue)]="datepicker" class="form-control" id="build-date">
-
-                </div>
-                <div class="col-4 pt-2 mt-2">
-
-                </div>
-                <div class="col-3 mt-2">
-                    <label for="sharing">Sharing</label>
-                    <select formControlName="sharing" id="sharing" class=" d-block">
-          <option value="No" selected> No</option>
-          <option value="Yes"> Yes </option>
-        </select>
-                </div>
-                <div class="col-5 mt-2">
-                    <label for="host">Host</label>
-                    <select formControlName="host" class=" d-block" id="host">
-          <option value=''selected></option>
-          <option value="OR">OR</option>
-          <option value="VF">VF</option>
-          <option value="ET">ET</option>
-          <option value="WE">WE</option>
-        </select>
-
-                </div>
-                <div class="col-4">
-                </div>
-            </div>
-            <div class=" d-flex justify-content-lg-start align-items-center">
-                <button class="btn btn-danger mt-3" type="submit" [disabled]='createModForm.status=="INVALID"'>Create</button>
-
-
-            </div>
-
-
-
-        </form>
-
+    <div class="row">
+      <div class="col-3 mt-2">
+        <label for="site-code">Site-Code</label>
+        <input type="text" class="form-control" [(ngModel)]="site_code" id="site-code">
+      </div>
+      <div class="col-5 mt-2">
+        <label for="site-name">Site-Name</label>
+        <input type="text" class="form-control"  id="site-name" [(ngModel)]="site_name">
+      </div>
     </div>
+
+    <form [formGroup]="createModForm" (ngSubmit)="submitCreateModificationForm(createModForm)">
+      <div class="row">
+
+
+        <div class="col-3 mt-2">
+          <label for="subcontractor">Subcontractor</label>
+          <select formControlName="subcontractor" id="subcontractor" class=" d-block">
+            <option value=""></option>
+            <option value="GP">GP</option>
+            <option value="Alandick">Alandick</option>
+            <option value="MBV">MBV</option>
+            <option value="Tri-Tech">Tri-Tech</option>
+            <option value="Siatnile">Siatnile</option>
+            <option value="Merc">Merc</option>
+            <option value="Systel">Systel</option>
+            <option value="TELE-TECH">TELE-TECH</option>
+            <option value="SAG">SAG</option>
+            <option value="LM">LM</option>
+            <option value="OT">OT</option>
+          </select>
+        </div>
+        <div class="col-3 mt-2">
+          <label for="requester">Requester</label>
+          <select id="requester" formControlName="requester" class=" d-block">
+            <option value=""></option>
+            <option value="Acquisition">Acquisition</option>
+            <option value="Civil Team">Civil Team</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Radio">Radio</option>
+            <option value="rollout">rollout</option>
+            <option value="Transmission">Transmission</option>
+            <option value="GA">GA</option>
+            <option value="Soc">Soc</option>
+            <option value="Sharing team">Sharing team</option>
+
+          </select>
+
+
+        </div>
+
+        <div class="col-3 mt-2">
+          <label for="action">Action</label>
+          <textarea formControlName="action" cols="30" rows="3" id="action" class=" d-block">
+
+        </textarea>
+        </div>
+        <div class="col-3 mt-2">
+          <label for="project">Project</label>
+          <select formControlName="project" id="project" class=" d-block">
+            <option value=""></option>
+            <option value="Normal Modification">Normal Modification</option>
+            <option value="NTRA">NTRA</option>
+            <option value="Repair">Repair</option>
+            <option value="LDN">LDN</option>
+            <option value="LTE">LTE</option>
+            <option value="Retrofitting">Retrofitting</option>
+            <option value="Sharing">Sharing</option>
+            <option value="Critical repair">Critical repair</option>
+            <option value="Adding sec">Adding sec</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label for="status">Status</label>
+          <select formControlName="status" id="office" class=" d-block">
+            <option value="in progress">in progress</option>
+            <option value="done">Done</option>
+
+          </select>
+        </div>
+        <div class="col-3 mt-2">
+          <label for="request_date">Request Date</label>
+          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="request_date" placement="top"
+            [(bsValue)]="requestdatepicker" class="form-control" id="request_date">
+
+        </div>
+        <div class="col-3 pt-2 mt-2">
+          <label for="finish_date">Finish Date</label>
+          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="finish_date" placement="top"
+            [(bsValue)]="finishdatepicker" class="form-control" id="finish_date">
+
+        </div>
+
+        <div class="col-3 mt-2">
+          <label for="materials">Materials</label>
+          <textarea formControlName="materials" cols="30" rows="3" id="materials" class=" d-block">
+
+          </textarea>
+        </div>
+        <div class="col-5 mt-2">
+          <label for="cost">Cost</label>
+          <input formControlName="cost" class=" d-block" id="cost">
+
+        </div>
+
+      </div>
+      <div class=" d-flex justify-content-lg-start align-items-center">
+        <button class="btn btn-danger mt-3" type="submit" [disabled]='createModForm.status=="INVALID"'>Create</button>
+
+
+      </div>
+
+
+
+    </form>
+
+  </div>
 
 </section>

@@ -27,6 +27,7 @@ export class SiteDetailsComponent implements OnInit {
   public cascadesCount: any;
   public isNodalFound: boolean = false;
   public nodal: any;
+  public isNotificationShown:boolean=false;
 
 
   private decodeToken(token: any) {
@@ -52,6 +53,11 @@ export class SiteDetailsComponent implements OnInit {
     }
   }
 
+  public closeNotification()
+  {
+    this.isNotificationShown=false;
+  }
+
   private getUserData() {
     this._AuthService.currentUser.subscribe(() => {
       this.token = this._AuthService.currentUser.getValue();
@@ -59,6 +65,29 @@ export class SiteDetailsComponent implements OnInit {
       this.id = decToken.id;
       this.isAdmin = this.isAdminCheck(decToken.role);
       this.isSuperAdmin = this.isSuperAdminCheck(decToken.role);
+    })
+
+  }
+  public deleteSite()
+  {
+    let data={
+      "id":this.id,
+      "site_id":this.site_id,
+      "token":this.token
+    }
+    this._siteService.deleteSite(data).subscribe((response)=>{
+      console.log(response)
+      if (response.message=="success")
+      {
+        alert("site deleted")
+        this._Router.navigate(['/home'])
+      }
+      else{
+        let error=response.errors
+        alert(JSON.stringify(error));
+
+      }
+
     })
 
   }

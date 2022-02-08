@@ -16,12 +16,17 @@
                 width: 50%;
                 margin: auto;
             }
-            .delete-update {
+            .delete-update, .New-mod-btn {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                margin-top: 2rem;
+                button{
+                  display: block;
+                  margin-left: 1rem;
+                }
             }
-            d .table-container {
+             .table-container {
                 margin-top: 2rem;
                 width: 100%;
                 display: flex;
@@ -52,3 +57,63 @@
             }
         }
     }
+
+
+
+#notification {
+  .container {
+    margin: auto;
+    .notification-body {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 9999999999999;
+      background-color: rgba($color: #000000, $alpha: 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .notification-content {
+        width: 50%;
+        height: 30%;
+        background-color: white;
+        border: solid;
+        border-radius: 10px;
+        padding: 2rem 2rem;
+        position: relative;
+        .close {
+          color: $mainColor;
+          font-size: 2rem;
+          position: absolute;
+          top: 28px;
+          right: 35px;
+          cursor: pointer;
+        }
+
+        .notification-title {
+          color: $mainColor;
+          padding-top: 2em;
+
+        }
+        .notification-caption {
+          color: $mainColor;
+          padding-top: 1em;
+        }
+        .notification-footer{
+          padding-top: 1em;
+          border-top: 2px solid $mainColor;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          .btn{
+            display: inline block;
+            margin-right: 1em;
+          }
+        }
+      }
+    }
+  }
+}
