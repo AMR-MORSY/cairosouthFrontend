@@ -93,16 +93,24 @@ export class UpdateSiteComponent implements OnInit {
       "id": id
     }
 
-    this._SitesServices.addNewSite(data).subscribe((response: any) => {
+    this._SitesServices.updateSite(data).subscribe((response: any) => {
       console.log(response);
       if (response.message == 'failed') {
         let errors = response.errors;
         alert(JSON.stringify(errors));
         this.isSiteNotInserted=true;
       }
+      else if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+
+      }
       else
       {this.isSiteNotInserted=false;
-        this.newSite=response.site;
+        this.oldSite=response.site;
+        this._SitesServices.site.next(this.oldSite);
+        localStorage.setItem("site", JSON.stringify(this.oldSite))
+        this._Router.navigate(['/sites/site-details']);
       }
     })
 
@@ -113,6 +121,7 @@ export class UpdateSiteComponent implements OnInit {
 
     let newBuildate=this.datepipe.transform(this.datepicker, 'yyyy-MM-dd')
     createdSite.build_date = newBuildate;
+    createdSite.site_id=this.site_id;
     console.log(createdSite);
 
     createdSite = JSON.stringify(createdSite);

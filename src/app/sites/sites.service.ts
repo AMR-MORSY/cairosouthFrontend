@@ -112,6 +112,9 @@ export class SitesService {
   }
   addNewSite(data:any):Observable<any>{
     return this._HttpClient.post("http://cairo-south.herokuapp.com/api/addsite",data);
+  };
+  updateSite(data:any):Observable<any>{
+    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/updatesite",data);
   }
 
   getAllSites(token:any):Observable<any>{

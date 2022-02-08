@@ -7,6 +7,7 @@ import { UpdateModificationComponent } from './update-modification/update-modifi
 import { ShowSiteModificationsComponent } from './show-site-modifications/show-site-modifications.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { AllModificationsComponent } from './all-modifications/all-modifications.component';
 
 
 
@@ -15,7 +16,8 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
   declarations: [
     CreateNewModificationComponent,
     UpdateModificationComponent,
-    ShowSiteModificationsComponent
+    ShowSiteModificationsComponent,
+    AllModificationsComponent
   ],
   imports: [
     CommonModule,

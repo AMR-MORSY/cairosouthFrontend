@@ -23,7 +23,7 @@ export class CreateNewSiteComponent implements OnInit {
 
 
   public createSiteForm = new FormGroup({
-    code: new FormControl(null),
+    site_code: new FormControl(null),
     site_name: new FormControl(null,),
     BSC_RNC: new FormControl(null,),
     office: new FormControl(null,),

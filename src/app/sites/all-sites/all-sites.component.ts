@@ -52,7 +52,7 @@ export class AllSitesComponent implements OnInit {
         x[i].style.color = "red";
       }
       else {
-      
+
          x[i].style.color = "black";
       }
     }
@@ -116,7 +116,7 @@ export class AllSitesComponent implements OnInit {
   }
 
   public goToCreateNew() {
-    this._Router.navigate(['sites/crete-new-site'])
+    this._Router.navigate(['sites/create-new-site'])
   }
 
   public pageChange(newpage: any) {
