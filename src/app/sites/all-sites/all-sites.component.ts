@@ -122,6 +122,13 @@ export class AllSitesComponent implements OnInit {
   public pageChange(newpage: any) {
     this.config.currentPage = newpage;
     this._sitesService.allSitesPagination(this.token, newpage).subscribe((response) => {
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+
+      }
+      else
+
       this.sites = response.data;
     })
 

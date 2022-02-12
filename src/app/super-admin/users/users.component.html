@@ -1,1 +1,54 @@
-<p>users works!</p>
+<section id="table-section">
+  <div class="container">
+
+    <div class="no-data-caption"  *ngIf="!isDataFound">
+      <p>No Data Found</p>
+    </div>
+
+
+    <div class="table-container table-responsive ">
+      <table *ngIf="isDataFound" class=" table table-warning table-hover table-bordered">
+        <thead>
+          <tr class=" table-danger align-middle text-center">
+
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Picture</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
+             (click)="sendUserId(user.id,$event) ">
+            <td class=" text-center align-middle">{{user.name}}</td>
+            <td  class=" text-center align-middle">{{user.email}}</td>
+            <td  class=" text-center align-middle">{{user.role}}</td>
+            <td  class=" text-center align-middle">{{user.picture}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="isDataFound " class="pagination-container" style="color: white; ">
+      <pagination-controls (pageChange)="pageChange($event) " class="pagination"></pagination-controls>
+    </div>
+
+
+
+  </div>
+</section>
+
+<section id="create-site">
+  <div class="container ">
+    <div class="create-btn-cont ">
+
+      <button class="btn update btn-primary" [disabled]="!isUserClicked" (click)="goToUpdateUser()">Update</button>
+      <button class="btn btn-danger " [disabled]="!isUserClicked" (click)="DeleteUser()">Delete</button>
+
+
+    </div>
+
+  </div>
+</section>
+

@@ -8,6 +8,7 @@ import { ShowSiteModificationsComponent } from './show-site-modifications/show-s
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { AllModificationsComponent } from './all-modifications/all-modifications.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -21,7 +22,7 @@ import { AllModificationsComponent } from './all-modifications/all-modifications
   ],
   imports: [
     CommonModule,
-    ModificationsRoutingModule,FormsModule,ReactiveFormsModule,BsDatepickerModule.forRoot(),ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    ModificationsRoutingModule,NgxPaginationModule,FormsModule,ReactiveFormsModule,BsDatepickerModule.forRoot(),ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
   providers: [DatePipe],
 })

@@ -39,6 +39,16 @@ export class ModificationsService {
     return this._HttpClient.post('https://cairo-south.herokuapp.com/api/siteModifications',data)
 
   };
+  getAllModifications(id:any, token:any):Observable<any>
+  {
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${id}/${token}`)
+
+  };
+  getAllModificationsPagination(id:any, token:any, new_page:any):Observable<any>
+  {
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${id}/${token}?page=${new_page}`)
+
+  };
 
   deleteSiteModifications(data:any):Observable<any>
   {

@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users/users.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SuperAdminRoutingModule } from './super-admin-routing.module';
 
 
 
@@ -9,7 +12,7 @@ import { UsersComponent } from './users/users.component';
     UsersComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,NgxPaginationModule,FormsModule,ReactiveFormsModule,SuperAdminRoutingModule
   ]
 })
 export class SuperAdminModule { }

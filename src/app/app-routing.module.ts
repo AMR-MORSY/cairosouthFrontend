@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'modifications',
     loadChildren: () => import('./modifications/modifications.module').then(m => m.ModificationsModule)
   },
+  {
+    path: 'super-admin',
+    loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule)
+  },
 
   {
     path:'**',component:NotFoundComponent

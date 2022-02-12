@@ -1,1 +1,63 @@
-<p>all-modifications works!</p>
+<section id="table-section">
+  <div class="container">
+
+    <div class="no-data-caption"  *ngIf="!isDataFound">
+      <p>No Data Found</p>
+    </div>
+
+
+    <div class="table-container table-responsive ">
+      <table *ngIf="isDataFound" class=" table table-warning table-hover table-bordered">
+        <thead>
+          <tr class=" table-danger align-middle text-center">
+            <th scope="col">Site Code</th>
+            <th scope="col">Site Name</th>
+            <th scope="col">Subcontractor</th>
+            <th scope="col">Requester</th>
+            <th scope="col">Action</th>
+            <th scope="col">Project </th>
+            <th scope="col">Status</th>
+            <th scope="col">Request Date</th>
+            <th scope="col">Finish Date</th>
+            <th scope="col">Materials</th>
+            <th scope="col">Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
+             (click)="sendSiteId(site.id) ">
+            <td class=" text-center align-middle">{{site.site_code}}</td>
+            <td  class=" text-center align-middle">{{site.site_name}}</td>
+            <td  class=" text-center align-middle">{{site.subcontractor}}</td>
+            <td  class=" text-center align-middle">{{site.requester}}</td>
+            <td  class=" text-center align-middle">{{site.action}}</td>
+            <td  class=" text-center align-middle">{{site.project}}</td>
+            <td  class=" text-center align-middle">{{site.status}}</td>
+            <td  class=" text-center align-middle">{{site.request_date}}</td>
+            <td  class=" text-center align-middle">{{site.finish_date}}</td>
+            <td  class=" text-center align-middle">{{site.materials}}</td>
+            <td  class=" text-center align-middle">{{site.cost}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="isDataFound " class="pagination-container" style="color: white; ">
+      <pagination-controls (pageChange)="pageChange($event) " class="pagination"></pagination-controls>
+    </div>
+
+
+
+  </div>
+</section>
+
+<section id="create-site">
+  <div class="container ">
+    <div class="create-btn-cont ">
+
+      <button class="btn btn-danger " (click)="goToCreateNew()">Create Modification</button>
+
+
+    </div>
+
+  </div>
+</section>
