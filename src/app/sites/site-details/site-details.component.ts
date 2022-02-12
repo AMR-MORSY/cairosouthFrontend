@@ -53,6 +53,11 @@ export class SiteDetailsComponent implements OnInit {
     }
   }
 
+  public goToShowSiteNur()
+  {
+    this._Router.navigate(['/nur/show-site-nur'])
+  }
+
   public closeNotification()
   {
     this.isNotificationShown=false;

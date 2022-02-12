@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import jwt_decode from "jwt-decode";
 import { DatePipe } from '@angular/common';
@@ -36,15 +36,15 @@ export class UpdateSiteComponent implements OnInit {
 
 
   public createSiteForm = new FormGroup({
-    site_code: new FormControl(null,),
-    site_name: new FormControl(null,),
-    BSC_RNC: new FormControl(null,),
-    office: new FormControl(null,),
-    site_type: new FormControl(null,),
-    site_category: new FormControl(null,),
-    build_date: new FormControl(null,),
-    severity: new FormControl(null,),
-    sharing: new FormControl(null,),
+    site_code: new FormControl(null,[Validators.required]),
+    site_name: new FormControl(null,[Validators.required]),
+    BSC_RNC: new FormControl(null,[Validators.required]),
+    office: new FormControl(null,[Validators.required]),
+    site_type: new FormControl(null,[Validators.required]),
+    site_category: new FormControl(null,[Validators.required]),
+    build_date: new FormControl(null,[Validators.required]),
+    severity: new FormControl(null,[Validators.required]),
+    sharing: new FormControl(null,[Validators.required]),
     host: new FormControl(''),
 
   })

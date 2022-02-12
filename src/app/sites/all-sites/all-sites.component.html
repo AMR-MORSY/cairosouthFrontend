@@ -1,48 +1,49 @@
-
 <section id="table-section">
-<div class="container">
+  <div class="container">
+
+    <div class="no-data-caption"  *ngIf="!isDataFound">
+      <p>No Data Found</p>
+    </div>
 
 
-  <p *ngIf="!isDataFound" style="color: white;margin-top: 8em;">No Data Found</p>
+    <div class="table-container table-responsive ">
+      <table *ngIf="isDataFound" class=" table table-warning table-hover table-bordered">
+        <thead>
+          <tr class=" table-danger align-middle text-center">
+            <th scope="col">Site Code</th>
+            <th scope="col">Site Name</th>
+            <th scope="col">BSC/RNC</th>
+            <th scope="col">Site Category</th>
+            <th scope="col">Office</th>
+            <th scope="col">Build date </th>
+            <th scope="col">Sharing</th>
+            <th scope="col">Host</th>
+            <th scope="col">Severity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
+            (mouseover)="shadeElement($event)" (click)=" sendSiteId(site.id) ">
+            <td class=" text-center align-middle">{{site.site_code}}</td>
+            <td  class=" text-center align-middle">{{site.site_name}}</td>
+            <td  class=" text-center align-middle">{{site.BSC_RNC}}</td>
+            <td  class=" text-center align-middle">{{site.site_category}}</td>
+            <td  class=" text-center align-middle">{{site.office}}</td>
+            <td  class=" text-center align-middle">{{site.build_date}}</td>
+            <td  class=" text-center align-middle">{{site.sharing}}</td>
+            <td  class=" text-center align-middle">{{site.host}}</td>
+            <td  class=" text-center align-middle">{{site.severity}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="isDataFound " class="pagination-container" style="color: white; ">
+      <pagination-controls (pageChange)="pageChange($event) " class="pagination"></pagination-controls>
+    </div>
 
-  <div class="table-container">
-    <table *ngIf="isDataFound">
-      <thead>
-        <tr>
-          <td>Site Code</td>
-          <td>Site Name</td>
-          <td>BSC/RNC</td>
-          <td>Site Category</td>
-          <td>Office</td>
-          <td>Build date </td>
-          <td>Sharing</td>
-          <td>Host</td>
-          <td>Severity</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
-          (mouseover)="shadeElement($event)" (click)=" sendSiteId(site.id) ">
-          <td>{{site.site_code}}</td>
-          <td>{{site.site_name}}</td>
-          <td>{{site.BSC_RNC}}</td>
-          <td>{{site.site_category}}</td>
-          <td>{{site.office}}</td>
-          <td>{{site.build_date}}</td>
-          <td>{{site.sharing}}</td>
-          <td>{{site.host}}</td>
-          <td>{{site.severity}}</td>
-        </tr>
-      </tbody>
-    </table>
+
+
   </div>
-  <div *ngIf="isDataFound " style="color: white; ">
-    <pagination-controls (pageChange)="pageChange($event) "></pagination-controls>
-  </div>
-
-
-
-</div>
 </section>
 
 <section id="create-site">

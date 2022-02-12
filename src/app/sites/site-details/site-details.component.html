@@ -1,167 +1,178 @@
 <section id="site_data">
-    <div class="container">
-        <div class="row">
+  <div class="container">
+    <div class="all-data">
+      <div class="row">
+
+
+
+        <div class="col-12 col-sm-12 col-md-6 mb-5">
+          <div class="row">
+            <div class="col-4 ">
+              <label for="site-code">Site-Code</label>
+              <input type="text" class="form-control" id="site-code" [value]="site.site_code">
+            </div>
+            <div class="col-5 ">
+              <label for="site-name">Site-Name</label>
+              <input type="text" class="form-control" id="site-name" [value]="site.site_name">
+            </div>
+            <div class="col-3 ">
+              <button class="btn btn-dark mt-4 " (click)="goToUpdateSite()">Update</button>
+
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-4 ">
+              <label for="type">Site-Type</label>
+              <input type="text" class="form-control" id="type" [value]="site.site_type">
+
+            </div>
+            <div class="col-5 ">
+              <label for="BSC">BSC/RNC</label>
+              <input type="text" class="form-control" id="BSC" [value]="site.BSC_RNC">
+
+            </div>
+
 
             <div class="col-3">
-                <div class="cascade-on">
-                    <h3>Cascaded On:</h3>
-                    <div class="nodal-container">
-                        <p *ngIf="!isNodalFound">Not Cascaded Yet</p>
-                        <div class="table-container">
-                            <table *ngIf="isNodalFound">
-                                <thead>
-                                    <tr>
-                                        <td>Site Code</td>
-                                        <td>Site Name</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{nodal.nodal_code}}</td>
-                                        <td>{{nodal.nodal_name}}</td>
-
-                                    </tr>
-
-
-
-
-                                </tbody>
-                            </table>
-                        </div>
-
-
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-3">
-                        <label for="site-code">Site-Code</label>
-                        <input type="text" class="form-control" id="site-code" [value]="site.site_code">
-                    </div>
-                    <div class="col-5">
-                        <label for="site-name">Site-Name</label>
-                        <input type="text" class="form-control" id="site-name" [value]="site.site_name">
-                    </div>
-                    <div class="col-4 pt-2">
-                    </div>
-                    <div class="col-3">
-                        <label for="type">Site-Type</label>
-                        <input type="text" class="form-control" id="type" [value]="site.site_type">
-
-
-                    </div>
-                    <div class="col-5">
-                        <label for="BSC">BSC/RNC</label>
-                        <input type="text" class="form-control" id="BSC" [value]="site.BSC_RNC">
-
-                    </div>
-                    <div class="col-4 pt-2">
-                        <button class="btn btn-dark mt-4 " (click)="goToUpdateSite()">Update Site</button>
-
-                    </div>
-                    <div class="col-3">
-                        <label for="category">Site-Category</label>
-                        <input type="text" class="form-control" id="category" [value]="site.site_category">
-                    </div>
-                    <div class="col-5">
-                        <label for="severity">Site-Severity</label>
-                        <input type="text" class="form-control" id="severity" [value]="site.severity">
-                    </div>
-                    <div class="col-4 ">
-                        <button class="btn btn-danger mt-4 " (click)="deleteSite()">Delete Site</button>
-                    </div>
-                    <div class="col-3">
-                        <label for="office">Office</label>
-                        <input type="text" class="form-control" id="office" [value]="site.office">
-                    </div>
-                    <div class="col-5">
-                        <label for="build-date">Build-Date</label>
-                        <input type="text" class="form-control" id="build-date" [value]="site.build_date">
-                    </div>
-                    <div class="col-4 pt-2">
-
-
-                    </div>
-                    <div class="col-3">
-                        <label for="sharing">Sharing</label>
-                        <input type="text" class="form-control" id="sharing" [value]="site.sharing">
-                    </div>
-                    <div class="col-5">
-                        <label for="host">Host</label>
-                        <input type="text" class="form-control" id="host" [value]="site.host">
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-secondary" (click)="goToSiteModifications()">Modificatios</button>
-
-                    </div>
-
-                </div>
+              <button class="btn btn-danger mt-4 " (click)="deleteSite()">Delete</button>
             </div>
 
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="direct-cascades">
-                            <h3>Direct Cascades:
-                                <span *ngIf="isCascadesFound">{{cascadesCount}}</span>
-                            </h3>
-                            <div class="cascades-container">
-                                <p *ngIf="!isCascadesFound">No Cascades</p>
-                                <div class="table-container">
-                                    <table *ngIf="isCascadesFound">
-                                        <thead>
-                                            <tr>
-                                                <td>Site Code</td>
-                                                <td>Site Name</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let nodal of nodals; let i=index " style="background-color: black;" (click)="goToSiteDetailsFromNodals(nodal.cascade_id)">
-                                                <td *ngIf="isNodalsFound ">{{nodal.cascade_code}}</td>
-                                                <td *ngIf="isNodalsFound ">{{nodal.cascade_name}}</td>
-                                                <td *ngIf="isNodalsFound ">{{nodal.count_cascades}}</td>
-                                            </tr>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <label for="severity">Site-Severity</label>
+              <input type="text" class="form-control" id="severity" [value]="site.severity">
+            </div>
+            <div class="col-5">
+              <label for="category">Site-Category</label>
+              <input type="text" class="form-control" id="category" [value]="site.site_category">
+            </div>
 
-                                            <tr *ngFor="let site of cascades; let i=index " (click)="goToSiteDetailsFromNodals(site.cascade_id)">
-                                                <td>{{site.cascade_code}}</td>
-                                                <td>{{site.cascade_name}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
-                    <div class="col-12 ">
-                        <button type="button " (click)="goToUpdateCascades() " class="btn btn-primary mt-4 ">
+            <div class="col-3">
+              <button class="btn btn-danger mt-4 " (click)="goToShowSiteNur()">NUR</button>
+
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <label for="sharing">Sharing</label>
+              <input type="text" class="form-control" id="sharing" [value]="site.sharing">
+            </div>
+            <div class="col-5">
+              <label for="host">Host</label>
+              <input type="text" class="form-control" id="host" [value]="site.host">
+            </div>
+            <div class="col-3">
+
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <label for="office">Office</label>
+              <input type="text" class="form-control" id="office" [value]="site.office">
+            </div>
+            <div class="col-5">
+              <label for="build-date">Build-Date</label>
+              <input type="text" class="form-control" id="build-date" [value]="site.build_date">
+            </div>
+            <div class="col-3 ">
+              <button class="btn btn-secondary mt-4" (click)="goToSiteModifications()">Modificatios</button>
+
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-2 mb-5">
+          <div class="cascade-on">
+            <h3>Cascaded On:</h3>
+            <div class="nodal-container">
+              <p *ngIf="!isNodalFound">Not Cascaded Yet</p>
+              <div class="table-container" *ngIf="isNodalFound">
+
+                <label for="site-code">Site code</label>
+                <input type="text"  class="form-control" id="site-code" [(ngModel)]="nodal.nodal_code">
+                <label for="site-name">Site name</label>
+                <input type="text"  class="form-control" id="site-name" [(ngModel)]="nodal.nodal_name">
+
+
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <div class="row">
+            <div class="col-12">
+              <div class="direct-cascades">
+                <h3>Direct Cascades:
+                  <span *ngIf="isCascadesFound">{{cascadesCount}}</span>
+                </h3>
+                <div class="cascades-container">
+                  <p *ngIf="!isCascadesFound">No Cascades</p>
+                  <div class="table-container table-responsive" *ngIf="isCascadesFound">
+                    <table class=" table table-hover table-bordered">
+                      <thead>
+                        <tr class="text-center align-middle">
+                          <th scope="col">Site Code</th>
+                          <th scope="col">Site Name</th>
+                          <th scope="col">Cascades</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let nodal of nodals; let i=index " style="background-color: black;color: white;"
+                          (click)="goToSiteDetailsFromNodals(nodal.cascade_id)">
+                          <td *ngIf="isNodalsFound " class="text-center align-middle">{{nodal.cascade_code}}</td>
+                          <td *ngIf="isNodalsFound " class="text-center align-middle">{{nodal.cascade_name}}</td>
+                          <td *ngIf="isNodalsFound " class="text-center align-middle">{{nodal.count_cascades}}</td>
+                        </tr>
+
+                        <tr *ngFor="let site of cascades; let i=index "
+                          (click)="goToSiteDetailsFromNodals(site.cascade_id)">
+                          <td class="text-center align-middle">{{site.cascade_code}}</td>
+                          <td class="text-center align-middle">{{site.cascade_name}}</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-12 d-flex justify-content-center align-items-center ">
+              <button type="button " (click)="goToUpdateCascades() " class="btn d-block btn-primary mt-4 mb-4 ">
                 Update Cascades
               </button>
 
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -169,7 +180,14 @@
 
         </div>
 
+
+
+
+
+      </div>
     </div>
+
+  </div>
 
 
 
@@ -180,11 +198,11 @@
 </section>
 
 
-<section id='notification'[hidden]='!isNotificationShown'>
+<section id='notification' [hidden]='!isNotificationShown'>
   <div class="container">
-    <div class="notification-body" >
+    <div class="notification-body">
       <div class="notification-content">
-        <div class="close" (click)="closeNotification()"><i class="fas fa-times" ></i></div>
+        <div class="close" (click)="closeNotification()"><i class="fas fa-times"></i></div>
         <div class="notification-title">
           <h3>Delete Site</h3>
         </div>

@@ -1,0 +1,150 @@
+<section id='new-site'>
+  <div class="container">
+    <div class="row">
+      <div class="col-3 mt-2">
+        <label for="site-code">Site-Code</label>
+        <input type="text" class="form-control" [(ngModel)]="site_code"  id="site-code">
+      </div>
+      <div class="col-5 mt-2">
+        <label for="site-name">Site-Name</label>
+        <input type="text" class="form-control" [(ngModel)]="site_name" id="site-name">
+      </div>
+      <div class="col-4 pt-2 mt-2">
+      </div>
+
+    </div>
+
+    <form [formGroup]="createNurForm" (ngSubmit)="submitCreateNurForm(createNurForm)">
+      <div class="row">
+
+        <div class="col-3 mt-2">
+          <label for="type">System</label>
+          <select formControlName="system" id="type" class="form-control d-block">
+            <option value=""></option>
+            <option value="Environmental">Environmental</option>
+            <option value="Transmission">Transmission</option>
+            <option value="BSS">BSS</option>
+            <option value="N/A">N/A</option>
+            <option value="Production">Production</option>
+          </select>
+        </div>
+        <div class="col-5 mt-2">
+          <label for="BSC">Subsystem</label>
+          <select id="BSC" formControlName="sub_system" class=" d-block form-control">
+            <option value=""></option>
+            <option value="Main Power">Main Power</option>
+            <option value="Rectifier">Rectifier</option>
+            <option value="Generator">Generator</option>
+            <option value="High Temperature">High Temperature</option>
+            <option value="Others">Others</option>
+            <option value="Modification">Modification</option>
+            <option value="N/A">N/A</option>
+            <option value="Cable Wiring">Cable Wiring</option>
+            <option value="BTS">BTS</option>
+            <option value="MW PDH E">MW PDH E</option>
+            <option value="Antenna">Antenna</option>
+            <option value="LOS">LOS</option>
+            <option value="Repair">Repair</option>
+            <option value="Router">Router</option>
+
+          </select>
+
+
+        </div>
+        <div class="col-4 pt-2 mt-2">
+
+        </div>
+        <div class="col-3 mt-2">
+          <label for="category">Access-Problem</label>
+          <select formControlName="access_problem" id="category" class="form-control d-block" >
+
+            <option value="True">True</option>
+            <option value="False">False</option>
+
+          </select>
+        </div>
+        <div class="col-5 mt-2">
+          <label for="severity">Begin</label>
+          <input type="datetime" formControlName="begin" id="severity" class=" d-block form-control">
+
+
+
+        </div>
+        <div class="col-4 mt-2 ">
+
+        </div>
+        <div class="col-3">
+          <label for="office">Week</label>
+          <input type="number" formControlName="week" min="1" max="52" class="form-control">
+
+
+        </div>
+        <div class="col-5 mt-2">
+          <label for="build-date">End</label>
+          <input type="datetime"  formControlName="end" placement="top"
+            class="form-control" id="build-date">
+
+        </div>
+        <div class="col-4 pt-2 mt-2">
+          <label for="host">Type</label>
+          <select formControlName="type" class="form-control d-block" id="host">
+            <option value='Involuntary'>Involuntary</option>
+            <option value="voluntary">voluntary</option>
+
+          </select>
+
+        </div>
+        <div class="col-3 mt-2">
+          <label for="sharing">Technology</label>
+          <select formControlName="technology" id="sharing" class="form-control d-block">
+            <option value="2G" selected> 2G</option>
+            <option value="3G"> 3G </option>
+            <option value="4G"> 4G </option>
+          </select>
+        </div>
+        <div class="col-5 mt-2">
+          <label for="solution">Solution</label>
+
+          <textarea formControlName="solution" class=" form-control d-block" id="solution" cols="40" rows="3"></textarea>
+
+
+        </div>
+        <div class="col-4">
+          <label for="office">Cells</label>
+          <input type="number" formControlName="cells" min="1" max="52" class="form-control d-block">
+
+        </div>
+      </div>
+
+      <button class="btn btn-danger mt-3" type="submit" [disabled]='createNurForm.status=="INVALID"'>Add NUR</button>
+    </form>
+
+  </div>
+
+</section>
+<!--
+<section id='notification'[hidden]='isSiteNotInserted'>
+  <div class="container">
+    <div class="notification-body" >
+      <div class="notification-content">
+        <div class="close" (click)="closeNotification()"><i class="fas fa-times" ></i></div>
+        <div class="notification-title">
+          <h3>Add Cascades</h3>
+        </div>
+
+        <div class="notification-caption">
+          <p>Do you want to add Cascades for this new site?</p>
+        </div>
+        <div class="notification-footer">
+          <button class="btn btn-danger"(click)="closeNotification()">No</button>
+          <button class=" btn btn-primary" (click)="goToUpdateCascades()">Yes</button>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section> -->

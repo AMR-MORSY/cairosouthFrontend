@@ -1,43 +1,56 @@
+
+
 <section id="login">
-    <div class="container">
 
-        <div class="form-body">
-            <div class="row">
-                <div class="form-holder">
-                    <div class="form-content">
-                        <div class="form-items">
-                            <h3>Sign in</h3>
-                            <p>Fill in the data below.</p>
-                            <form [formGroup]="loginForm" (ngSubmit)="submitLogin(loginForm)" class="requires-validation" novalidate>
+  <div class="container">
+    <div class="form-holder">
+      <div class="header">
+        <h3>Sign in</h3>
+        <p>Fill in the data below.</p>
 
+      </div>
 
-                                <div class="col-md-12">
-                                    <input class="form-control" type="email" formControlName='email' (keyup)="disableEmailNotfication()" placeholder="E-mail Address" required>
-                                    <div class="valid-feedback" *ngIf="loginForm.get('email')?.errors!=null && loginForm.get('email')?.errors?.email">Email field is invalid!
-                                    </div>
-                                    <div class="invalid-feedback" *ngIf="loginForm.get('email')?.errors!=null && loginForm.get('email')?.errors?.required &&  loginForm.get('email')?.touched">
-                                        Email field cannot be blank!</div>
+      <div class="form-items">
+        <form [formGroup]="loginForm" (ngSubmit)="submitLogin(loginForm)" class="requires-validation" novalidate>
 
-                                </div>
-
-                                <div class="col-md-12">
-                                    <input class="form-control" type="password" formControlName='password' (keyup)="disablePassNotfication()" placeholder="Password" required>
-                                    <div class="valid-feedback" *ngIf="loginForm.get('password')?.errors!=null && loginForm.get('password')?.errors?.pattern">Password field is invalid!</div>
-                                    <div class="invalid-feedback" *ngIf="loginForm.get('password')?.errors!=null &&
-                         loginForm.get('password')?.errors?.required">Password field cannot be blank!</div>
-                                </div>
-                                <div class=" alert-danger text-center font-weight-bolder alert  " *ngIf="isError">{{error}}
-                                </div>
-
-                                <div class="form-button mt-3">
-                                    <button id="submit" type="submit" [disabled]='loginForm.status=="INVALID"' class="btn btn-primary">Login</button>
-                                    <p><a routerLink="password-reset-request">Forgot Password?</a></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+          <div class="form-group">
+           
+            <input class="form-control" type="email" formControlName='email' (keyup)="disableEmailNotfication()"
+              placeholder="E-mail Address" id="email" required>
+            <div class="valid-feedback"
+              *ngIf="loginForm.get('email')?.errors!=null && loginForm.get('email')?.errors?.email">Email field is
+              invalid!
             </div>
-        </div>
+            <div class="invalid-feedback"
+              *ngIf="loginForm.get('email')?.errors!=null && loginForm.get('email')?.errors?.required &&  loginForm.get('email')?.touched">
+              Email field cannot be blank!</div>
+
+          </div>
+
+          <div class="form-group">
+
+            <input class="form-control" type="password" formControlName='password'
+              (keyup)="disablePassNotfication()" id="password" placeholder="Password" required>
+            <div class="valid-feedback"
+              *ngIf="loginForm.get('password')?.errors!=null && loginForm.get('password')?.errors?.pattern">
+              Password field is invalid!</div>
+            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.errors!=null &&
+                   loginForm.get('password')?.errors?.required">Password field cannot be blank!</div>
+          </div>
+          <div class=" alert-danger text-center font-weight-bolder alert  " *ngIf="isError">{{error}}
+          </div>
+          <div class="form-button mt-3">
+            <button id="submit" type="submit" [disabled]='loginForm.status=="INVALID"'
+              class="btn ">Login</button>
+            <p><a routerLink="password-reset-request">Forgot Password?</a></p>
+          </div>
+        </form>
+
+      </div>
     </div>
+
+
+  </div>
+
+
 </section>

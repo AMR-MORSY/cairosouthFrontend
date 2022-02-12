@@ -1,35 +1,40 @@
-// * {
-// margin: 0;
-// padding: 0;
-// }
+
 @import "../../../scss/variables";
 #site_data {
     color: white;
-    margin-top: 5em;
+    margin-top: 12em;
     .container {
         margin: auto;
-    }
-}
+        .all-data{
+          width: 90%;
+          margin: auto;
+          .direct-cascades,
+          .cascade-on {
+              h3 {
+                  color: #ff6600;
+                  font-size: 1.5rem;
+              }
+              .cascades-container
+             {
 
-#site_data {
-    .direct-cascades,
-    .cascade-on {
-        h3 {
-            color: #ff6600;
-            font-size: 1.5rem;
-        }
-        .cascades-container,
-        .nodal-container {
-            height: 300px;
-            background-color: burlywood;
-            .table-container {
-                tbody {
-                    tr {
-                        cursor: pointer;
+                  // background-color: burlywood;
+                  .table-container {
+                    .table{
+                      background-color: burlywood;
+                      tbody {
+                        tr {
+                            cursor: pointer;
+                        }
                     }
-                }
-            }
+
+                    }
+
+                  }
+              }
+          }
+
         }
+
     }
 }
 
@@ -89,4 +94,52 @@
       }
     }
   }
+}
+
+
+
+@media screen and (max-width: 575px) {
+  #site_data {
+    margin-top: 8em;
+
+    .container {
+
+        .all-data{
+          width: 80%;
+          margin: auto;
+
+
+
+        }
+
+    }
+  }
+
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  #site_data {
+    margin-top: 8em;
+
+    .container {
+
+        .all-data{
+          width: 80%;
+          margin: auto;
+
+
+
+        }
+
+    }
+  }
+
+}
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+@media (min-width: 1200px) and (max-width: 1500px) /* extra large windows*/ {
 }
