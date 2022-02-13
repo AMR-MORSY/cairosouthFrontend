@@ -1,54 +1,43 @@
 <nav class="navbar  mb-5 navbar-expand-lg ">
     <a class="navbar-brand font-weight-bolder" routerLink='home'>CairoSouth</a>
+    <div class=" form-group">
+        <form [formGroup]="searchForm" class="form-inline   ml-5" (ngSubmit)="SubmitSearchForm(searchForm)">
+            <input class=" mr-sm-2 search form-control" [hidden]="!isLogin" type="text" placeholder="Search sites" formControlName="search" aria-label="Search">
+            <button type="submit" class="form-control searchBtn " [hidden]="!isLogin">Search </button>
+        </form>
+    </div>
 
     <button class="ofcan-btn btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
     <i class="fa fa-bars"></i>
   </button>
-
-
     <div class="collapse flex-grow-0   navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" Active routerLink='home'>Home </a>
             </li>
 
+            <li class="nav-item">
+                <div [hidden]="!isLogin" class="image_container">
+                    <img class="w-100 h-100" [src]='image_url'>
+                </div>
 
-        </ul>
-
-        <div class=" form-group">
-            <form [formGroup]="searchForm" class="form-inline   ml-5" (ngSubmit)="SubmitSearchForm(searchForm)">
-                <input class=" mr-sm-2 search form-control" [hidden]="!isLogin" type="text" placeholder="Search sites" formControlName="search" aria-label="Search">
-                <button type="submit" class="form-control searchBtn " [hidden]="!isLogin">Search </button>
-            </form>
-        </div>
+            </li>
 
 
-
-        <div [hidden]="!isLogin" class="image_container">
-
-            <img class="w-100 h-100" [src]='image_url'>
-
-        </div>
-
-        <ul class="navbar-nav">
-            <li>
+            <li class="nav-item">
                 <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
             </li>
             <li class="nav-item">
-
                 <div class="dropdown">
                     <a class="btn btn-secondary dropdown-toggle" *ngIf="isLogin" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Admin
-          </a>
-
+              Admin
+            </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
                         <li><a class="dropdown-item" routerLink='sites/allSites'>Sites</a></li>
                         <li><a class="dropdown-item" *ngIf="isSuperAdmin" routerLink='modifications/all-modifications'>Modifications</a></li>
                         <li> <a class="dropdown-item" *ngIf="isSuperAdmin" routerLink='super-admin/users'>Users</a></li>
                     </ul>
                 </div>
-
             </li>
             <li class="nav-item">
                 <a class="nav-link" *ngIf="isLogin" routerLink='profile'>Profile</a>
@@ -62,11 +51,19 @@
             <li class="nav-item">
                 <a class="nav-link" *ngIf="!isLogin" routerLink='auth/register'>Register</a>
             </li>
-
         </ul>
+
+
 
     </div>
 </nav>
+
+
+
+
+
+
+
 
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -84,36 +81,43 @@
                     <a class="nav-link" Active routerLink='home'>Home </a>
                 </li>
 
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" *ngIf="isAdmin" aria-expanded="false" class="dropdown-toggle">Admin</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a *ngIf="isSuperAdmin">Users</a>
-                        </li>
-                        <li>
-                            <a routerLink='sites/allSites'>Sites</a>
-                        </li>
+                <li class=" nav-item">
 
-                    </ul>
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" *ngIf="isLogin" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Admin </a>
+
+                        <ul class=" dropdown-menu " aria-labelledby="dropdownMenuLink ">
+
+                            <li><a class="dropdown-item " routerLink='sites/allSites'>Sites</a></li>
+                            <li><a class="dropdown-item " *ngIf="isSuperAdmin " routerLink='modifications/all-modifications'>Modifications</a></li>
+                            <li> <a class="dropdown-item " *ngIf="isSuperAdmin " routerLink='super-admin/users'>Users</a></li>
+                        </ul>
+                    </div>
+
+
+
                 </li>
 
 
                 <li>
-                    <a *ngIf="isLogin" routerLink='profile'>Profile</a>
+                    <a *ngIf="isLogin " routerLink='profile'>Profile</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="# ">Contact</a>
                 </li>
             </ul>
-            <ul class="list-unstyled component">
+
+
+
+            <ul class="list-unstyled component ">
                 <li>
-                    <a *ngIf="!isLogin" routerLink='auth/login'>Login</a>
+                    <a *ngIf="!isLogin " routerLink='auth/login'>Login</a>
                 </li>
                 <li>
-                    <a *ngIf="isLogin" routerLink='auth/logout'>Logout</a>
+                    <a *ngIf="isLogin " routerLink='auth/logout'>Logout</a>
                 </li>
                 <li>
-                    <a *ngIf="!isLogin" routerLink='auth/register'>Register</a>
+                    <a *ngIf="!isLogin " routerLink='auth/register'>Register</a>
                 </li>
             </ul>
 

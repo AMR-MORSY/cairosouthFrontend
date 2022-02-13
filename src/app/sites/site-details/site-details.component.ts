@@ -198,11 +198,12 @@ export class SiteDetailsComponent implements OnInit {
       function updateCascades(nodals: any, cascades: any) {
         for (var i = 0; i < nodals.length; i++) {
           for (var j = 0; j < cascades.length; j++) {
-            if (nodals[i].cascade_code === cascades[j].cascade_code)
-              cascades.splice(cascades[j], 1)
+            if (nodals[i].cascade_code == cascades[j].cascade_code)
+              cascades.splice(j, 1)
           }
 
         }
+        console.log(cascades)
         return cascades;
 
 
@@ -216,28 +217,19 @@ export class SiteDetailsComponent implements OnInit {
       else if (response.message == "success") {
 
         this.isCascadesFound = true;
-        this.cascades = response.cascades;
+        let cascades:any = response.cascades;
         this.cascadesCount = response.count_cascades;
-        this.nodals = response.nodals
-        this._siteService.nodals.next(this.nodals)
-        localStorage.setItem('nodals', JSON.stringify(this.nodals));
-        this._siteService.cascades.next(this.cascades);
-        localStorage.setItem('cascades', JSON.stringify(this.cascades));
+        let nodals:any = response.nodals
 
-
-
-        if (this.nodals.length == 0) {
+        if (nodals.length == 0) {
           this.isNodalsFound = false
+          this.cascades=cascades;
         }
         else {
-          this.cascades = updateCascades(this.nodals, this.cascades);
-          this._siteService.cascades.next(this.cascades);
-          localStorage.setItem('cascades', JSON.stringify(this.cascades));
-
-
-
-
-
+          this.cascades = updateCascades(nodals, cascades);
+          this.nodals=nodals;
+           console.log(this.cascades);
+           console.log(this.nodals);
           this.isNodalsFound = true;
 
         }
