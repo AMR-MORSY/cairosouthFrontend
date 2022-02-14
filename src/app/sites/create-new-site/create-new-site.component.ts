@@ -83,9 +83,9 @@ export class CreateNewSiteComponent implements OnInit {
       "id": id
     }
 
-    let newData=JSON.stringify(data)
+    
 
-    this._SitesServices.addNewSite(newData).subscribe((response: any) => {
+    this._SitesServices.addNewSite(data).subscribe((response: any) => {
       console.log(response);
       if (response.message == 'failed') {
         let errors = response.errors;

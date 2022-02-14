@@ -14,7 +14,7 @@ export class SitesService {
   public nodals=new BehaviorSubject(null);
 
   public headers= new HttpHeaders()
-  .set('content-type', 'application/json')
+  .set('Content-Type', 'application/json')
   .set('Access-Control-Allow-Origin', '*');
  
   constructor(private _HttpClient: HttpClient) {
