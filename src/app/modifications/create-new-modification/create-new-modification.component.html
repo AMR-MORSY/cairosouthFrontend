@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-4 mt-2">
           <label for="status">Status</label>
           <select formControlName="status" id="office" class=" form-control d-block">
             <option value="in progress">in progress</option>
@@ -86,7 +86,7 @@
             [(bsValue)]="requestdatepicker" class="form-control" id="request_date">
 
         </div>
-        <div class="col-6  col-md-4 pt-2 mt-2">
+        <div class="col-6  col-md-4  mt-2">
           <label for="finish_date">Finish Date</label>
           <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="finish_date" placement="top"
             [(bsValue)]="finishdatepicker" class="form-control" id="finish_date">

@@ -22,19 +22,19 @@
         </div>
 
 
-        <div class="table-container">
-            <table *ngIf="isModificationFound">
+        <div class="table-container table-responsive ">
+            <table *ngIf="isModificationFound" class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <td>Subcontractor</td>
-                        <td>Requester</td>
-                        <td>Action</td>
-                        <td>Project</td>
-                        <td>status </td>
-                        <td>Request date</td>
-                        <td>Finish date</td>
-                        <td>Materials</td>
-                        <td>Cost</td>
+                        <th>Subcontractor</th>
+                        <th>Requester</th>
+                        <th>Action</th>
+                        <th>Project</th>
+                        <th>status </th>
+                        <th>Request hate</th>
+                        <th>Finish hate</th>
+                        <th>Materials</th>
+                        <th>Cost</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +58,7 @@
             <button class="btn btn-danger" [disabled]="!isModificationClicked" (click)="showNotification()"> Delete</button>
             <button class="btn btn-primary" [disabled]="!isModificationClicked"(click)="goToUpdateModification()"> Update</button>
         </div>
-     
+
 
 
 

@@ -1,36 +1,40 @@
+
+#search-table{
+  margin-top: 200px;
+
+
 .container {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+  margin: auto;
 
 .table-container {
-    margin-top: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    table {
-        margin-bottom: 2em;
-        thead {
-            background-color: burlywood;
-            tr {
-                td {
-                    text-align: center;
-                }
-            }
-        }
-        tbody {
-            tr {
-                background-color: cornsilk;
-                border-bottom: 2px solid black;
-                cursor: pointer;
-                td {
-                    padding: 0 2em;
-                }
+
+
+table {
+    margin-bottom: 2em;
+    thead {
+        background-color: burlywood;
+        tr {
+            th {
+                text-align: center;
             }
         }
     }
+    tbody {
+        tr {
+            background-color: cornsilk;
+            border-bottom: 2px solid black;
+            cursor: pointer;
+            td{
+              padding: .2rem;
+              text-align: center;
+            }
+
+        }
+    }
+}
+}
+}
+
+
+
 }

@@ -14,6 +14,7 @@ import { SitesService } from '../sites/sites.service';
 export class NavbarComponent implements OnInit {
 
   public isLogin: boolean = false;
+
   public isSuperAdmin:boolean=false;
 
   public userName: any;
@@ -54,6 +55,7 @@ export class NavbarComponent implements OnInit {
     this.userName = decodedToken.name;
 
     let role: any = decodedToken.role;
+
     if ( role == "super admin") {
       this.isAdmin = true;
       this.isSuperAdmin=true;
@@ -61,10 +63,11 @@ export class NavbarComponent implements OnInit {
 
     }
     else if(role=='admin') {
-      this.isSuperAdmin = false;
+
       this.isAdmin=true;
 
     }
+
     else{
       this.isAdmin=false;
       this.isSuperAdmin=false;
