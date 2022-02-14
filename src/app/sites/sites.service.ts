@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -13,7 +13,10 @@ export class SitesService {
   public cascades=new BehaviorSubject(null)
   public nodals=new BehaviorSubject(null);
 
-
+  public headers= new HttpHeaders()
+  .set('content-type', 'application/json')
+  .set('Access-Control-Allow-Origin', '*');
+ 
   constructor(private _HttpClient: HttpClient) {
 
     this.getSearchStr();
@@ -101,7 +104,7 @@ export class SitesService {
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/nodal/${data.site_id}/${data.token}`);
   }
   updateCascades(data:any):Observable<any>{
-    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/updateCascades",data);
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/updateCascades",data);
   }
 
   deleteCascades(data:any):Observable<any>{
@@ -111,7 +114,7 @@ export class SitesService {
     return this._HttpClient.post("https://cairo-south.herokuapp.com/api/deletesite",data);
   }
   addNewSite(data:any):Observable<any>{
-    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/addsite",data);
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/addsite",data,{headers:this.headers});
   };
   updateSite(data:any):Observable<any>{
     return this._HttpClient.post("https://cairo-south.herokuapp.com/api/updatesite",data);
