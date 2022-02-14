@@ -7,87 +7,103 @@
 
         <div class="col-12 col-sm-12 col-md-6 mb-5">
           <div class="row">
-            <div class="col-4 ">
+            <div class="col-6">
               <label for="site-code">Site-Code</label>
               <input type="text" class="form-control" id="site-code" [value]="site.site_code">
             </div>
-            <div class="col-5 ">
+            <div class="col-6">
               <label for="site-name">Site-Name</label>
               <input type="text" class="form-control" id="site-name" [value]="site.site_name">
             </div>
-            <div class="col-3 ">
-              <button class="btn btn-dark mt-4 " (click)="goToUpdateSite()">Update</button>
 
-            </div>
 
 
           </div>
           <div class="row">
-            <div class="col-4 ">
+            <div class="col-6 ">
               <label for="type">Site-Type</label>
               <input type="text" class="form-control" id="type" [value]="site.site_type">
 
             </div>
-            <div class="col-5 ">
+            <div class="col-6 ">
               <label for="BSC">BSC/RNC</label>
               <input type="text" class="form-control" id="BSC" [value]="site.BSC_RNC">
 
             </div>
 
 
-            <div class="col-3">
-              <button class="btn btn-danger mt-4 " (click)="deleteSite()">Delete</button>
-            </div>
+
+
 
           </div>
           <div class="row">
-            <div class="col-4">
+            <div class="col-6">
               <label for="severity">Site-Severity</label>
               <input type="text" class="form-control" id="severity" [value]="site.severity">
             </div>
-            <div class="col-5">
+            <div class="col-6">
               <label for="category">Site-Category</label>
               <input type="text" class="form-control" id="category" [value]="site.site_category">
             </div>
 
 
-            <div class="col-3">
-              <button class="btn btn-danger mt-4 " (click)="goToShowSiteNur()">NUR</button>
-
-            </div>
 
 
           </div>
           <div class="row">
-            <div class="col-4">
+            <div class="col-6">
               <label for="sharing">Sharing</label>
               <input type="text" class="form-control" id="sharing" [value]="site.sharing">
             </div>
-            <div class="col-5">
+            <div class="col-6">
               <label for="host">Host</label>
               <input type="text" class="form-control" id="host" [value]="site.host">
             </div>
-            <div class="col-3">
 
-            </div>
 
           </div>
 
           <div class="row">
-            <div class="col-4">
+            <div class="col-6">
               <label for="office">Office</label>
               <input type="text" class="form-control" id="office" [value]="site.office">
             </div>
-            <div class="col-5">
+            <div class="col-6">
               <label for="build-date">Build-Date</label>
               <input type="text" class="form-control" id="build-date" [value]="site.build_date">
             </div>
-            <div class="col-3 ">
-              <button class="btn btn-secondary mt-4" (click)="goToSiteModifications()">Modificatios</button>
+
+
+
+          </div>
+
+          <div class="row">
+            <div class="col-6 col-md-3">
+
+                <button class="btn btn-dark mt-4 " (click)="goToUpdateSite()">Update</button>
+
+
 
             </div>
+            <div class="col-6 col-md-3">
+              <button class="btn btn-danger mt-4 " (click)="deleteSite()">Delete</button>
 
 
+            </div>
+            <div class="col-6 col-md-3">
+
+                <button class="btn btn-danger mt-4 " (click)="goToShowSiteNur()">NUR</button>
+
+
+
+            </div>
+            <div class="col-6 col-md-3">
+
+                <button class="btn btn-secondary mt-4" (click)="goToSiteModifications()">Modificatios</button>
+
+
+
+            </div>
           </div>
         </div>
 

@@ -284,10 +284,9 @@ export class UpdateCascadesComponent implements OnInit {
   }
 
 
-  
+
   public fillCascadesContainer() {
     this._siteService.cascades.subscribe(() => {
-      if (this._siteService.cascades.getValue() != null) {
         this.cascadesContainer = this._siteService.cascades.getValue();
         console.log(this.cascadesContainer)
         if (this.cascadesContainer.length != 0)
@@ -296,30 +295,39 @@ export class UpdateCascadesComponent implements OnInit {
           this.isCascadesAvailable = false;
 
         }
-      }
-      else {
-        this.isCascadesAvailable = false;
 
-      }
+
     })
+    console.log(this.isCascadesAvailable)
 
     this._siteService.nodals.subscribe(() => {
-      if (this._siteService.nodals.getValue() != null) {
+
         let nodals: any = this._siteService.nodals.getValue();
-        for (var i = 0; i < nodals.length; i++) {
-          this.cascadesContainer.push(nodals[i])
+        if (nodals.length !=0)
+        {
+          for (var i = 0; i < nodals.length; i++) {
+            this.cascadesContainer.push(nodals[i])
+          }
+          this.isCascadesAvailable = true;
+
+
+        }
+        else
+        {
+          if (this.isCascadesAvailable==false)
+          {
+            this.isCascadesAvailable=false;
+          }
         }
 
 
-        this.isCascadesAvailable = true;
 
-      }
-      else {
-        if (this.isCascadesAvailable == false)
-          this.isCascadesAvailable = false;
 
-      }
+
+
     })
+
+
   }
 
 

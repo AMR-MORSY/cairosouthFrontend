@@ -1,64 +1,70 @@
-
-<section id="show-nodal-site">
-  <div class="container">
-    <div class="site-container">
-      <div class="site-code">
-        <label for="code">Site Code:</label>
-        <input type="text" class="form-control" id="code" [(ngModel)]='nodalCode'>
-      </div>
-      <div class="site-name">
-        <label for="name">Site Name:</label>
-        <input type="text" class=" form-control" id="name" [(ngModel)]="nodalName">
-      </div>
-
-    </div>
-  </div>
-
-
-
-</section>
-
 <section id="insert-cascades">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
+        <div class="row">
+          <div class="col-6 col-md-4">
+            <label for="code">Site Code:</label>
+            <input type="text" class="form-control" id="code" [(ngModel)]='nodalCode'>
+          </div>
+          <div class="col-6 col-md-4">
+            <label for="name">Site Name:</label>
+            <input type="text" class=" form-control" id="name" [(ngModel)]="nodalName">
+          </div>
+
+          <div class="col-12 ">
+            <div class="caption"> <p>Search For Cascades:</p></div>
+
+
+          </div>
+
+        </div>
         <form [formGroup]='searchCascades' (ngSubmit)="searchForCascadeSite(searchCascades)">
+
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-6 col-md-4">
               <label for="site-code">Site-Code:</label>
               <input type="text" class="form-control" formControlName="search" id="site-code"
                 [value]="searchRecivedSiteCode">
             </div>
-            <div class="col-md-6">
+            <div class="col-6 col-md-4">
               <label for="site-name">Site-Name:</label>
               <input type="text" class="form-control" id="site-name" [value]="searchRecivedSiteName">
             </div>
-            <div class="col-md-8">
-              <div class="button-cantainer">
-                <button class="btn btn-danger" [disabled]='searchCascades.status=="INVALID"'
-                  type="submit">Search</button>
-                <button class="btn btn-danger" [disabled]='isSearchOk' (click)="displaySearchedCascades()">Add Cascades
-                  list</button>
-              </div>
+
+
+
+          </div>
+
+          <div class="row">
+            <div class="col-6 col-md-4">
+
+              <button class="btn btn-danger mt-2" [disabled]='searchCascades.status=="INVALID"'
+                type="submit">Search</button>
 
 
 
             </div>
+            <div class="col-6 col-md-4">
+              <button class="btn btn-primary mt-2" [disabled]='isSearchOk' (click)="displaySearchedCascades()">Add to
+                list</button>
 
+
+            </div>
 
           </div>
 
         </form>
       </div>
       <div class="col-md-6">
-        <div class="table-container">
-          <table>
+        <div *ngIf="isCascadesAvailable" class="table-container table-responsive">
+          <table class=" table table-bordered table-hover">
             <thead>
               <tr>
-                <td>Site Code</td>
-                <td>Site Name</td>
-                <td>Cascades</td>
-                <td>Action</td>
+                <th>Site Code</th>
+                <th>Site Name</th>
+                <th>Cascahes</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody *ngIf="isCascadesAvailable">
@@ -70,9 +76,12 @@
               </tr>
             </tbody>
           </table>
-          <p *ngIf="!isCascadesAvailable">No Cascades</p>
+
         </div>
-        <button type="button" class="btn btn-primary" [disabled]="!isInsertedToList" (click)="insertCascadesIntoDB()">insert into Database</button>
+        <div *ngIf="!isCascadesAvailable" class="caption2"><p >No Cascades</p></div>
+
+        <button type="button" class="btn btn-primary" [disabled]="!isInsertedToList"
+          (click)="insertCascadesIntoDB()">insert into Database</button>
       </div>
     </div>
   </div>
