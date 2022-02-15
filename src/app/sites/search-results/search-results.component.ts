@@ -39,6 +39,7 @@ private getSearchString()
     if (this._sitesService.searchStr.getValue() != null) {
     
       this.searchStr = this._sitesService.searchStr.getValue();
+      this.displaySites();
     }
     else {
       this._Router.navigate(['/home']);
@@ -128,7 +129,7 @@ private getSearchString()
   ngOnInit(): void {
     this.getToken();
     this.getSearchString();
-    this.displaySites();
+   
   }
 
 
