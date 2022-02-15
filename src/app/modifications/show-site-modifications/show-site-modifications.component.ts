@@ -33,6 +33,9 @@ export class ShowSiteModificationsComponent implements OnInit {
     });
   }
 
+
+
+
   public shadeElement(e: any) {
 
     let elementId: any = e.currentTarget.dataset.index;

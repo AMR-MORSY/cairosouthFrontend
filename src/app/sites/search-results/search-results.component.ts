@@ -33,11 +33,26 @@ export class SearchResultsComponent implements OnInit {
 
   }
 
+private getSearchString()
+{
+  this._sitesService.searchStr.subscribe(() => {
+    if (this._sitesService.searchStr.getValue() != null) {
+    
+      this.searchStr = this._sitesService.searchStr.getValue();
+    }
+    else {
+      this._Router.navigate(['/home']);
+    }
+  });
+
+}
+
+
 
   public goToSiteDetailsWithSite(site: any) {
     this._sitesService.site.next(site);
 
-    console.log(site)
+    
   
     localStorage.setItem("site", JSON.stringify(site));
 
@@ -62,19 +77,13 @@ export class SearchResultsComponent implements OnInit {
   }
 
   private displaySites() {
-
-    this._sitesService.searchStr.subscribe(() => {
-
-      if (this._sitesService.searchStr.getValue() != null) {
-        this.getToken();
-        this.searchStr = this._sitesService.searchStr.getValue();
         this._sitesService.searchSites(this.searchStr, this.token).subscribe((response) => {
-          console.log(response)
-          this.sites = [];
+       
+        
           if (response.data != null) {
             this.sites = response.data;
             this.pagination_link = response.links.first;
-            console.log(this.sites);
+         
             this.config = {
               currentPage: response.meta.curent_page,
               itemsPerPage: response.meta.per_page,
@@ -89,21 +98,21 @@ export class SearchResultsComponent implements OnInit {
             this.isDataFound=false;
           }
 
-          else if (response.message == "token expired, please login") {
+          if (response.message == "token expired, please login") {
             alert("token expired, please login");
             this._Router.navigate(['/auth/login']);
 
           }
-          else {
-            this.isDataFound = false;
-          }
+         
+         
+         
         })
-      }
+    
 
-      else {
-        this._Router.navigate(['/home']);
-      }
-    });
+    
+    
+    
+    
 
 
   }
@@ -117,6 +126,8 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getToken();
+    this.getSearchString();
     this.displaySites();
   }
 

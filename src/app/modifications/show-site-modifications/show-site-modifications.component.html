@@ -57,6 +57,7 @@
         <div class="delete-update" *ngIf="isModificationFound">
             <button class="btn btn-danger" [disabled]="!isModificationClicked" (click)="showNotification()"> Delete</button>
             <button class="btn btn-primary" [disabled]="!isModificationClicked"(click)="goToUpdateModification()"> Update</button>
+            <button class="btn btn-info" (click)="goToNewMod()"> Create New</button>
         </div>
 
 
