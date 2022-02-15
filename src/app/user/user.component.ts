@@ -14,6 +14,7 @@ import { SitesService } from '../sites/sites.service';
 export class UserComponent implements OnInit,AfterViewInit {
   public offices:any;
   public BSCs:any=[];
+  public RNCs:any=[];
   public sites_categories:any;
   public sites_types:any;
   public sites_severity:any;
@@ -22,17 +23,46 @@ export class UserComponent implements OnInit,AfterViewInit {
 
   constructor(private _AuthService:AuthenticationService, private _siteServices:SitesService, private _Router:Router) { }
 
+  private showBSCDetails(BSC:any)
+  {
+    
+    for(var i=0;i<BSC.length-10;i++)
+    {
+      this.BSCs.push(BSC[i])
+
+    }
+   this.BSCs.push(BSC[12])
+   this.BSCs.push(BSC[14])
+    for(var i=5;i<BSC.length-3;i++)
+    {
+      this.RNCs.push(BSC[i])
+    }
+    this.RNCs.push(BSC[13])
+    console.log(this.BSCs);
+    console.log(this.RNCs)
+    
+  }
   public getSitesStatestics(token:any)
   {
     this._siteServices.showStatistics(token).subscribe((response:any)=>{
       console.log(response)
       this.offices=Object.entries(response.offices);
-      this.BSCs=Object.entries(response.BSCs) ;
+     let BSC=Object.entries(response.BSCs) ;
       this.sites_categories=Object.entries(response.sites_categories);
       this.sites_severity=Object.entries(response.sites_severity);
       this.sites_types=Object.entries(response.sites_types);
 
-      console.log(this.BSCs);
+      console.log(BSC);
+      this.showBSCDetails(BSC);
+     
+     
+
+
+
+
+
+
+
 
     });
 

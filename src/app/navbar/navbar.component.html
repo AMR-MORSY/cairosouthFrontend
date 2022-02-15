@@ -2,7 +2,7 @@
     <a class="navbar-brand font-weight-bolder" routerLink='home'>CairoSouth</a>
     <div class=" form-group">
         <form [formGroup]="searchForm" class="form-inline   ml-5" (ngSubmit)="SubmitSearchForm(searchForm)">
-            <input class=" mr-sm-2 search form-control" [hidden]="!isLogin" type="text" placeholder="Search sites" formControlName="search" aria-label="Search">
+            <input class=" mr-sm-2 search form-control" [hidden]="!isLogin" type="text"  formControlName="search" aria-label="Search">
             <button type="submit" class="form-control searchBtn " [hidden]="!isLogin">Search </button>
         </form>
     </div>
@@ -102,9 +102,9 @@
                 <li>
                     <a *ngIf="isLogin " routerLink='profile'>Profile</a>
                 </li>
-                <li>
-                    <a href="# ">Contact</a>
-                </li>
+             
+             
+             
             </ul>
 
 
