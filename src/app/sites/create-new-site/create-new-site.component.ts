@@ -33,6 +33,10 @@ export class CreateNewSiteComponent implements OnInit {
     severity: new FormControl(null,[Validators.required]),
     sharing: new FormControl(null,[Validators.required]),
     host: new FormControl(''),
+    two_G:new FormControl(null),
+    three_G:new FormControl(null),
+    four_G:new FormControl(null),
+
 
   })
 
@@ -83,7 +87,7 @@ export class CreateNewSiteComponent implements OnInit {
       "id": id
     }
 
-    
+
 
     this._SitesServices.addNewSite(data).subscribe((response: any) => {
       console.log(response);
