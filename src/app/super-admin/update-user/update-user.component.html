@@ -1,0 +1,57 @@
+
+
+<section id="user-data">
+  <div class="container">
+<div class="table-container table-responsive">
+  <table class="table table-warning  table-bordered">
+    <thead >
+      <tr class="table-danger align-middle text-center">
+        <th scope="col">Name</th>
+        <th  scope="col">Email</th>
+        <th  scope="col">Role</th>
+
+      </tr>
+
+
+    </thead>
+    <tbody>
+      <tr class=" align-middle text-center">
+        <td>{{selected_user.name}}</td>
+        <td>{{selected_user.email}}</td>
+        <td>
+          <div class="form-container">
+            <form [formGroup]="userForm" (ngSubmit)="submitUserForm(userForm)">
+
+              <select type="text" formControlName="role" class="form-control" id="role">
+                <option value="user">
+                  user
+
+                </option>
+                <option value="admin">
+                  admin
+
+                </option>
+                <option value="super-admin">
+                 super-admin
+
+                </option>
+                </select>
+                <button type="submit" class="btn btn-primary mt-2">Update</button>
+            </form>
+
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>
+
+
+
+
+  </div>
+</section>
+

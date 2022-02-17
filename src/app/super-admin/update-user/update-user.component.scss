@@ -1,0 +1,16 @@
+#user-data {
+  margin-top: 200px;
+  .container {
+    margin: auto;
+    .table-container {
+      width: 50%;
+      margin: auto;
+      .form-container {
+        color: white;
+        input {
+          color: black;
+        }
+      }
+    }
+  }
+}

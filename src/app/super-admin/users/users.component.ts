@@ -17,20 +17,20 @@ export class UsersComponent implements OnInit {
   public users:any
   public isDataFound:boolean=false;
   public pagination_link: any;
-  public user_id:any;
+  public user:any;
   public isUserClicked:boolean=false;
 
   public goToUpdateUser()
   {
+    this._SuperAdminService.user.next(this.user)
+    localStorage.setItem('user', JSON.stringify(this.user))
+    this._Router.navigate(['/super-admin/update-user'])
 
   }
   constructor(private _SuperAdminService:SuperAdminService,private _AuthServices: AuthenticationService, private _Router: Router) { }
+  private shadeElement(e: any) {
 
-public sendUserId(index:any,e:any)
-{
-  this.user_id=index;
-  this.isUserClicked=true;
-  let elementId: any = e.currentTarget.dataset.index;
+    let elementId: any = e.currentTarget.dataset.index;
 
     let x: any = document.querySelectorAll('.hambozo');
     for (var i = 0; i < x.length; i++) {
@@ -43,6 +43,27 @@ public sendUserId(index:any,e:any)
         x[i].style.color = "black";
       }
     }
+
+  }
+  private getSelectedUser(index:any)
+  {
+    let user=this.users.filter((user:any)=>{
+
+      return user.id==index;
+
+    })
+    return user[0];
+
+  }
+public sendUserId(index:any,e:any)
+{
+  this.shadeElement(e)
+  this.user=this.getSelectedUser(index)
+
+  this.isUserClicked=true;
+
+
+
 
 }
   private decodeToken(token: any) {
@@ -61,15 +82,37 @@ public sendUserId(index:any,e:any)
   }
   public DeleteUser()
   {
+    let data={
+      'user_id':this.user.id,
+      'token':this.token,
+      'id':this.id
+    }
+    this._SuperAdminService.deleteUser(data).subscribe((response:any)=>{
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+
+      }
+      if (response.message=='failed')
+      {
+        let error=response.errors;
+        alert(JSON.stringify(error))
+      }
+      else
+      {
+        alert('user deleted successfully')
+        this.displayUsers()
+      }
+    })
 
   }
   private displayUsers() {
-
-
+    this.getUserData();
+    this.users = [];
 
     this._SuperAdminService.getAllUsers(this.id,this.token).subscribe((response) => {
       console.log(response)
-      this.users = [];
+
       if (response.data != null) {
         this.users = response.data;
         this.pagination_link = response.links.first;
@@ -115,7 +158,7 @@ public sendUserId(index:any,e:any)
 
   }
   ngOnInit(): void {
-    this.getUserData();
+
     this.displayUsers();
   }
 

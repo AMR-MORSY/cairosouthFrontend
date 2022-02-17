@@ -4,12 +4,14 @@ import { UsersComponent } from './users/users.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 
 
 @NgModule({
   declarations: [
-    UsersComponent
+    UsersComponent,
+    UpdateUserComponent
   ],
   imports: [
     CommonModule,NgxPaginationModule,FormsModule,ReactiveFormsModule,SuperAdminRoutingModule
