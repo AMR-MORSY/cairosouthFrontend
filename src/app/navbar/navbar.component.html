@@ -78,7 +78,7 @@
             <ul class="list-unstyled components">
                 <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
                 <li class="active">
-                    <a class="nav-link" Active routerLink='home'>Home </a>
+                    <a class="nav-link" *ngIf="isLogin " Active routerLink='home'>Home </a>
                 </li>
 
                 <li class=" nav-item">
@@ -102,9 +102,9 @@
                 <li>
                     <a *ngIf="isLogin " routerLink='profile'>Profile</a>
                 </li>
-             
-             
-             
+
+
+
             </ul>
 
 

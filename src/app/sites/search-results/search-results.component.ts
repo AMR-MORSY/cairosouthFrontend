@@ -37,7 +37,7 @@ private getSearchString()
 {
   this._sitesService.searchStr.subscribe(() => {
     if (this._sitesService.searchStr.getValue() != null) {
-    
+
       this.searchStr = this._sitesService.searchStr.getValue();
       this.displaySites();
     }
@@ -53,8 +53,8 @@ private getSearchString()
   public goToSiteDetailsWithSite(site: any) {
     this._sitesService.site.next(site);
 
-    
-  
+
+
     localStorage.setItem("site", JSON.stringify(site));
 
     this._Router.navigate(['/sites/site-details']);
@@ -79,12 +79,17 @@ private getSearchString()
 
   private displaySites() {
         this._sitesService.searchSites(this.searchStr, this.token).subscribe((response) => {
-       
-        
+
+
+          if (response.message == "token expired, please login") {
+            alert("token expired, please login");
+            this._Router.navigate(['/auth/login']);
+
+          }
           if (response.data != null) {
             this.sites = response.data;
             this.pagination_link = response.links.first;
-         
+
             this.config = {
               currentPage: response.meta.curent_page,
               itemsPerPage: response.meta.per_page,
@@ -94,26 +99,23 @@ private getSearchString()
           }
           else if (response.message=="failed")
           {
+            this.isDataFound=false;
             let error=response.errors
             alert(JSON.stringify(error));
-            this.isDataFound=false;
-          }
-
-          if (response.message == "token expired, please login") {
-            alert("token expired, please login");
-            this._Router.navigate(['/auth/login']);
 
           }
-         
-         
-         
+
+
+
+
+
         })
-    
 
-    
-    
-    
-    
+
+
+
+
+
 
 
   }
@@ -129,7 +131,7 @@ private getSearchString()
   ngOnInit(): void {
     this.getToken();
     this.getSearchString();
-   
+
   }
 
 
