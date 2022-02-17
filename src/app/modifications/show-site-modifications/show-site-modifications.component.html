@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let site of data; let i=index" class="hambozo"  [attr.data-index]="i" (mouseover)="shadeElement($event)" (click)="sendSiteId(site.id)">
+                    <tr *ngFor="let site of data; let i=index" class="hambozo"  [attr.data-index]="i"  (click)="sendSiteId(site.id, $event)">
                         <td>{{site.subcontractor}}</td>
                         <td>{{site.requester}}</td>
                         <td>{{site.action}}

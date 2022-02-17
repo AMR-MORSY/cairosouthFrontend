@@ -7,7 +7,7 @@
 
 
     <div class="table-container table-responsive ">
-      <table *ngIf="isDataFound" class=" table table-warning table-hover table-bordered">
+      <table *ngIf="isDataFound" class=" table table-warning  table-bordered">
         <thead>
           <tr class=" table-danger align-middle text-center">
             <th scope="col">Site Code</th>
@@ -25,7 +25,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
-             (click)="sendSiteId(site.id) ">
+             (click)="sendSiteId(site.id, $event) ">
             <td class=" text-center align-middle">{{site.site_code}}</td>
             <td  class=" text-center align-middle">{{site.site_name}}</td>
             <td  class=" text-center align-middle">{{site.subcontractor}}</td>
@@ -50,11 +50,12 @@
   </div>
 </section>
 
-<section id="create-site">
+<section id="create-site" [hidden]="!isDataFound">
   <div class="container ">
     <div class="create-btn-cont ">
 
       <button class="btn btn-danger " (click)="goToCreateNew()">Create Modification</button>
+      <button class="btn btn-primary " [disabled]="!isModificationClicked" (click)="goToUpdateModification()">Update</button>
 
 
     </div>

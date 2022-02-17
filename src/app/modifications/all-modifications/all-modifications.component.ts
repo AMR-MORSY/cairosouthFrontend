@@ -17,18 +17,10 @@ export class AllModificationsComponent implements OnInit {
   public token:any;
   public sites:any;
   public id:any;
-
-  public sendSiteId(index:any)
-  {
-    let site = this.sites.filter((x: any) => {
-
-      return x.id == index;
+  public modificationId:any;
+  public  isModificationClicked:boolean=false;
 
 
-    });
-
-
-  }
   public goToCreateNew()
   {
     this._Router.navigate(['/modifications/create-new-modification'])
@@ -48,16 +40,57 @@ export class AllModificationsComponent implements OnInit {
     })
 
   }
+  private shadeElement(e: any) {
 
+    let elementId: any = e.currentTarget.dataset.index;
+
+    let x: any = document.querySelectorAll('.hambozo');
+    for (var i = 0; i < x.length; i++) {
+      if (i == elementId) {
+
+        x[i].style.color = "red";
+      }
+      else {
+
+        x[i].style.color = "black";
+      }
+    }
+
+  }
+  public sendSiteId(index: any, e:any) {
+    this.shadeElement(e);
+    this.modificationId = index;
+    this.isModificationClicked = true;
+
+  }
+
+  private getChosenMod()
+  {
+    let chosenMod=this.sites.filter((mod:any)=>{
+      return mod.id==this.modificationId
+    });
+
+    return chosenMod[0];
+
+  }
+
+   public goToUpdateModification()
+  {
+    let chosenMod=this.getChosenMod();
+    this._Modifications.modification.next(chosenMod);
+    localStorage.setItem('modification',JSON.stringify(chosenMod))
+    this._Router.navigate(['/modifications/update-modifications'])
+
+  }
 
 
   private displayModifications() {
 
-
+    this.sites = [];
 
     this._Modifications.getAllModifications(this.id,this.token).subscribe((response) => {
       console.log(response)
-      this.sites = [];
+
       if (response.data != null) {
         this.sites = response.data;
         this.pagination_link = response.links.first;

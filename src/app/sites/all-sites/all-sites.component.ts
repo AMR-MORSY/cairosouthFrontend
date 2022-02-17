@@ -11,7 +11,7 @@ import { SitesService } from '../sites.service';
 export class AllSitesComponent implements OnInit {
 
   private token: any;
-  public sites: any;
+  public sites:any;
   public isDataFound: boolean = false;
   public config: any;
   public pagination_link: any;
@@ -82,10 +82,11 @@ export class AllSitesComponent implements OnInit {
   private displaySites() {
 
     this.getToken();
+    this.sites=[];
 
     this._sitesService.getAllSites(this.token).subscribe((response) => {
       console.log(response)
-      this.sites = [];
+
       if (response.data != null) {
         this.sites = response.data;
         this.pagination_link = response.links.first;

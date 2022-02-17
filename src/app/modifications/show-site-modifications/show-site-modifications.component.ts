@@ -36,7 +36,7 @@ export class ShowSiteModificationsComponent implements OnInit {
 
 
 
-  public shadeElement(e: any) {
+  private shadeElement(e: any) {
 
     let elementId: any = e.currentTarget.dataset.index;
 
@@ -88,8 +88,10 @@ export class ShowSiteModificationsComponent implements OnInit {
     }
     return data;
   }
-  sendSiteId(index: any) {
+public  sendSiteId(index: any,e:any) {
+  this. shadeElement(e);
     this.modificationId = index;
+
     this.isModificationClicked = true;
 
   }
