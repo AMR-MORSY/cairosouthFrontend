@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { SitesService } from '../sites.service';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-all-sites',
@@ -76,6 +77,16 @@ export class AllSitesComponent implements OnInit {
     localStorage.setItem("site", JSON.stringify(site));
     this._Router.navigate(['/sites/site-details']);
 
+
+  }
+
+  public downloadsites() {
+    let filename = "allSites.xlsx";
+    this._sitesService.download({ 'filename': filename }).subscribe((data) => {
+      console.log(data);
+      saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
+
+    });
 
   }
 

@@ -127,15 +127,7 @@ public  sendSiteId(index: any,e:any) {
     })
 
   }
-  public downloadsites() {
-    let filename = "allSites.xlsx";
-    this._ModificationsServices.download({ 'filename': filename }).subscribe((data) => {
-      console.log(data);
-      saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
-
-    });
-
-  }
+ 
   public deleteModification()
   {
     let data=this.generateDeleteRequestData()

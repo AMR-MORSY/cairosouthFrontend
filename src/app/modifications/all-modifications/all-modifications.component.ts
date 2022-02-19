@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { ModificationsService } from '../modifications.service';
 import jwt_decode from "jwt-decode";
+import { BehaviorSubject } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-all-modifications',
@@ -12,20 +14,23 @@ import jwt_decode from "jwt-decode";
 })
 export class AllModificationsComponent implements OnInit {
 
-  public isDataFound:boolean=false;
+  public isDataFound: boolean = false;
   public config: any;
   public pagination_link: any;
-  public token:any;
-  public sites:any;
-  public id:any;
-  public modificationId:any;
-  public  isModificationClicked:boolean=false;
-  public site:any;
-  public site_code:any;
+  public token: any;
+  public sites: any;
+  public id: any;
+  public modificationId: any;
+  public isModificationClicked: boolean = false;
+  public site: any;
+  public site_code: any;
+
+  public statusForm = new FormGroup({
+    status: new FormControl(null, [Validators.required])
+  })
 
 
-  public goToCreateNew()
-  {
+  public goToCreateNew() {
     this._Router.navigate(['/modifications/create-new-modification'])
 
   }
@@ -60,28 +65,33 @@ export class AllModificationsComponent implements OnInit {
     }
 
   }
-  public sendSiteId(index: any, e:any,code:any) {
+  public sendSiteId(index: any, e: any, code: any) {
     this.shadeElement(e);
     this.modificationId = index;
-    this.site_code=code;
+    this.site_code = code;
     this.isModificationClicked = true;
 
   }
 
-  private getChosenMod()
-  {
-    let chosenMod=this.sites.filter((mod:any)=>{
-      return mod.id==this.modificationId
+  private getChosenMod() {
+    let chosenMod = this.sites.filter((mod: any) => {
+      return mod.id == this.modificationId
     });
 
     return chosenMod[0];
 
   }
+  public submitStatusForm(statusForm: any) {
 
-  
+    let status = statusForm.value.status;
+
+    this.displayModifications(status)
+
+  }
+
   private getSiteDataFromDB() {
     this._siteService.searchSites(this.site_code, this.token).subscribe((response) => {
-  
+
       if (response.message == "token expired, please login") {
         alert("token expired, please login");
         this._Router.navigate(['/auth/login']);
@@ -91,45 +101,48 @@ export class AllModificationsComponent implements OnInit {
         console.log(this.site)
         this._siteService.site.next(this.site);
         localStorage.setItem('site', JSON.stringify(this.site))
-      
+
       }
-      else
-      {
-        
-        let error=response.errors
+      else {
+
+        let error = response.errors
         alert(JSON.stringify(error));
       }
     })
-   
+
   }
 
 
 
 
-   public goToUpdateModification()
-  {
+  public goToUpdateModification() {
     this.getSiteDataFromDB();
-   
-   
-    let chosenMod=this.getChosenMod();
+
+
+    let chosenMod = this.getChosenMod();
     this._Modifications.modification.next(chosenMod);
-    localStorage.setItem('modification',JSON.stringify(chosenMod))
+    localStorage.setItem('modification', JSON.stringify(chosenMod))
     this._Router.navigate(['/modifications/update-modifications'])
 
   }
 
 
-  private displayModifications() {
+  private displayModifications(status: any) {
 
     this.sites = [];
 
-    this._Modifications.getAllModifications(this.id,this.token).subscribe((response) => {
-    
+    this._Modifications.getAllModifications(this.id, this.token, status).subscribe((response) => {
+
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+
+      }
 
       if (response.data != null) {
         this.sites = response.data;
         this.pagination_link = response.links.first;
-       
+
         this.config = {
           currentPage: response.meta.curent_page,
           itemsPerPage: response.meta.per_page,
@@ -137,12 +150,10 @@ export class AllModificationsComponent implements OnInit {
         }
         this.isDataFound = true;
       }
-      else if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
 
-      }
       else {
+        let error = response.errors;
+        alert(JSON.stringify(error))
         this.isDataFound = false;
       }
 
@@ -157,7 +168,7 @@ export class AllModificationsComponent implements OnInit {
 
   public pageChange(newpage: any) {
     this.config.currentPage = newpage;
-    this._Modifications.getAllModificationsPagination(this.id,this.token, newpage).subscribe((response:any) => {
+    this._Modifications.getAllModificationsPagination(this.id, this.token, newpage).subscribe((response: any) => {
 
       if (response.message == "token expired, please login") {
         alert("token expired, please login");
@@ -165,18 +176,18 @@ export class AllModificationsComponent implements OnInit {
 
       }
       else
-      this.sites = response.data;
+        this.sites = response.data;
     })
 
 
   }
 
 
-  constructor(private _Modifications:ModificationsService,private _AuthServices: AuthenticationService, private _Router: Router, private _siteService:SitesService) { }
+  constructor(private _Modifications: ModificationsService, private _AuthServices: AuthenticationService, private _Router: Router, private _siteService: SitesService) { }
 
   ngOnInit(): void {
     this.getUserData();
-    this.displayModifications();
+
   }
 
 }

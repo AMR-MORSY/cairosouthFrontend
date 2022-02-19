@@ -33,6 +33,16 @@
               }
           }
 
+          .all-cells{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            .form-group{
+             padding-right: 3rem;
+            }
+          }
+
         }
 
     }

@@ -1,3 +1,40 @@
+
+<section id="selection">
+
+  <div class="container">
+
+      <div class="form-container">
+
+        <form [formGroup]="statusForm" (ngSubmit)="submitStatusForm(statusForm)">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="choose">Choose Status:  </label>
+                <select class="form-control" formControlName="status" id="choose">
+                  <option value=""></option>
+                  <option value="in progress">in progress</option>
+                  <option value="done">done</option>
+                  <option value="waiting D6">Waiting D6</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="button-container">
+                <button class="btn btn-primary"[disabled]='statusForm.status=="INVALID"' type="submit">submit</button>
+
+              </div>
+
+            </div>
+          </div>
+        </form>
+
+
+    </div>
+  </div>
+
+</section>
+
 <section id="table-section">
   <div class="container">
 

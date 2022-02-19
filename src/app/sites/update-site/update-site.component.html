@@ -7,16 +7,16 @@
         <div class="row">
           <div class="col-6 col-sm-6 col-md-2 mt-2">
             <label for="site-code">Site-Code</label>
-            <input type="text" class="form-control" [(ngModel)]="site_code" formControlName="site_code" id="site-code">
+            <input type="text" class="form-control"  formControlName="site_code" id="site-code">
           </div>
           <div class="col-6 col-sm-6 col-md-4 mt-2">
             <label for="site-name">Site-Name</label>
-            <input type="text" class="form-control" formControlName="site_name" id="site-name" [(ngModel)]="site_name">
+            <input type="text" class="form-control" formControlName="site_name" id="site-name" >
           </div>
 
           <div class="col-6 col-sm-6 col-md-2 mt-2">
             <label for="type">Site-Type</label>
-            <select formControlName="site_type" id="type" class="form-control d-block" [(ngModel)]="site_type">
+            <select formControlName="site_type" id="type" class="form-control d-block" >
               <option value=""></option>
               <option value="Micro">Micro</option>
               <option value="Outdoor">Outdoor</option>
@@ -25,7 +25,7 @@
           </div>
           <div class="col-6 col-sm-6 col-md-4 mt-2">
             <label for="BSC">BSC/RNC</label>
-            <select id="BSC" formControlName="BSC_RNC" class=" form-control d-block" [(ngModel)]="site_BSC">
+            <select id="BSC" formControlName="BSC_RNC" class=" form-control d-block" >
               <option value=""></option>
               <option value="BADRASHEN-EXCH">BADRASHEN-EXCH</option>
               <option value="HADAYEK-HELWAN-HUA">HADAYEK-HELWAN-HUA</option>
@@ -52,7 +52,7 @@
 
           <div class="col-6 col-sm-6 col-md-3 mt-2">
             <label for="category">Site-Category</label>
-            <select formControlName="site_category" id="category" class="form-control d-block" [(ngModel)]="site_category">
+            <select formControlName="site_category" id="category" class="form-control d-block" >
               <option value=""></option>
               <option value="BSC">BSC</option>
               <option value="LDN">LDN</option>
@@ -64,7 +64,7 @@
           </div>
           <div class="col-6 col-sm-6 col-md-3 mt-2">
             <label for="severity">Site-Severity</label>
-            <select formControlName="severity" id="severity" class="form-control d-block" [(ngModel)]="site_severity">
+            <select formControlName="severity" id="severity" class="form-control d-block" >
               <option value=""></option>
               <option value="Bronze">Bronze</option>
               <option value="Golden">Golden</option>
@@ -75,7 +75,7 @@
 
           <div class="col-6 col-sm-6 col-md-3 mt-2">
             <label for="office">Office</label>
-            <select formControlName="office" id="office" class="form-control d-block" [(ngModel)]="site_office">
+            <select formControlName="office" id="office" class="form-control d-block" >
               <option value=""></option>
               <option value="Maadi">Maadi</option>
               <option value="Mohandseen">Mohandseen</option>
@@ -84,7 +84,7 @@
           </div>
           <div class="col-6 col-sm-6 col-md-3 mt-2">
             <label for="build-date">Build-Date</label>
-            <input type="text" bsDatepicker [bsConfig]="datePickerConfig" [(ngModel)]="site_build"
+            <input type="text" bsDatepicker [bsConfig]="datePickerConfig"
               formControlName="build_date" placement="top" [(bsValue)]="datepicker" class="form-control"
               id="build-date">
 
@@ -94,16 +94,49 @@
         </div>
 
         <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="cells">
+              <div class="header pt-4">
+                <p>Cells:</p>
+              </div>
+              <div class="all-cells">
+                <div class="form-group">
+                  <label for="2G">2G</label>
+                <input type="number" formControlName="two_G" class="form-control " id="2G" >
+
+                </div>
+
+                <div class="form-group">
+                  <label for="3G">3G</label>
+                  <input type="number" formControlName="three_G" class="form-control" id="3G" >
+
+                </div>
+
+                <div class="form-group">
+                  <label for="4G">4G</label>
+                  <input type="number"formControlName="four_G" class="form-control" id="4G" >
+
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="row">
           <div class="col-6 col-sm-6 col-md-3 mt-2">
             <label for="sharing">Sharing</label>
-            <select formControlName="sharing" id="sharing" class="form-control d-block" [(ngModel)]="site_sharing">
+            <select formControlName="sharing" id="sharing" class="form-control d-block">
               <option value="No" selected> No</option>
               <option value="Yes"> Yes </option>
             </select>
           </div>
           <div class="col-6  col-sm-6 col-md-3 mt-2">
             <label for="host">Host</label>
-            <select formControlName="host" class="form-control d-block" id="host" [(ngModel)]="site_host">
+            <select formControlName="host" class="form-control d-block" id="host" >
               <option value='' selected></option>
               <option value="OR">OR</option>
               <option value="VF">VF</option>
@@ -112,6 +145,7 @@
             </select>
 
           </div>
+
           <div class="col-8 col-sm-6 col-md-3 mt-3">
             <div class=" buttons-container">
               <button class="btn btn-primary mt-3" type="submit"

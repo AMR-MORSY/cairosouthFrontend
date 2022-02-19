@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class SitesService {
   public headers= new HttpHeaders()
   .set('Content-Type', 'application/json')
   .set('Access-Control-Allow-Origin', '*');
- 
+
   constructor(private _HttpClient: HttpClient) {
 
     this.getSearchStr();
@@ -97,6 +98,13 @@ export class SitesService {
   getsite(data:any):Observable<any>{
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/site/${data.site_id}/${data.token}`);
   }
+
+  download(data:any):Observable<any>
+  {
+    const REQUEST_PARAMS=new HttpParams().set('fileName',data.filename);
+    const REQUEST_URI="https://cairo-south.herokuapp.com/api/downloadallsites";
+    return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
+  };
 
 
   getNodal(data:any):Observable<any>{

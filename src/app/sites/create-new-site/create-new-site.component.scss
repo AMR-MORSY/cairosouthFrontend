@@ -8,6 +8,17 @@
     .form-container{
       width: 70%;
       margin: auto;
+
+      .all-cells{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .form-group{
+         padding-right: 3rem;
+        }
+      }
+
     }
   }
 }

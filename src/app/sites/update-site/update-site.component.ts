@@ -23,36 +23,15 @@ export class UpdateSiteComponent implements OnInit {
   public newSite:any;
   public site_id:any;
   public oldSite:any;
-  public site_code="";
-  public site_name:any;
-  public site_BSC="";
-  public site_office:any;
-  public site_category:any;
-  public site_type:any;
-  public site_host:any;
-  public site_severity:any;
-  public site_sharing:any;
-  public site_build:any;
+  
 
 
-  public createSiteForm = new FormGroup({
-    site_code: new FormControl(null,[Validators.required]),
-    site_name: new FormControl(null,[Validators.required]),
-    BSC_RNC: new FormControl(null,[Validators.required]),
-    office: new FormControl(null,[Validators.required]),
-    site_type: new FormControl(null,[Validators.required]),
-    site_category: new FormControl(null,[Validators.required]),
-    build_date: new FormControl(null,[Validators.required]),
-    severity: new FormControl(null,[Validators.required]),
-    sharing: new FormControl(null,[Validators.required]),
-    host: new FormControl(''),
-
-  })
+public createSiteForm:any;
 
   constructor(private _SitesServices: SitesService,public datepipe: DatePipe, private _AuthServices: AuthenticationService, private _Router:Router) {
     this.datePickerConfig = Object.assign({}, { containerClass: 'theme-orange' }, { dateInputFormat: 'YYYY-MM-DD' }, { isAnimated: true });
     this.getSite();
-    console.log(this.site_code)
+
   }
 
 
@@ -122,7 +101,7 @@ export class UpdateSiteComponent implements OnInit {
     let newBuildate=this.datepipe.transform(this.datepicker, 'yyyy-MM-dd')
     createdSite.build_date = newBuildate;
     createdSite.site_id=this.site_id;
-    console.log(createdSite);
+
 
     createdSite = JSON.stringify(createdSite);
 
@@ -140,18 +119,24 @@ export class UpdateSiteComponent implements OnInit {
   private getSite() {
     this._SitesServices.site.subscribe(() => {
       this.oldSite = this._SitesServices.site.getValue();
-      console.log(this.oldSite);
-      this.site_id = this.oldSite.id
-      this.site_code=this.oldSite.site_code;
-      this.site_name=this.oldSite.site_name;
-      this.site_office=this.oldSite.office;
-      this.site_severity=this.oldSite.severity;
-      this.site_BSC=this.oldSite.BSC_RNC;
-      this.site_host=this.oldSite.host;
-      this.site_sharing=this.oldSite.sharing;
-      this.site_type=this.oldSite.site_type;
-      this.site_build=this.oldSite.build_date;
-      this.site_category=this.oldSite.site_category
+
+      this.createSiteForm=new FormGroup({
+        site_code: new FormControl(this.oldSite.site_code,[Validators.required]),
+        site_name: new FormControl(this.oldSite.site_name,[Validators.required]),
+        BSC_RNC: new FormControl(this.oldSite.BSC_RNC,[Validators.required]),
+        office: new FormControl(this.oldSite.office,[Validators.required]),
+        site_type: new FormControl(this.oldSite.site_type,[Validators.required]),
+        site_category: new FormControl(this.oldSite.site_category,[Validators.required]),
+        build_date: new FormControl(this.oldSite.build_date,[Validators.required]),
+        severity: new FormControl(this.oldSite.severity,[Validators.required]),
+        sharing: new FormControl(this.oldSite.sharing,[Validators.required]),
+        host: new FormControl(this.oldSite.host),
+        two_G: new FormControl(this.oldSite.two_G),
+        three_G: new FormControl(this.oldSite.three_G),
+        four_G: new FormControl(this.oldSite.four_G),
+      });
+       this.site_id = this.oldSite.id
+
     })
   }
 
