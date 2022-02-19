@@ -35,6 +35,9 @@ export class ModificationsService {
     const REQUEST_URI="https://cairo-south.herokuapp.com/api/downloadallsites";
     return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
   };
+
+
+  
   getSiteModifications(data:any):Observable<any>
   {
     return this._HttpClient.post('https://cairo-south.herokuapp.com/api/siteModifications',data)

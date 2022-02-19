@@ -1,78 +1,84 @@
 <section id='new-site'>
-    <div class="container">
-
-        <div class="row ">
-            <div class="col-3 mt-2 ">
-                <label for="site-code ">Site-Code</label>
-                <input type="text " class="form-control " [(ngModel)]="site.site_code" id="site-code ">
-            </div>
-            <div class="col-5 mt-2 ">
-                <label for="site-name ">Site-Name</label>
-                <input type="text " class="form-control " id="site-name " [(ngModel)]="site.site_name ">
-            </div>
-
-
+  <div class="container">
+    <div class="site-container">
+      <div class="row ">
+        <div class="col-6 mt-2 ">
+          <label for="site-code ">Site-Code</label>
+          <input type="text " class="form-control " [(ngModel)]="site.site_code" id="site-code ">
         </div>
-
-        <div *ngIf="!isModificationFound" class="no-modification">
+        <div class="col-6 mt-2 ">
+          <label for="site-name ">Site-Name</label>
+          <input type="text " class="form-control " id="site-name " [(ngModel)]="site.site_name ">
+        </div>
+        <div class="col-12">
+          <div *ngIf="!isModificationFound" class="no-modification">
             <p class=" mt-5">No Modifications</p>
-
-            <button class="btn btn-danger" (click)="goToNewMod()">Create New Modification</button>
-
+            <button class="btn btn-danger" (click)="goToNewMod()"> New Modification</button>
+          </div>
         </div>
-
-
-        <div class="table-container table-responsive ">
-            <table *ngIf="isModificationFound" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Subcontractor</th>
-                        <th>Requester</th>
-                        <th>Action</th>
-                        <th>Project</th>
-                        <th>status </th>
-                        <th>Request date</th>
-                        <th>Finish date</th>
-                        <th>Materials</th>
-                        <th>Cost</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let site of data; let i=index" class="hambozo"  [attr.data-index]="i"  (click)="sendSiteId(site.id, $event)">
-                        <td>{{site.subcontractor}}</td>
-                        <td>{{site.requester}}</td>
-                        <td>{{site.action}}
-                        </td>
-                        <td>{{site.project}}</td>
-                        <td>{{site.status}}</td>
-                        <td>{{site.request_date}}</td>
-                        <td>{{site.finish_date}}</td>
-                        <td>{{site.materials}}</td>
-                        <td>{{site.cost}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="delete-update" *ngIf="isModificationFound">
-            <button class="btn btn-danger" [disabled]="!isModificationClicked" (click)="showNotification()"> Delete</button>
-            <button class="btn btn-primary" [disabled]="!isModificationClicked"(click)="goToUpdateModification()"> Update</button>
-            <button class="btn btn-info" (click)="goToNewMod()"> Create New</button>
-        </div>
-
-
-
+      </div>
 
     </div>
+
+
+
+
+  </div>
+
+</section>
+
+<section id="table">
+  <div class="container">
+    <div class="table-container table-responsive ">
+      <table *ngIf="isModificationFound" class="table table-bordered ">
+        <thead>
+          <tr>
+            <th>Subcontractor</th>
+            <th>Requester</th>
+            <th>Action</th>
+            <th>Project</th>
+            <th>status </th>
+            <th>Request date</th>
+            <th>Finish date</th>
+            <th>Materials</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let site of data; let i=index" class="hambozo" [attr.data-index]="i"
+            (click)="sendSiteId(site.id, $event)">
+            <td>{{site.subcontractor}}</td>
+            <td>{{site.requester}}</td>
+            <td>{{site.action}}
+            </td>
+            <td>{{site.project}}</td>
+            <td>{{site.status}}</td>
+            <td>{{site.request_date}}</td>
+            <td>{{site.finish_date}}</td>
+            <td>{{site.materials}}</td>
+            <td>{{site.cost}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="delete-update" *ngIf="isModificationFound">
+      <button class="btn btn-danger" [disabled]="!isModificationClicked" (click)="showNotification()"> Delete</button>
+      <button class="btn btn-primary" [disabled]="!isModificationClicked" (click)="goToUpdateModification()">
+        Update</button>
+      <button class="btn btn-info" (click)="goToNewMod()"> Create New</button>
+    </div>
+
+  </div>
 
 </section>
 
 
-<section id='notification'[hidden]='!isNotificationShown'>
+<section id='notification' [hidden]='!isNotificationShown'>
   <div class="container">
-    <div class="notification-body" >
+    <div class="notification-body">
       <div class="notification-content">
-        <div class="close" (click)="closeNotification()"><i class="fas fa-times" ></i></div>
+        <div class="close" (click)="closeNotification()"><i class="fas fa-times"></i></div>
         <div class="notification-title">
           <h3>Delete Modification</h3>
         </div>

@@ -4,58 +4,83 @@
         color: white;
         .container {
             margin: auto;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            justify-content: center;
+          
+          
+          .site-container
+          {
+            width: 50%;
+            margin: auto;
             .no-modification {
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                align-items: center;
-                width: 50%;
-                margin: auto;
-            }
-            .delete-update, .New-mod-btn {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top: 2rem;
-                button{
-                  display: block;
-                  margin-left: 1rem;
-                }
-            }
-             .table-container {
-                margin-top: 2rem;
-                // width: 100%;
-                // display: flex;
-                // align-items: center;
-                // justify-content: center;
-                table {
-                   
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              align-items: center;
+              width: 50%;
+              margin: auto;
+          }
 
-                    thead {
-                        background-color: burlywood;
-                        tr {
-                            td {
-                                text-align: center;
-                            }
-                        }
-                    }
-                    tbody {
-                        tr {
-                            background-color: cornsilk;
-                            border-bottom: 2px solid black;
-                            color: black;
-                            td {
-                                text-align: center;
-                            }
-                        }
-                    }
-                }
-            }
+          }
+          
+            
+            
+            
+          
+            
+            
         }
+    }
+
+
+
+    #table{
+      .container
+      {
+        margin: auto;
+        .table-container {
+          margin-top: 2rem;
+      
+          table {
+             
+              thead {
+                  background-color: burlywood;
+                  tr {
+                      td {
+                          text-align: center;
+                      }
+                  }
+              }
+              tbody {
+                  tr {
+                      background-color: cornsilk;
+                      border-bottom: 2px solid black;
+                      color: black;
+                      td {
+                          text-align: center;
+                      }
+                  }
+              }
+          }
+            
+         
+      }
+      .delete-update, .New-mod-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        padding-bottom: 2rem;
+        button{
+          display: block;
+          margin-left: 1rem;
+        }
+             }
+
+      }
+    
+    
+    
+
+
     }
 
 
@@ -116,4 +141,95 @@
       }
     }
   }
+}
+
+
+@media screen and (max-width: 575px) {
+  #new-site {
+ 
+ 
+    .container {
+   
+      .site-container
+      {
+        width: 100%;
+       
+      
+      }
+      
+        
+        
+        
+      
+        
+        
+    }
+ }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+
+  #new-site {
+  
+  
+    .container {
+   
+      .site-container
+      {
+        width: 100%;
+       
+     
+     
+     
+     
+     
+     
+     
+     
+     
+      }
+      
+        
+        
+        
+      
+        
+        
+    }
+}
+ 
+
+ 
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #new-site {
+ 
+ 
+    .container {
+   
+      .site-container
+      {
+        width: 100%;
+     
+     
+  
+      }
+      
+        
+ 
+        
+    }
+
+
+
+
+
+
+
+
+}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+@media (min-width: 1200px) and (max-width: 1500px) /* extra large windows*/ {
 }

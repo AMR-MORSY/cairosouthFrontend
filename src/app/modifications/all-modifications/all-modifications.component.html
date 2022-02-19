@@ -25,7 +25,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
-             (click)="sendSiteId(site.id, $event) ">
+             (click)="sendSiteId(site.id, $event,site.site_code) ">
             <td class=" text-center align-middle">{{site.site_code}}</td>
             <td  class=" text-center align-middle">{{site.site_name}}</td>
             <td  class=" text-center align-middle">{{site.subcontractor}}</td>

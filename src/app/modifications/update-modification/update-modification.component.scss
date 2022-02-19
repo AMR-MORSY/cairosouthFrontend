@@ -1,4 +1,12 @@
 #new-site {
   margin-top: 8rem;
   color: white;
+  .container
+  {
+    margin: auto;
+    .form-container{
+      width: 80%;
+      margin: auto;
+    }
+  }
 }

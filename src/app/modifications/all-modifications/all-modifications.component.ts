@@ -1,3 +1,4 @@
+import { SitesService } from 'src/app/sites/sites.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
@@ -19,6 +20,8 @@ export class AllModificationsComponent implements OnInit {
   public id:any;
   public modificationId:any;
   public  isModificationClicked:boolean=false;
+  public site:any;
+  public site_code:any;
 
 
   public goToCreateNew()
@@ -57,9 +60,10 @@ export class AllModificationsComponent implements OnInit {
     }
 
   }
-  public sendSiteId(index: any, e:any) {
+  public sendSiteId(index: any, e:any,code:any) {
     this.shadeElement(e);
     this.modificationId = index;
+    this.site_code=code;
     this.isModificationClicked = true;
 
   }
@@ -74,8 +78,39 @@ export class AllModificationsComponent implements OnInit {
 
   }
 
+  
+  private getSiteDataFromDB() {
+    this._siteService.searchSites(this.site_code, this.token).subscribe((response) => {
+  
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+      if (response.data != null) {
+        this.site = response.data[0];
+        console.log(this.site)
+        this._siteService.site.next(this.site);
+        localStorage.setItem('site', JSON.stringify(this.site))
+      
+      }
+      else
+      {
+        
+        let error=response.errors
+        alert(JSON.stringify(error));
+      }
+    })
+   
+  }
+
+
+
+
    public goToUpdateModification()
   {
+    this.getSiteDataFromDB();
+   
+   
     let chosenMod=this.getChosenMod();
     this._Modifications.modification.next(chosenMod);
     localStorage.setItem('modification',JSON.stringify(chosenMod))
@@ -89,12 +124,12 @@ export class AllModificationsComponent implements OnInit {
     this.sites = [];
 
     this._Modifications.getAllModifications(this.id,this.token).subscribe((response) => {
-      console.log(response)
+    
 
       if (response.data != null) {
         this.sites = response.data;
         this.pagination_link = response.links.first;
-        console.log(this.sites);
+       
         this.config = {
           currentPage: response.meta.curent_page,
           itemsPerPage: response.meta.per_page,
@@ -137,7 +172,7 @@ export class AllModificationsComponent implements OnInit {
   }
 
 
-  constructor(private _Modifications:ModificationsService,private _AuthServices: AuthenticationService, private _Router: Router) { }
+  constructor(private _Modifications:ModificationsService,private _AuthServices: AuthenticationService, private _Router: Router, private _siteService:SitesService) { }
 
   ngOnInit(): void {
     this.getUserData();
