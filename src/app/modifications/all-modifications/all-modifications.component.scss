@@ -87,6 +87,34 @@
 
 
 @media screen and (max-width: 575px) {
+
+  #selection{
+
+    .container{
+
+      .form-container{
+
+        width: 100%;
+
+        .form-group{
+          width: 50%;
+
+
+        }
+
+
+      }
+
+      .button-container{
+        width: 100%;
+
+      }
+
+    }
+
+
+  }
+
   #table-section {
 
 
@@ -134,6 +162,34 @@
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
+
+  #selection{
+
+    .container{
+
+      .form-container{
+
+        width: 100%;
+
+        .form-group{
+          width: 50%;
+
+
+        }
+
+
+      }
+
+      .button-container{
+        width: 100%;
+
+      }
+
+    }
+
+
+  }
+
   #table-section {
 
 
@@ -178,6 +234,33 @@
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
+  #selection{
+
+    .container{
+
+      .form-container{
+
+        width: 100%;
+
+        .form-group{
+          width: 50%;
+
+
+        }
+
+
+      }
+
+      .button-container{
+        width: 100%;
+
+      }
+
+    }
+
+
+  }
+
   #table-section {
 
 

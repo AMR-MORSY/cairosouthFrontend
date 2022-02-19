@@ -24,6 +24,7 @@ export class AllModificationsComponent implements OnInit {
   public isModificationClicked: boolean = false;
   public site: any;
   public site_code: any;
+  public status:any;
 
   public statusForm = new FormGroup({
     status: new FormControl(null, [Validators.required])
@@ -83,9 +84,9 @@ export class AllModificationsComponent implements OnInit {
   }
   public submitStatusForm(statusForm: any) {
 
-    let status = statusForm.value.status;
+    this.status = statusForm.value.status;
 
-    this.displayModifications(status)
+    this.displayModifications(this.status)
 
   }
 
@@ -132,6 +133,7 @@ export class AllModificationsComponent implements OnInit {
     this.sites = [];
 
     this._Modifications.getAllModifications(this.id, this.token, status).subscribe((response) => {
+      console.log(response)
 
       if (response.message == "token expired, please login") {
         alert("token expired, please login");
@@ -168,7 +170,7 @@ export class AllModificationsComponent implements OnInit {
 
   public pageChange(newpage: any) {
     this.config.currentPage = newpage;
-    this._Modifications.getAllModificationsPagination(this.id, this.token, newpage).subscribe((response: any) => {
+    this._Modifications.getAllModificationsPagination(this.status,this.id, this.token, newpage).subscribe((response: any) => {
 
       if (response.message == "token expired, please login") {
         alert("token expired, please login");

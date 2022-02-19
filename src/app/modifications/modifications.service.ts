@@ -42,9 +42,9 @@ export class ModificationsService {
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${status}/${id}/${token}`)
 
   };
-  getAllModificationsPagination(id:any, token:any, new_page:any):Observable<any>
+  getAllModificationsPagination(status:any,id:any, token:any, new_page:any):Observable<any>
   {
-    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${id}/${token}?page=${new_page}`)
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${status}/${id}/${token}?page=${new_page}`)
 
   };
 
