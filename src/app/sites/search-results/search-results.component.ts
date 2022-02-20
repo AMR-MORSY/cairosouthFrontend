@@ -79,6 +79,7 @@ private getSearchString()
 
   private displaySites() {
         this._sitesService.searchSites(this.searchStr, this.token).subscribe((response) => {
+          console.log(response.sites.data)
 
 
           if (response.message == "token expired, please login") {
@@ -86,18 +87,18 @@ private getSearchString()
             this._Router.navigate(['/auth/login']);
 
           }
-          if (response.data != null) {
-            this.sites = response.data;
-            this.pagination_link = response.links.first;
+          if (response.message== "success") {
+            this.sites = response.sites.data;
+            this.pagination_link = response.sites.links.first;
 
             this.config = {
-              currentPage: response.meta.curent_page,
-              itemsPerPage: response.meta.per_page,
-              totalItems: response.meta.total
+              currentPage: response.sites.meta.curent_page,
+              itemsPerPage: response.sites.meta.per_page,
+              totalItems: response.sites.meta.total
             }
             this.isDataFound = true;
           }
-          else if (response.message=="failed")
+          else
           {
             this.isDataFound=false;
             let error=response.errors
@@ -111,18 +112,11 @@ private getSearchString()
 
         })
 
-
-
-
-
-
-
-
   }
   public pageChange(newpage: any) {
     this.config.currentPage = newpage;
     this._sitesService.searchSitesPagination(this.searchStr, this.token, newpage).subscribe((response) => {
-      this.sites = response.data;
+      this.sites = response.sites.data;
     })
 
 
