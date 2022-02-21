@@ -1,40 +1,40 @@
-
-#search-table{
+#search-table {
   margin-top: 200px;
 
+  .container {
+    margin: auto;
+    .No-data{
+      width: 50%;
+      margin: auto;
 
-.container {
-  margin: auto;
-
-.table-container {
-
-
-table {
-    margin-bottom: 2em;
-    thead {
-        background-color: burlywood;
-        tr {
-            th {
-                text-align: center;
-            }
-        }
+      p{
+        text-align: center;
+      }
     }
-    tbody {
-        tr {
+
+    .table-container {
+      table {
+        margin-bottom: 2em;
+        thead {
+          background-color: burlywood;
+          tr {
+            th {
+              text-align: center;
+            }
+          }
+        }
+        tbody {
+          tr {
             background-color: cornsilk;
             border-bottom: 2px solid black;
             cursor: pointer;
-            td{
-              padding: .2rem;
+            td {
+              padding: 0.2rem;
               text-align: center;
             }
-
+          }
         }
+      }
     }
-}
-}
-}
-
-
-
+  }
 }

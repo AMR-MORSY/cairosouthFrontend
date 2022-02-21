@@ -3,8 +3,8 @@
 
 <div class="container">
 
+<div class="No-data" *ngIf="!isDataFound"> <p  style="color: white;margin-top: 8em;">No Data Found</p></div>
 
-  <p *ngIf="!isDataFound" style="color: white;margin-top: 8em;">No Data Found</p>
 
   <div class="table-container table-responsive">
       <table *ngIf="isDataFound" class="table table-hover table-bordered">
