@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { SitesService } from 'src/app/sites/sites.service';
@@ -21,29 +21,30 @@ export class CreateSiteNurComponent implements OnInit {
   public token: any;
   public id: any;
   public newNUR: any;
+  public selectedFile:any;
 
 
+public selectNurFile(event:any){
 
+  this.selectedFile=event.target.files[0];
+
+}
 
   public createNurForm = new FormGroup({
-    week: new FormControl(null,),
-    begin: new FormControl(null,),
-    end: new FormControl(null,),
-    type: new FormControl("Involuntary",),
-    solution: new FormControl(null,),
-    system: new FormControl(null,),
-    sub_system: new FormControl(null,),
-    cells: new FormControl(null,),
-    technology: new FormControl("2G",),
-    access_problem: new FormControl('False'),
+    week: new FormControl(null,[Validators.required]),
+    technology: new FormControl(null,[Validators.required]),
+    nur: new FormControl(null,[Validators.required]),
 
 
   })
 
   public submitCreateNurForm(formData: any) {
     let data = formData.value;
-    data = this.formatingDataBeforSending(data)
-    this.sendNewSiteNURTODB(data, this.token, this.id);
+    // data.nur=this.selectedFile;
+    //  let strData=JSON.stringify(data)
+
+    // data = this.formatingDataBeforSending(data)
+     this.sendNewSiteNURTODB(data, this.token, this.id);
 
   }
   private formatingDataBeforSending(data: any) {
@@ -60,10 +61,12 @@ export class CreateSiteNurComponent implements OnInit {
 
   private sendNewSiteNURTODB(nur: any, token: any, id: any) {
     let data = {
-      'nur': nur,
+      'form': nur,
+      'nur':this.selectedFile,
       "token": token,
       "id": id
     }
+    console.log(data);
 
     this._NURService.createNUR(data).subscribe((response: any) => {
       console.log(response);

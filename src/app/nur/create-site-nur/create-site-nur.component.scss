@@ -2,6 +2,13 @@
 #new-site {
   margin-top: 8rem;
   color: white;
+  .container{
+    margin: auto;
+    .form-container{
+      width: 50%;
+      margin: auto;
+    }
+  }
 }
 
 #notification {
