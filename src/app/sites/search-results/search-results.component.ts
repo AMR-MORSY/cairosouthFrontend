@@ -102,9 +102,15 @@ private getSearchString()
           }
           else
           {
-            this.isDataFound=false;
+
             let error=response.errors
-            alert(JSON.stringify(error));
+            alert(JSON.stringify(error))
+
+
+            this.isDataFound=false;
+
+
+
 
           }
 
