@@ -62,7 +62,7 @@ public selectNurFile(event:any){
   private sendNewSiteNURTODB(nur: any, token: any, id: any) {
     let data = {
       'form': nur,
-      'nur':this.selectedFile,
+      'file':this.selectedFile,
       "token": token,
       "id": id
     }
