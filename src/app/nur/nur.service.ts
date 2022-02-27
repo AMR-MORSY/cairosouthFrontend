@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NurService {
+
+
+
 
   public NUR=new BehaviorSubject(null);
 
@@ -29,7 +32,10 @@ export class NurService {
 
 
   createNUR(data:any):Observable<any>{
-    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/createNUR",data);
+    const  headers=new HttpHeaders();
+    headers.append('Content-Type','multipart/form-data');
+    headers.append('Accept','application/json');
+    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/createNUR",data,{headers:headers});
   }
 
 }

@@ -6,6 +6,8 @@ import { SitesService } from 'src/app/sites/sites.service';
 import jwt_decode from "jwt-decode";
 import { NurService } from '../nur.service';
 import { DatePipe } from '@angular/common';
+import { BsDatepickerConfig, BsDatepickerViewMode } from 'ngx-bootstrap/datepicker';
+
 
 @Component({
   selector: 'app-create-site-nur',
@@ -13,6 +15,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./create-site-nur.component.scss']
 })
 export class CreateSiteNurComponent implements OnInit {
+  datePickerConfig?: Partial<BsDatepickerConfig>;
 
   public oldSite: any;
   public site_id: any;
@@ -21,52 +24,56 @@ export class CreateSiteNurComponent implements OnInit {
   public token: any;
   public id: any;
   public newNUR: any;
-  public selectedFile:any;
+  public selectedFile: any;
+  public datepicker: any;
+  public createNurForm: any
+  public years:number[]=[];
 
 
-public selectNurFile(event:any){
-
-  this.selectedFile=event.target.files[0];
-
-}
-
-  public createNurForm = new FormGroup({
-    week: new FormControl(null,[Validators.required]),
-    technology: new FormControl(null,[Validators.required]),
-    nur: new FormControl(null,[Validators.required]),
+  public minMode: BsDatepickerViewMode = 'year';
 
 
-  })
+  public selectNurFile(event: any) {
 
-  public submitCreateNurForm(formData: any) {
-    let data = formData.value;
-    // data.nur=this.selectedFile;
-    //  let strData=JSON.stringify(data)
-
-    // data = this.formatingDataBeforSending(data)
-     this.sendNewSiteNURTODB(data, this.token, this.id);
-
-  }
-  private formatingDataBeforSending(data: any) {
-    let newData = data;
-    newData.site_id = this.site_id;
-    newData.begin=this.datepipe.transform(newData.begin,'yyyy-MM-dd hh:mm:ss' )
-    newData.end=this.datepipe.transform(newData.end,'yyyy-MM-dd hh:mm:ss' )
-    console.log(newData);
-    newData=JSON.stringify(newData);
-
-    return newData;
-
-  }
-
-  private sendNewSiteNURTODB(nur: any, token: any, id: any) {
-    let data = {
-      'form': nur,
-      'file':this.selectedFile,
-      "token": token,
-      "id": id
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
     }
-    console.log(data);
+
+  }
+
+
+
+  public submitCreateNurForm(form: FormGroup) {
+
+
+    let newYear = this.datepipe.transform(this.datepicker, 'yyyy');
+    // data.year=newYear;
+    // let newData=JSON.stringify(data);
+
+    let formData = new FormData();
+    formData.append('file', this.selectedFile, this.selectedFile.name);
+    formData.append('week', this.createNurForm.get('week')?.value);
+    formData.append('year', this.createNurForm.get('year')?.value);
+    formData.append('technology', this.createNurForm.get('technology')?.value);
+    formData.append('id', this.createNurForm.get('id')?.value);
+    formData.append('token', this.createNurForm.get('token')?.value);
+    console.log(formData);
+
+
+    this.sendNewSiteNURTODB(formData);
+
+  }
+
+  private sendNewSiteNURTODB(nur: any) {
+    // let data = {
+    //   'form': nur,
+
+    //   "token": token,
+    //   "id": id
+    // }
+
+    let data = nur
+
 
     this._NURService.createNUR(data).subscribe((response: any) => {
       console.log(response);
@@ -112,13 +119,38 @@ public selectNurFile(event:any){
       this.token = this._AuthServices.currentUser.getValue();
       let decToken: any = this.decodeToken(this.token);
       this.id = decToken.id;
+      this.createNurForm = new FormGroup({
+        id: new FormControl(this.id),
+        token: new FormControl(this.token),
+        week: new FormControl(null, [Validators.required]),
+        technology: new FormControl(null, [Validators.required]),
+        file: new FormControl(null, [Validators.required]),
+        year: new FormControl(null, [Validators.required]),
+
+      })
 
     })
 
   }
-  constructor(private _SitesServices: SitesService, public datepipe: DatePipe,private _AuthServices: AuthenticationService, private _Router: Router, private _NURService: NurService) { }
+
+  private creatYearsSellection() {
+    let years: number[] = [];
+    let currentYear: number = new Date().getFullYear();
+
+    for (var i=0;i<10;i++)
+    {
+      years.push(currentYear+i)
+    }
+
+    this.years=years;
+
+  }
+  constructor(private _SitesServices: SitesService, public datepipe: DatePipe, private _AuthServices: AuthenticationService, private _Router: Router, private _NURService: NurService) {
+    this.datePickerConfig = Object.assign({}, { containerClass: 'theme-orange', dateInputFormat: 'YYYY', isAnimated: true, minMode: this.minMode });
+  }
 
   ngOnInit(): void {
+    this.creatYearsSellection();
     this.getSite();
     this.getUserData();
   }

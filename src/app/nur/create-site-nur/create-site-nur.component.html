@@ -35,13 +35,28 @@
         <div class="row">
           <div class="col-6">
 
+            <input type="hidden" formControlName="id">
+            <input type="hidden" formControlName="token">
+
             <div class="form-group">
               <label for="nur">NUR File:</label>
-              <input type="file" class=" form-control" enctype="multipart/form-data" (change)="selectNurFile($event)" formControlName="nur">
+              <input type="file" class=" form-control" enctype="multipart/form-data" (change)="selectNurFile($event)" formControlName="file">
 
             </div>
 
           </div>
+
+          <div class="col-6">
+            <label for="year">Select Year:</label>
+           <select class=" form-control" formControlName="year">
+             <option *ngFor="let year of years" [value]="year">{{year}}</option>
+           </select>
+          </div>
+
+
+        </div>
+
+        <div class="row">
           <div class="col-6">
             <div class="form-group">
 
@@ -49,7 +64,6 @@
             </div>
 
           </div>
-
         </div>
 
 

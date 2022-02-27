@@ -7,6 +7,7 @@ import { ShowSiteNurComponent } from './show-site-nur/show-site-nur.component';
 import { ShowAllNurComponent } from './show-all-nur/show-all-nur.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 
 
@@ -19,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     CommonModule,
-    NurModuleRoutingModule, HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    NurModuleRoutingModule, HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),BsDatepickerModule.forRoot()
   ],
   providers:[DatePipe]
 })

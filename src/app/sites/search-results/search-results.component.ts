@@ -39,6 +39,7 @@ private getSearchString()
     if (this._sitesService.searchStr.getValue() != null) {
 
       this.searchStr = this._sitesService.searchStr.getValue();
+      this.getToken();
       this.displaySites();
     }
     else {
@@ -83,6 +84,7 @@ private getSearchString()
 
 
           if (response.message == "token expired, please login") {
+            localStorage.clear();
             alert("token expired, please login");
             this._Router.navigate(['/auth/login']);
 
