@@ -29,6 +29,14 @@ export class ModificationsService {
 
    }
 
+   download(data:any,status:any):Observable<any>
+   {
+     const REQUEST_PARAMS=new HttpParams().set('fileName',data.filename);
+     const REQUEST_URI=`https://cairo-south.herokuapp.com/api/downloadallmodifications/${status}`;
+     return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
+   };
+
+
 
 
 

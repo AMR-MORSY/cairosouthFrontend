@@ -22,6 +22,8 @@
             <div class="col-12">
               <div class="button-container">
                 <button class="btn btn-primary"[disabled]='statusForm.status=="INVALID"' type="submit">submit</button>
+                <button class="btn btn-primary"[disabled]='statusForm.status=="INVALID"'  (click)="downloadsites(statusForm)">download</button>
+
 
               </div>
 

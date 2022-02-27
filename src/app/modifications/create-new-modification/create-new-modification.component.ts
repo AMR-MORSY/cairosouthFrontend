@@ -65,12 +65,16 @@ export class CreateNewModificationComponent implements OnInit {
     }
     this._ModificationService.creatSiteModification(data).subscribe((response:any)=>{
       console.log(response);
-      if (response.message=="success")
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+     else if (response.message=="success")
       {
         alert ("Modification inserted Successfully")
         this._Router.navigate(['/modifications/show-site-modifications'])
       }
-      else
+      else if (response.message=="failed")
       {
         let error=response.errors;
         alert(JSON.stringify(error));

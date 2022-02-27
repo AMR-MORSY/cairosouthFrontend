@@ -6,6 +6,7 @@ import { ModificationsService } from '../modifications.service';
 import jwt_decode from "jwt-decode";
 import { BehaviorSubject } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-all-modifications',
@@ -29,6 +30,18 @@ export class AllModificationsComponent implements OnInit {
   public statusForm = new FormGroup({
     status: new FormControl(null, [Validators.required])
   })
+
+
+  public downloadsites(statusForm: any) {
+    this.status = statusForm.value.status;
+    let filename = "allModifications.xlsx";
+    this._Modifications.download({ 'filename': filename },this.status).subscribe((data) => {
+      console.log(data);
+      saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
+
+    });
+
+  }
 
 
   public goToCreateNew() {

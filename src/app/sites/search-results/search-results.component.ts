@@ -89,7 +89,7 @@ private getSearchString()
             this._Router.navigate(['/auth/login']);
 
           }
-          if (response.data!=null) {
+         else if (response.data!=null) {
             this.isDataFound = true;
             this.sites = response.data;
             console.log(this.sites)
@@ -102,7 +102,7 @@ private getSearchString()
             }
 
           }
-          else
+          else if(response.message == "failed")
           {
 
             let error=response.errors
