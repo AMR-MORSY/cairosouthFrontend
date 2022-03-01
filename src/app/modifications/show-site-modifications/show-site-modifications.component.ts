@@ -106,9 +106,9 @@ public  sendSiteId(index: any,e:any) {
     this._ModificationsServices.getSiteModifications(data).subscribe((response: any) => {
 
 
-      let error = "";
+
       if (response.message == "failed") {
-        error = JSON.stringify(response.errors);
+      let  error = JSON.stringify(response.errors);
         alert(error);
 
       }
@@ -116,7 +116,7 @@ public  sendSiteId(index: any,e:any) {
         alert("token expired, please login");
         this._Router.navigate(['/auth/login']);
       }
-      else {
+      else if (response.message == "success") {
         this.data = response.data;
         this.isModificationFound = true;
         console.log(this.data)
@@ -127,21 +127,26 @@ public  sendSiteId(index: any,e:any) {
     })
 
   }
- 
+
   public deleteModification()
   {
     let data=this.generateDeleteRequestData()
     this._ModificationsServices.deleteSiteModifications(data).subscribe((response)=>{
       console.log(response)
-      if (response.message=="success")
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+      else if (response.message=="success")
       {
         alert ("Modification deleted Successfully");
         this.isNotificationShown=false;
+        this.getSiteModifications();
 
 
       }
 
-      else
+      else if (response.message=="failed")
       {
         let error=response.errors
         alert(JSON.stringify(error));

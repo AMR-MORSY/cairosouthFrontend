@@ -36,7 +36,8 @@ export class AllModificationsComponent implements OnInit {
     this.status = statusForm.value.status;
     let filename = "allModifications.xlsx";
     this._Modifications.download({ 'filename': filename },this.status).subscribe((data) => {
-      console.log(data);
+
+
       saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
 
     });
@@ -110,14 +111,14 @@ export class AllModificationsComponent implements OnInit {
         alert("token expired, please login");
         this._Router.navigate(['/auth/login']);
       }
-      if (response.data != null) {
+      else if (response.data != null) {
         this.site = response.data[0];
         console.log(this.site)
         this._siteService.site.next(this.site);
         localStorage.setItem('site', JSON.stringify(this.site))
 
       }
-      else {
+      else if (response.message=="failed") {
 
         let error = response.errors
         alert(JSON.stringify(error));

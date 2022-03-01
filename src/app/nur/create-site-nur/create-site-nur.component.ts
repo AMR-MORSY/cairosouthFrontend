@@ -15,7 +15,7 @@ import { BsDatepickerConfig, BsDatepickerViewMode } from 'ngx-bootstrap/datepick
   styleUrls: ['./create-site-nur.component.scss']
 })
 export class CreateSiteNurComponent implements OnInit {
-  datePickerConfig?: Partial<BsDatepickerConfig>;
+
 
   public oldSite: any;
   public site_id: any;
@@ -25,12 +25,12 @@ export class CreateSiteNurComponent implements OnInit {
   public id: any;
   public newNUR: any;
   public selectedFile: any;
-  public datepicker: any;
+
   public createNurForm: any
   public years:number[]=[];
 
 
-  public minMode: BsDatepickerViewMode = 'year';
+
 
 
   public selectNurFile(event: any) {
@@ -45,11 +45,6 @@ export class CreateSiteNurComponent implements OnInit {
 
   public submitCreateNurForm(form: FormGroup) {
 
-
-    let newYear = this.datepipe.transform(this.datepicker, 'yyyy');
-    // data.year=newYear;
-    // let newData=JSON.stringify(data);
-
     let formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
     formData.append('week', this.createNurForm.get('week')?.value);
@@ -57,6 +52,7 @@ export class CreateSiteNurComponent implements OnInit {
     formData.append('technology', this.createNurForm.get('technology')?.value);
     formData.append('id', this.createNurForm.get('id')?.value);
     formData.append('token', this.createNurForm.get('token')?.value);
+    formData.append('total_network_cells', this.createNurForm.get('total_network_cells')?.value);
     console.log(formData);
 
 
@@ -65,12 +61,7 @@ export class CreateSiteNurComponent implements OnInit {
   }
 
   private sendNewSiteNURTODB(nur: any) {
-    // let data = {
-    //   'form': nur,
 
-    //   "token": token,
-    //   "id": id
-    // }
 
     let data = nur
 
@@ -126,6 +117,7 @@ export class CreateSiteNurComponent implements OnInit {
         technology: new FormControl(null, [Validators.required]),
         file: new FormControl(null, [Validators.required]),
         year: new FormControl(null, [Validators.required]),
+        total_network_cells : new FormControl(null, [Validators.required]),
 
       })
 
@@ -146,7 +138,7 @@ export class CreateSiteNurComponent implements OnInit {
 
   }
   constructor(private _SitesServices: SitesService, public datepipe: DatePipe, private _AuthServices: AuthenticationService, private _Router: Router, private _NURService: NurService) {
-    this.datePickerConfig = Object.assign({}, { containerClass: 'theme-orange', dateInputFormat: 'YYYY', isAnimated: true, minMode: this.minMode });
+
   }
 
   ngOnInit(): void {
