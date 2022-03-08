@@ -38,4 +38,10 @@ export class NurService {
     return this._HttpClient.post("http://cairo-south.herokuapp.com/api/createNUR",data,{headers:headers});
   }
 
+  getNURIndex(token:any):Observable<any>
+  {
+    return this._HttpClient.get(`http://cairo-south.herokuapp.com/api/nurindex/${token}`)
+
+  }
+
 }
