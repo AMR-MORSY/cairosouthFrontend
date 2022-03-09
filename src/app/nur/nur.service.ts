@@ -32,10 +32,10 @@ export class NurService {
 
 
   createNUR(data:any):Observable<any>{
-    const  headers=new HttpHeaders();
-    headers.append('Content-Type','multipart/form-data');
-    headers.append('Accept','application/json');
-    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/createNUR",data,{headers:headers});
+    // const  headers=new HttpHeaders();
+    // headers.append('Content-Type','multipart/form-data');
+    // headers.append('Accept','application/json');
+    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/createNUR",data);
   }
 
   getNURIndex(token:any):Observable<any>
