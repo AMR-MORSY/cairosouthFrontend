@@ -35,12 +35,12 @@ export class NurService {
      const  headers=new HttpHeaders();
      headers.append('Content-Type',"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     // headers.append('Accept','application/json');
-    return this._HttpClient.post("http://cairo-south.herokuapp.com/api/createNUR",data,{headers:headers});
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/createNUR",data,{headers:headers});
   }
 
   getNURIndex(token:any):Observable<any>
   {
-    return this._HttpClient.get(`http://cairo-south.herokuapp.com/api/nurindex/${token}`)
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/nurindex/${token}`)
 
   }
 
