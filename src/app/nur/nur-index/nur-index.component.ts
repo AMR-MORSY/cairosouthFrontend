@@ -27,7 +27,11 @@ export class NurIndexComponent implements OnInit {
 
   constructor(private _AuthServices: AuthenticationService,private _NURService: NurService,private _Router:Router) { }
 
+public submityear(e:any)
+{
+  console.log(e.target.value)
 
+}
  public submitIndexFormMonth(Form:any)
   {
 

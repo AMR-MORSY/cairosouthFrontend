@@ -44,8 +44,8 @@
 
           <div class="col-6 col-sm-6 col-md-2 mt-2">
             <label for="years">Years:</label>
-            <select formControlName="years" id="years" class=" form-control d-block">
-              <option value=""></option>
+            <select formControlName="years" id="years" (change)="submityear($event)" class=" form-control d-block">
+              <option [value]="year" *ngFor="let year of years" >{{year}}</option>
 
             </select>
           </div>
