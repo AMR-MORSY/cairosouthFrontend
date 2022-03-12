@@ -44,4 +44,10 @@ export class NurService {
 
   }
 
+  getAllNUR(data:any,token:any):Observable<any>
+  {
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/nurstatestics/${data.week}/${data.month}/${data.year}/${data.tech}/${token}`)
+
+  }
+
 }

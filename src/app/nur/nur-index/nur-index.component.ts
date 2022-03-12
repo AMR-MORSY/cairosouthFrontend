@@ -15,31 +15,70 @@ export class NurIndexComponent implements OnInit {
   public years:any;
   public months:any;
   public weeks:any;
+  public selectedYear:any;
+  public selectedMonth:any;
+  public selectedWeek:any;
   public techMonths:any;
   public techWeeks:any;
   public showWeekForm:boolean=false;
   public showMonthForm:boolean=false;
   public months_year:any;
   public weeks_year:any;
+  public technologies:any;
 
   public indexFormMonth:any;
-  public indexFormWeek:any;
+  // public indexFormWeek:any;
 
   constructor(private _AuthServices: AuthenticationService,private _NURService: NurService,private _Router:Router) { }
 
 public submityear(e:any)
 {
-  console.log(e.target.value)
+  this.selectedYear=e.target.value;
+  this.months=Object.getOwnPropertyDescriptor(this.months_year,this.selectedYear)?.value;
+  this.weeks=Object.getOwnPropertyDescriptor(this.weeks_year,this.selectedYear)?.value;
+
+
+}
+public submitmonth(e:any)
+{
+  this.selectedMonth=e.target.value;
+ let month= Object.getOwnPropertyDescriptor(this.techMonths,this.selectedYear)?.value;
+this.technologies= Object.getOwnPropertyDescriptor(month,this.selectedMonth)?.value;
+
+}
+public submitWeek(e:any)
+{
+  this.selectedWeek=e.target.value;
+  let week=Object.getOwnPropertyDescriptor(this.techWeeks,this.selectedYear)?.value;
+  this.technologies= Object.getOwnPropertyDescriptor(week,this.selectedWeek)?.value;
+
+
 
 }
  public submitIndexFormMonth(Form:any)
   {
 
+    let data=Form.value;
+    // data['week']=0;
+    console.log(data)
+    this._NURService.getAllNUR(data,this.token).subscribe((response)=>{
+      console.log(response);
+      this.indexFormMonth=new FormGroup({
+        year:new FormControl(null,[Validators.required]),
+       month:new FormControl(0,[Validators.required]),
+       tech:new FormControl(null,[Validators.required]),
+       week:new FormControl(0,[Validators.required]),
+     })
+
+
+    });
+
+
   }
   public submit(e:any)
   {
     let value=e.target.value;
-    console.log(value);
+
     if(value=='month')
     {
       this.showMonthForm=true;
@@ -78,19 +117,16 @@ public submityear(e:any)
       {
         this.years=response.index.years;
         this.months_year= response.index.months_year;
-        this.months_year=Object.getOwnPropertyDescriptor(this.months_year,this.years)
-        this.weeks_year=Object.entries (response.index.weeks_year);
 
-        // for(var i=0;i<this.years.length;i++)
-        // {
-        //   let months=this.months_year.filter((month:any)=>{
+        this.weeks_year=response.index.weeks_year;
+        this.techMonths=response.index.technlogies_month;
+        this.techWeeks=response.index.technlogies_week;
 
-        //     return month[this.years[i]]
-        //   })
-        // }
-        console.log(this.months_year.value);
 
-        console.log(this.weeks_year);
+
+
+
+
 
 
 
@@ -107,15 +143,16 @@ public submityear(e:any)
     this.getUserData();
     this.getNURIndex();
     this.indexFormMonth=new FormGroup({
-      years:new FormControl(null,[Validators.required]),
-      months:new FormControl(null,[Validators.required]),
-      techMonths:new FormControl(null,[Validators.required])
+      year:new FormControl(null,[Validators.required]),
+      month:new FormControl(0,[Validators.required]),
+      tech:new FormControl(null,[Validators.required]),
+      week:new FormControl(0,[Validators.required]),
     })
-    this.indexFormWeek=new FormGroup({
-      years:new FormControl(null,[Validators.required]),
-      weeks:new FormControl(null,[Validators.required]),
-      techWeeks:new FormControl(null,[Validators.required])
-    })
+    // this.indexFormWeek=new FormGroup({
+    //   year:new FormControl(null,[Validators.required]),
+    //   week:new FormControl(null,[Validators.required]),
+    //   tech:new FormControl(null,[Validators.required])
+    // })
   }
 
 

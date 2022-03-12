@@ -27,24 +27,30 @@
       </div>
 
 
-      <form [formGroup]="indexFormMonth" [hidden]="!showMonthForm" (ngSubmit)="submitIndexFormMonth(indexFormMonth)">
+      <form [formGroup]="indexFormMonth"  (ngSubmit)="submitIndexFormMonth(indexFormMonth)">
         <div class="row">
-          <div class="col-6 col-sm-6 col-md-2 mt-2">
+          <div class="col-6 col-sm-6  col-md-2 mt-2" [hidden]="!showMonthForm">
             <label for="month">Month:</label>
-            <select class="form-control" formControlName="months" id="month">
-              <option value=""></option>
+            <select class="form-control" (change)="submitmonth($event)" formControlName="month" id="month">
+              <option [value]="month" *ngFor="let month of months">{{month}}</option>
+            </select>
+          </div>
+          <div class="col-6 col-sm-6 col-md-2 mt-2"[hidden]="!showWeekForm">
+            <label for="week">Week:</label>
+            <select class="form-control" formControlName="week" (change)="submitWeek($event)" id="week">
+              <option [value]="week" *ngFor="let week of weeks">{{week}}</option>
             </select>
           </div>
           <div class="col-6 col-sm-6 col-md-4 mt-2">
             <label for="technology">Technology:</label>
-            <select class="form-control" formControlName="techMonths" id="technology">
-              <option value=""></option>
+            <select class="form-control" formControlName="tech" id="technology">
+              <option [value]="technology"  *ngFor="let technology of technologies">{{technology}}</option>
             </select>
           </div>
 
           <div class="col-6 col-sm-6 col-md-2 mt-2">
             <label for="years">Years:</label>
-            <select formControlName="years" id="years" (change)="submityear($event)" class=" form-control d-block">
+            <select formControlName="year" id="years" (change)="submityear($event)" class=" form-control d-block">
               <option [value]="year" *ngFor="let year of years" >{{year}}</option>
 
             </select>
@@ -70,25 +76,20 @@
 
       </form>
 
-      <form [formGroup]="indexFormWeek" [hidden]="!showWeekForm" (ngSubmit)="submitIndexFormWeek(indexFormWeek)">
+      <!-- <form [formGroup]="indexFormWeek"  (ngSubmit)="submitIndexFormWeek(indexFormWeek)">
         <div class="row">
-          <div class="col-6 col-sm-6 col-md-2 mt-2">
-            <label for="week">Week:</label>
-            <select class="form-control" formControlName="weeks" id="week">
-              <option value=""></option>
-            </select>
-          </div>
+
           <div class="col-6 col-sm-6 col-md-4 mt-2">
             <label for="technology">Technology:</label>
-            <select class="form-control" formControlName="techWeeks" id="technology">
-              <option value=""></option>
+            <select class="form-control" formControlName="tech" id="technology">
+              <option [value]="technology"  *ngFor="let technology of technologies">{{technology}}</option>
             </select>
           </div>
 
           <div class="col-6 col-sm-6 col-md-2 mt-2">
             <label for="years">Years:</label>
-            <select formControlName="years" id="years" class=" form-control d-block">
-              <option value=""></option>
+            <select formControlName="year" id="years" (change)="submityear($event)" class=" form-control d-block">
+              <option [value]="year" *ngFor="let year of years">{{year}}</option>
 
             </select>
           </div>
@@ -111,7 +112,7 @@
 
 
       </form>
-
+ -->
 
 
 
