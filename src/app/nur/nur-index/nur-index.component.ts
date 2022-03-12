@@ -148,11 +148,7 @@ public submitWeek(e:any)
       tech:new FormControl(null,[Validators.required]),
       week:new FormControl(0,[Validators.required]),
     })
-    // this.indexFormWeek=new FormGroup({
-    //   year:new FormControl(null,[Validators.required]),
-    //   week:new FormControl(null,[Validators.required]),
-    //   tech:new FormControl(null,[Validators.required])
-    // })
+   
   }
 
 
