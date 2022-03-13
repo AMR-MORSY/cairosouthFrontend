@@ -13,22 +13,22 @@ export class NurService {
   public NUR=new BehaviorSubject(null);
 
   constructor(private _HttpClient: HttpClient) {
-    this.getNUR();
+    // this.getNUR();
   }
 
-  public getNUR()
-  {
-    let storage:any=localStorage.getItem('NUR');
-    if(storage!=null){
-      storage=JSON.parse(storage);
-      this.NUR.next(storage);
+  // public getNUR()
+  // {
+    // let storage:any=localStorage.getItem('NUR');
+    // if(storage!=null){
+      // storage=JSON.parse(storage);
+      // this.NUR.next(storage);
 
-    }
-
-
+    // }
 
 
-  }
+
+
+  // }
 
 
   createNUR(data:any):Observable<any>{

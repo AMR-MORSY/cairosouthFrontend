@@ -25,9 +25,11 @@ export class NurIndexComponent implements OnInit {
   public months_year:any;
   public weeks_year:any;
   public technologies:any;
+  public showNUR:boolean=false;
+ 
 
   public indexFormMonth:any;
-  // public indexFormWeek:any;
+
 
   constructor(private _AuthServices: AuthenticationService,private _NURService: NurService,private _Router:Router) { }
 
@@ -59,10 +61,25 @@ public submitWeek(e:any)
   {
 
     let data=Form.value;
-    // data['week']=0;
-    console.log(data)
     this._NURService.getAllNUR(data,this.token).subscribe((response)=>{
-      console.log(response);
+
+      if (response.message == "token expired, please login") {
+        localStorage.clear();
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+    else if (response.message=='success')
+    {
+      let statestics:any=response.statestics;
+      console.log(statestics);
+      this.SendNURTOShowComponent(statestics);
+      this.showNUR=true;
+    }
+    else
+    {
+      this.showNUR=false;
+      alert(response.errors)
+    }
       this.indexFormMonth=new FormGroup({
         year:new FormControl(null,[Validators.required]),
        month:new FormControl(0,[Validators.required]),
@@ -91,8 +108,9 @@ public submitWeek(e:any)
 
     }
   }
- public submitIndexFormWeek(Form:any)
+ public SendNURTOShowComponent(statestics:any)
   {
+    this._NURService.NUR.next(statestics)
 
   }
 

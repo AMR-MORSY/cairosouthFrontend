@@ -68,24 +68,24 @@ export class CreateSiteNurComponent implements OnInit {
 
     this._NURService.createNUR(data).subscribe((response: any) => {
       console.log(response);
-      // if (response.message == 'failed') {
-      //   let errors = response.errors;
-      //   alert(JSON.stringify(errors));
+      if (response.message == 'failed') {
+        let errors = response.errors;
+        alert(JSON.stringify(errors));
 
-      // }
-      // else if (response.message == "token expired, please login") {
-      //   alert("token expired, please login");
-      //   this._Router.navigate(['/auth/login']);
+      }
+      else if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
 
-      // }
-      // else {
-      //   alert("NUR inserted Successfully");
-      //   this.newNUR = response.nur;
-      //   this._NURService.NUR.next(this.newNUR);
-      //   localStorage.setItem('NUR', JSON.stringify(this.newNUR));
+      }
+      else {
+        alert("NUR inserted Successfully");
+        
+        
+        
 
 
-      // }
+      }
     })
 
   }

@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { NurIndexComponent } from './nur-index/nur-index.component';
+import { ShowNurComponent } from './nur-index/show-nur/show-nur.component';
 
 
 
@@ -18,6 +19,7 @@ import { NurIndexComponent } from './nur-index/nur-index.component';
     ShowSiteNurComponent,
     ShowAllNurComponent,
     NurIndexComponent,
+    ShowNurComponent,
 
   ],
   imports: [
