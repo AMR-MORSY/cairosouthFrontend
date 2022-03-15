@@ -7,20 +7,33 @@
         {
             width: 90%;
             margin: auto;
-          
+
             .row{
+              .dashboard-caption{
+                width: 70%;
+                margin: auto;
+
+                h1{
+                  color: #FF6600;
+                  text-align: center;
+                  span{
+                    color: white;
+                    font-size: 2rem;
+                  }
+                }
+              }
                 .microwave
                 {
                     display: flex;
                     justify-content: space-around;
                     align-items: center;
-                  
+
                     .microwave-img
                     {
                         width: 80px;
                         height: 80px;
-                      
-                       
+
+
                         img{
                             width: 100%;
                             height: 100%;
@@ -34,16 +47,16 @@
                 }
 
             }
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
+
+
+
+
         }
     }
 }

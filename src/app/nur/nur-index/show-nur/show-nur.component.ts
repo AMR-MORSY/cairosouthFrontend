@@ -12,21 +12,22 @@ export class ShowNurComponent implements OnInit {
   public NUR:any;
   public statestics:any;
   public microwaveNUR:any;
+  public timeSpan:any;
 
- 
 
- 
+
+
 
   constructor(private _NURService: NurService,private _Router:Router) {
-   
-   
-   
-   
+
+
+
+
   }
 
- 
- 
- 
+
+
+
  public getNURStatestics()
  {
    this.NUR=this.statestics.Nur;
@@ -34,9 +35,10 @@ export class ShowNurComponent implements OnInit {
    console.log(sub_system);
    let microwave=sub_system['MW PDH E'];
    this.microwaveNUR=microwave.sum_nur;
+   this.timeSpan=this.statestics.time_span
    console.log(microwave);
  }
- 
+
 public getNUR()
 {
   this._NURService.NUR.subscribe(()=>{
@@ -46,15 +48,15 @@ public getNUR()
       this.getNURStatestics();
 
     }
-   
+
   })
 }
- 
+
 
   ngOnInit(): void {
 
     this.getNUR();
-   
+
   }
 
 }

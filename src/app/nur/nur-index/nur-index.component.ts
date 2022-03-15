@@ -26,7 +26,7 @@ export class NurIndexComponent implements OnInit {
   public weeks_year:any;
   public technologies:any;
   public showNUR:boolean=false;
- 
+
 
   public indexFormMonth:any;
 
@@ -61,6 +61,7 @@ public submitWeek(e:any)
   {
 
     let data=Form.value;
+    console.log(data);
     this._NURService.getAllNUR(data,this.token).subscribe((response)=>{
 
       if (response.message == "token expired, please login") {
@@ -166,7 +167,7 @@ public submitWeek(e:any)
       tech:new FormControl(null,[Validators.required]),
       week:new FormControl(0,[Validators.required]),
     })
-   
+
   }
 
 
