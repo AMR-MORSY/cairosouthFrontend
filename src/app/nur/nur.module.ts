@@ -24,6 +24,7 @@ import { ShowNurComponent } from './nur-index/show-nur/show-nur.component';
   ],
   imports: [
     CommonModule,
+    
     NurModuleRoutingModule, HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),BsDatepickerModule.forRoot()
   ],
   providers:[DatePipe]

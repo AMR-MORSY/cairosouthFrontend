@@ -38,8 +38,8 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(private _sitesService: SitesService, private _Router: Router, private _AuthService: AuthenticationService) {
-    let x: any = document.querySelector(".navbar");
-    x.style.display = "flex";
+  
+  
 
 
   }

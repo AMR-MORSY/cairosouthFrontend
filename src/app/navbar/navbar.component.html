@@ -29,24 +29,42 @@
       <li class="nav-item">
         <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
       </li>
-      <li class="nav-item">
-        <div class="dropdown">
-          <a class="btn btn-secondary dropdown-toggle" *ngIf="isLogin" role="button" id="dropdownMenuLink"
-            data-bs-toggle="dropdown" aria-expanded="false">
+      <li class="nav-item dropdown">
+       
+          <a class="nav-link dropdown-toggle" *ngIf="isLogin"  id="dropdownMenuLink"
+           aria-haspopup="true" aria-expanded="false">
             Admin
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" routerLink='sites/allSites'>Sites</a></li>
+            <li class="nav-item">
+              <div class="test">
+                <a class="dropdown-item" >Sites</a>
+                <div class="test2">
+                  <a class="dropdown-item " routerLink='sites/allSites'>All Sites</a>
+                  <a class="dropdown-item " routerLink='sites/create-new-site' >Create New</a>
+                </div>
+              </div>
+              
+            </li>
             <li><a class="dropdown-item" *ngIf="isAdmin" routerLink='modifications/all-modifications'>Modifications</a>
             </li>
             <li class="nav-item">
-              <a class="dropdown-item " routerLink='nur/nur-index'>NUR</a>
+              <div class="test">
+                <a class="dropdown-item " >NUR</a>
+                <div class="test2">
+                  <a class="dropdown-item " routerLink='nur/nur-index' >Show NUR</a>
+                  <a class="dropdown-item " routerLink='nur/create-site-nur' >Add NUR</a>
+
+                </div>
+
+              </div>
+              
 
 
             </li>
             <li> <a class="dropdown-item" *ngIf="isSuperAdmin" routerLink='super-admin/users'>Users</a></li>
           </ul>
-        </div>
+        
       </li>
       <li class="nav-item">
         <a class="nav-link" *ngIf="isLogin" routerLink='profile'>Profile</a>
@@ -87,50 +105,66 @@
       </div>
       <ul class="list-unstyled components">
         <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
-        <li class="active">
+        <li class="active nav-item">
           <a class="nav-link" *ngIf="isLogin " Active routerLink='home'>Home </a>
         </li>
 
-        <li class=" nav-item">
+        <li class=" nav-item dropdown">
 
-          <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" *ngIf="isLogin" role="button" id="dropdownMenuLink"
+          
+            <a class=" nav-link " *ngIf="isLogin"  id="dropdownMenuLink"
               data-bs-toggle="dropdown" aria-expanded="false"> Admin </a>
 
             <ul class=" dropdown-menu " aria-labelledby="dropdownMenuLink ">
 
-              <li><a class="dropdown-item " routerLink='sites/allSites'>Sites</a></li>
+              <li class=" nav-item">
+            
+                <div class="test">
+                  <a class="dropdown-item " >Sites</a>
+                  <div class="test2">
+                    <a class="dropdown-item " routerLink='sites/allSites' >All Sites</a>
+                    <a class="dropdown-item " routerLink='sites/create-new-site' >Create New</a>
+                  </div>
+                </div>
+              </li>
               <li><a class="dropdown-item " *ngIf="isAdmin "
                   routerLink='modifications/all-modifications'>Modifications</a></li>
-              <li><a class="dropdown-item " routerLink='nur/nur-index'>NUR</a></li>
+              <li class=" nav-item">
+                <div class="test">
+                  <a class="dropdown-item " routerLink='nur/nur-index'>NUR</a>
+                  <div class="test2">
+                    <a class="dropdown-item " routerLink='nur/nur-index' >Show NUR</a>
+                    <a class="dropdown-item " routerLink='nur/create-site-nur' >Add NUR</a>
+                  </div>
+
+                </div>
+              
+              </li>
               <li> <a class="dropdown-item " *ngIf="isSuperAdmin " routerLink='super-admin/users'>Users</a></li>
             </ul>
-          </div>
+        
 
 
 
         </li>
 
 
-        <li>
-          <a *ngIf="isLogin " routerLink='profile'>Profile</a>
+        <li class=" nav-item">
+          <a class="nav-link" *ngIf="isLogin " routerLink='profile'>Profile</a>
         </li>
 
 
 
       </ul>
-
-
-
       <ul class="list-unstyled component ">
-        <li>
-          <a *ngIf="!isLogin " routerLink='auth/login'>Login</a>
+        <li  class=" nav-item">
+          <a  class="nav-link "*ngIf="!isLogin " routerLink='auth/login'>Login</a>
         </li>
-        <li>
-          <a *ngIf="isLogin " routerLink='auth/logout'>Logout</a>
+        <li  class=" nav-item">
+          <a class="nav-link " *ngIf="isLogin " routerLink='auth/logout'>Logout</a>
         </li>
-        <li>
-          <a *ngIf="!isLogin " routerLink='auth/register'>Register</a>
+        <li  class=" nav-item">
+          <a class="nav-link " *ngIf="!isLogin " routerLink='auth/register'>Register</a>
         </li>
       </ul>
 
