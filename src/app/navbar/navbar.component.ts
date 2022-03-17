@@ -15,19 +15,22 @@ export class NavbarComponent implements OnInit {
 
   public isLogin: boolean = false;
 
-  public isSuperAdmin:boolean=false;
+  public isSuperAdmin: boolean = false;
 
   public userName: any;
   public profilePic: any;
   public isAdmin: boolean = false;
-
+  private menueOpen:boolean = false;
+  // public menueBtn:any;
   public asset_url: string = './assets/grey_avatar_2.png';
   public image_url: any;
   public url: string = "http://localhost:8000/api/login";
   public profile_picture_path: any;
-  public backgroundColor:any;
+  public backgroundColor: any;
 
-  constructor(private _AuthService: AuthenticationService,  private _sitesService:SitesService, private _Router: Router) { }
+  constructor(private _AuthService: AuthenticationService, private _sitesService: SitesService, private _Router: Router) {
+    
+   }
   searchForm = new FormGroup({
     search: new FormControl(null, [Validators.requiredTrue])
   })
@@ -48,6 +51,34 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  public animateBtn(e:any) {
+
+    // let menueBtn:any=e.target;
+    let menueBtn:any=document.querySelector('.menue-btn');
+      if (!this.menueOpen) {
+        menueBtn.classList.add("open");
+       this. menueOpen = true;
+      }
+      else {
+        menueBtn.classList.remove("open");
+        this.menueOpen = false;
+      }
+  
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   public showUserProperties(decodedToken: any) {
@@ -56,21 +87,21 @@ export class NavbarComponent implements OnInit {
 
     let role: any = decodedToken.role;
 
-    if ( role == "super admin") {
+    if (role == "super admin") {
       this.isAdmin = true;
-      this.isSuperAdmin=true;
+      this.isSuperAdmin = true;
 
 
     }
-    else if(role=='admin') {
+    else if (role == 'admin') {
 
-      this.isAdmin=true;
+      this.isAdmin = true;
 
     }
 
-    else{
-      this.isAdmin=false;
-      this.isSuperAdmin=false;
+    else {
+      this.isAdmin = false;
+      this.isSuperAdmin = false;
     }
     let picture = decodedToken.picture;
     if (picture == null) {
@@ -90,9 +121,9 @@ export class NavbarComponent implements OnInit {
     this._AuthService.currentUser.subscribe(() => {
       if (this._AuthService.currentUser.getValue() != null) {
         let token: any = this._AuthService.currentUser.getValue();
-        this.isLogin=true;
-        this.backgroundColor={
-          backgroundColor:'none'
+        this.isLogin = true;
+        this.backgroundColor = {
+          backgroundColor: 'none'
         }
         let decodedToken = jwt_decode(token)
         console.log(decodedToken);
@@ -101,7 +132,7 @@ export class NavbarComponent implements OnInit {
 
       }
       else {
-        this.isLogin=false;
+        this.isLogin = false;
         this.image_url = this.asset_url;
 
 

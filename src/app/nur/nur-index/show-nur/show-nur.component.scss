@@ -1,92 +1,145 @@
-#statestics
-{
-    .container
-    {
-        margin: auto;
-        .statestics-container
-        {
-            width: 90%;
-            margin: auto;
+#statestics {
+  .container {
+    margin: auto;
+    .statestics-container {
+      width: 90%;
+      margin: auto;
 
-            .row{
-              .title{
+      .row {
+        .title-basics {
+          .title {
+            .dashboard-caption {
+              width: 100%;
 
-                position: relative;
-
-                .dashboard-caption{
-                  width: 70%;
-                  margin: auto;
-                  h1{
-                    color: #FF6600;
-                    text-align: center;
-                    span{
-                      color: white;
-                      font-size: 2rem;
-                    }
-                  }
+              h1 {
+                color: #ff6600;
+                text-align: center;
+                span {
+                  color: white;
+                  font-size: 2rem;
                 }
-                .NUR{
-                  position: absolute;
-                  top: 0;
-                  right: 0;
-                  
-                  .NUR-img{
-                    width: 100px;
-                    height: 100px;
-                    color: white;
-                    font-size: 2rem;
-
-                    img{
-                      width: 100%;
-                      height: 100%;
-                      border-radius: 50%;
-                    }
-                   
-                   
-                   
-                   
-                   
-                  }
-                }
-
               }
+            }
+          }
+          .basics {
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            // position: relative ;
+            // .tickets {
+              // position: absolute;
+              // top: 0;
+              // left: 0;
+            // }
+            .tickets-img,
+            .NUR-img {
+              position: relative;
+              width: 120px;
+              height: 120px;
+              color: white;
+              font-size: 5rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              i {
+                color: #ff6600;
+              }
+              .tickets-caption,
+              .NUR-caption {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                // align-items: center;
+                align-content: center;
+                flex-direction: column;
+                top: 50%;
+                transform: translateY(-50%);
+                color: white;
+                font-size: 0.75rem;
+                p {
+                  padding: 0;
+                  margin: 0;
+                  text-align: center;
+                }
+              }
+            }
+            // .NUR {
+              // position: absolute;
+              // top: 0;
+              // right: 0;
+            // }
+            
+          }
+           
+           
+           
+           
+           
+
           
 
-                .microwave
-                {
-                    display: flex;
-                    justify-content: space-around;
-                    align-items: center;
+           
+           
+           
+           
+           
+           
+           
 
-                    .microwave-img
-                    {
-                        width: 80px;
-                        height: 80px;
-
-
-                        img{
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 50% ;
-                        }
-                    }
-                    .microwave-nur
-                    {
-                        color: white;
-                    }
-                }
-
-            }
-
-
-
-
-
-
-
-
-
-
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+          
         }
+
+        .microwave {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+
+          .microwave-img {
+            width: 80px;
+            height: 80px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+            }
+          }
+          .microwave-nur {
+            color: white;
+          }
+        }
+      }
     }
+  }
 }

@@ -13,6 +13,8 @@ export class ShowNurComponent implements OnInit {
   public statestics:any;
   public microwaveNUR:any;
   public timeSpan:any;
+  public tickets:any;
+  
 
 
 
@@ -64,6 +66,7 @@ export class ShowNurComponent implements OnInit {
  public getNURStatestics()
  {
    this.NUR=this.statestics.Nur;
+   this.tickets=this.statestics.No_tickets;
    let sub_system=this.statestics.sub_system;
    console.log(sub_system);
    let microwave=sub_system['MW PDH E'];
