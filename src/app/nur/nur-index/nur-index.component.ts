@@ -36,23 +36,29 @@ export class NurIndexComponent implements OnInit {
 public submityear(e:any)
 {
   this.selectedYear=e.target.value;
-  this.months=Object.getOwnPropertyDescriptor(this.months_year,this.selectedYear)?.value;
-  this.weeks=Object.getOwnPropertyDescriptor(this.weeks_year,this.selectedYear)?.value;
+  this.months=Object.getOwnPropertyDescriptor(this.months_year,this.selectedYear);
+  this.months=this.months.value;
+  this.weeks=Object.getOwnPropertyDescriptor(this.weeks_year,this.selectedYear);
+  this.weeks=this.weeks.value;
 
 
 }
 public submitmonth(e:any)
 {
   this.selectedMonth=e.target.value;
- let month= Object.getOwnPropertyDescriptor(this.techMonths,this.selectedYear)?.value;
-this.technologies= Object.getOwnPropertyDescriptor(month,this.selectedMonth)?.value;
+ let month:any= Object.getOwnPropertyDescriptor(this.techMonths,this.selectedYear);
+ month=month.value;
+this.technologies= Object.getOwnPropertyDescriptor(month,this.selectedMonth);
+this.technologies=this.technologies.value
 
 }
 public submitWeek(e:any)
 {
   this.selectedWeek=e.target.value;
-  let week=Object.getOwnPropertyDescriptor(this.techWeeks,this.selectedYear)?.value;
-  this.technologies= Object.getOwnPropertyDescriptor(week,this.selectedWeek)?.value;
+  let week:any=Object.getOwnPropertyDescriptor(this.techWeeks,this.selectedYear);
+  week=week.value;
+  this.technologies= Object.getOwnPropertyDescriptor(week,this.selectedWeek);
+  this.technologies= this.technologies.value;
 
 
 
@@ -136,17 +142,9 @@ public submitWeek(e:any)
       {
         this.years=response.index.years;
         this.months_year= response.index.months_year;
-
         this.weeks_year=response.index.weeks_year;
         this.techMonths=response.index.technlogies_month;
         this.techWeeks=response.index.technlogies_week;
-
-
-
-
-
-
-
 
 
       }

@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   public userName: any;
   public profilePic: any;
   public isAdmin: boolean = false;
-  private menueOpen:boolean = false;
+  private menueOpen: boolean = false;
   // public menueBtn:any;
   public asset_url: string = './assets/grey_avatar_2.png';
   public image_url: any;
@@ -29,8 +29,8 @@ export class NavbarComponent implements OnInit {
   public backgroundColor: any;
 
   constructor(private _AuthService: AuthenticationService, private _sitesService: SitesService, private _Router: Router) {
-    
-   }
+
+  }
   searchForm = new FormGroup({
     search: new FormControl(null, [Validators.requiredTrue])
   })
@@ -51,19 +51,24 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  public animateBtn(e:any) {
+  
+  
+  
+  
+
+  public animateBtn(e: any) {
 
     // let menueBtn:any=e.target;
-    let menueBtn:any=document.querySelector('.menue-btn');
-      if (!this.menueOpen) {
-        menueBtn.classList.add("open");
-       this. menueOpen = true;
-      }
-      else {
-        menueBtn.classList.remove("open");
-        this.menueOpen = false;
-      }
-  
+    let menueBtn: any = document.querySelector('.menue-btn');
+    if (!this.menueOpen) {
+      menueBtn.classList.add("open");
+      this.menueOpen = true;
+    }
+    else {
+      menueBtn.classList.remove("open");
+      this.menueOpen = false;
+    }
+
 
 
   }

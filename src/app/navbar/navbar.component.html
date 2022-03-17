@@ -8,7 +8,7 @@
     </form>
   </div>
 
-  <a class="ofcan-btn" (click)="animateBtn($event)"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+  <a class="ofcan-btn" (click)="animateBtn($event)"   data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
     aria-controls="offcanvasExample">
 
     <div class="menue-btn" >
@@ -96,7 +96,7 @@
 
 
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas offcanvas-start"  data-bs-backdrop="false" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 
   <div class="offcanvas-body">
 
@@ -109,7 +109,7 @@
       <ul class="list-unstyled components">
         <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
         <li class="active nav-item">
-          <a class="nav-link" *ngIf="isLogin " Active routerLink='home'>Home </a>
+          <a class="nav-link" *ngIf="isLogin "  Active routerLink='home'>Home </a>
         </li>
 
         <li class=" nav-item dropdown">
