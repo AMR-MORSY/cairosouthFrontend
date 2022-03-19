@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { NurIndexComponent } from './nur-index/nur-index.component';
 import { ShowNurComponent } from './nur-index/show-nur/show-nur.component';
+import {NgChartsModule} from 'ng2-charts';
+
 
 
 
@@ -24,7 +26,7 @@ import { ShowNurComponent } from './nur-index/show-nur/show-nur.component';
   ],
   imports: [
     CommonModule,
-    
+    NgChartsModule,
     NurModuleRoutingModule, HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),BsDatepickerModule.forRoot()
   ],
   providers:[DatePipe]

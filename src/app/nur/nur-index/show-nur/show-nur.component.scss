@@ -5,140 +5,127 @@
       width: 90%;
       margin: auto;
 
-      .row {
-        .title-basics {
-          .title {
-            .dashboard-caption {
-              width: 100%;
+      .title-basics {
+        .title {
+          .dashboard-caption {
+            width: 100%;
 
-              h1 {
-                color: #ff6600;
-                text-align: center;
-                span {
-                  color: white;
-                  font-size: 2rem;
-                }
-              }
-            }
-          }
-          .basics {
-
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            // position: relative ;
-            // .tickets {
-              // position: absolute;
-              // top: 0;
-              // left: 0;
-            // }
-            .tickets-img,
-            .NUR-img {
-              position: relative;
-              width: 120px;
-              height: 120px;
-              color: white;
-              font-size: 5rem;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              i {
-                color: #ff6600;
-              }
-              .tickets-caption,
-              .NUR-caption {
-                position: absolute;
-                display: flex;
-                justify-content: center;
-                // align-items: center;
-                align-content: center;
-                flex-direction: column;
-                top: 50%;
-                transform: translateY(-50%);
+            h1 {
+              color: #ff6600;
+              text-align: center;
+              span {
                 color: white;
-                font-size: 0.75rem;
-                p {
-                  padding: 0;
-                  margin: 0;
-                  text-align: center;
-                }
+                font-size: 2rem;
               }
             }
-            // .NUR {
-              // position: absolute;
-              // top: 0;
-              // right: 0;
-            // }
-            
           }
-           
-           
-           
-           
-           
-
-          
-
-           
-           
-           
-           
-           
-           
-           
-
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-          
         }
-
-        .microwave {
+        .basics {
           display: flex;
           justify-content: space-around;
           align-items: center;
-
-          .microwave-img {
-            width: 80px;
-            height: 80px;
-
-            img {
-              width: 100%;
-              height: 100%;
-              border-radius: 50%;
-            }
-          }
-          .microwave-nur {
+          .tickets-img,
+          .NUR-img {
+            position: relative;
+            width: 120px;
+            height: 120px;
             color: white;
+            font-size: 5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            i {
+              color: #ff6600;
+            }
+            .tickets-caption,
+            .NUR-caption {
+              position: absolute;
+              display: flex;
+              justify-content: center;
+              // align-items: center;
+              align-content: center;
+              flex-direction: column;
+              top: 50%;
+              transform: translateY(-50%);
+              color: white;
+              font-size: 0.75rem;
+              p {
+                padding: 0;
+                margin: 0;
+                text-align: center;
+              }
+            }
+
+           
+          }
+
+          .duration {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding-top: 0.5rem;
+            .duration-img {
+              margin: 0;
+              padding: 0;
+             
+              i{
+                font-size: 3rem;
+                color: #ff6600;
+              }
+            }
+            .duration-caption{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              margin: 0;
+              padding: 0;
+              p {
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                color: white;
+                font-size: 0.75rem;
+              }
+            }
+                      
+                      
+                      
+                      
+          }
+        
+        
+        
+        
+        
+        }
+      }
+
+      .microwave {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .microwave-img {
+          width: 80px;
+          height: 80px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
           }
         }
+        .microwave-nur {
+          color: white;
+        }
+      }
+
+      .subSystem {
+        width: 70%;
+        margin: auto;
       }
     }
   }

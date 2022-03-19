@@ -33,11 +33,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="duration">
+                                <div class="duration-img">
+                                    <i class="fa-solid fa-clock"></i>
+                                </div>
+                                <div class="duration-caption">
+                                    <p>Avg.ticket.Dur</p>
+                                    <p>{{avgTicketDur}} <span>hours</span></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-md-2">
-                    <div class="microwave">
+                    <div class="microwave" *ngIf="isMicrowaveNur">
                         <div class="microwave-img">
                             <img src="../../../../assets/CableFree-FOR2-3.webp" alt="">
 
@@ -51,6 +60,56 @@
                     </div>
 
                 </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6" >
+                    <div class="BSC">
+                        <canvas baseChart
+                            [datasets]='BSCChartData' 
+                            [labels]="BSCChartLabels"
+                            [options]="BSCChartOptions"
+                            [legend]="BSCChartLegend"
+                            [type]="BSCChartType">
+                        </canvas>
+                        
+                        
+
+                       
+                    </div>
+                </div>
+                <div class="col-12 col-md-6" >
+                    <div class="subSystem">
+                        <canvas baseChart
+                            [datasets]='subsystemChartData' 
+                            [labels]="subsystemChartLabels"
+                            [options]="subsystemChartOptions"
+                            [legend]="subsystemChartLegend"
+                            [type]="subsystemChartType">
+                        </canvas>
+                        
+                        
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div *ngIf="isGenStatestics" class="col-12 col-md-6" >
+                    <div class="generator">
+                        <canvas baseChart
+                            [datasets]='genChartData' 
+                            [labels]="genChartLabels"
+                            [options]="genChartOptions"
+                            [legend]="genChartLegend"
+                            [type]="genChartType">
+                        </canvas>
+                        
+                        
+                       
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
