@@ -1,68 +1,320 @@
-import { BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
 
-import { Component, OnInit,AfterViewInit} from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../auth/authentication.service';
-import jwt_decode from "jwt-decode";
 import { SitesService } from '../sites/sites.service';
+import {Chart} from 'chart.js';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit,AfterViewInit {
-  public offices:any;
-  public BSCs:any=[];
-  public RNCs:any=[];
-  public sites_categories:any;
-  public sites_types:any;
-  public sites_severity:any;
-  public fadefinished:boolean=false;
+export class UserComponent implements OnInit {
+ 
+  public token: any;
 
 
-  constructor(private _AuthService:AuthenticationService, private _siteServices:SitesService, private _Router:Router) { }
+  public chartPlugins=[pluginDataLabels.default]
+  public BSCChartType: any = 'bar';
+  public BSCChartOptions = {
+    scales: {
+      yAxis: {
+        title: {
+          display: true,
+          text: 'No.sites',
+          align: 'start'
+        },
+        ticks: {
+          display: true,
+          z: 1
+        }
+      },
 
-  private showBSCDetails(BSC:any)
-  {
-    
-    for(var i=0;i<BSC.length-10;i++)
-    {
-      this.BSCs.push(BSC[i])
 
+
+
+
+    },
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      datalabels:{
+        color:'black'
+      },
+      title: {
+        display: true,
+        text: 'BSC Analysis',
+        align: 'center',
+        color: '#ff6600',
+        font: { weight: 'bold' }
+      }
+    },
+    responsive:true
+  };
+  public BSCChartLegend = true;
+  public BSCChartData: any;
+  public BSCChartLabels: any;
+
+
+  public RNCChartType: any = 'bar';
+  public RNCChartOptions = {
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'RNC Analysis',
+        align: 'center',
+        color: '#ff6600',
+        font: { weight: 'bold' }
+      }
+    },
+    responsive: true
+  };
+  public RNCChartLegend = true;
+  public RNCChartData: any;
+  public RNCChartLabels: any;
+
+
+  public categoryChartType: any = 'bar';
+  public categoryChartOptions = {
+    scales: {
+      yAxis: {
+        title: {
+          display: true,
+          text: 'No.sites',
+          align: 'start'
+        }
+      },
+
+    },
+
+    plugins: {
+
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'category Analysis',
+        align: 'center',
+        color: '#ff6600',
+        font: { weight: 'bold' }
+      }
+    },
+    responsive: true
+  };
+  public categoryChartLegend = true;
+  public categoryChartData: any;
+  public categoryChartLabels: any;
+
+  public sites_severityChartType: any = 'bar';
+  public sites_severityChartOptions = {
+    scales: {
+      yAxis: {
+        title: {
+          display: true,
+          text: 'No.sites',
+          align: 'start'
+        }
+      },
+
+    },
+
+    plugins: {
+
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Severity Analysis',
+        align: 'center',
+        color: '#ff6600',
+        font: { weight: 'bold' }
+      }
+    },
+    responsive: true
+  };
+  public sites_severityChartLegend = true;
+  public sites_severityChartData: any;
+  public sites_severityChartLabels: any;
+
+
+  public sites_typesChartType: any = 'bar';
+  public sites_typesChartOptions = {
+    scales: {
+      yAxis: {
+        title: {
+          display: true,
+          text: 'No.sites',
+          align: 'start'
+        }
+      },
+    },
+    plugins: {
+
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Site Type Analysis',
+        align: 'center',
+        color: '#ff6600',
+        font: { weight: 'bold' }
+      }
+    },
+    responsive: true
+  };
+  public sites_typesChartLegend = true;
+  public sites_typesChartData: any;
+  public sites_typesChartLabels: any;
+
+
+  public officesChartType: any = 'bar';
+  public officesChartOptions = {
+    scales: {
+      yAxis: {
+        title: {
+          display: true,
+          text: 'No.sites',
+          align: 'start'
+        }
+      },
+    },
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Offices Analysis',
+        align: 'center',
+        color: '#ff6600',
+        font: { weight: 'bold' }
+      }
+    },
+    responsive: true
+  };
+  public officesChartLegend = true;
+  public officesChartData: any;
+  public officesChartLabels: any;
+
+ 
+
+
+
+  constructor(private _AuthService: AuthenticationService, private _siteServices: SitesService, private _Router: Router) { }
+
+
+  private getUserData() {
+    if (this._AuthService.currentUser.getValue() != null) {
+      this.token = this._AuthService.currentUser.getValue();
     }
-   this.BSCs.push(BSC[12])
-   this.BSCs.push(BSC[14])
-    for(var i=5;i<BSC.length-3;i++)
-    {
-      this.RNCs.push(BSC[i])
+    else {
+      this._Router.navigate(['/home']);
     }
-    this.RNCs.push(BSC[13])
-    console.log(this.BSCs);
-    console.log(this.RNCs)
-    
+
   }
-  public getSitesStatestics(token:any)
+
+  private getLAbels_Values(data: any) {
+    let Labels: any[] = [];
+    let Values: any[] = [];
+    for (var i = 0; i < data.length; i++) {
+      Labels.push(data[i][0]);
+      Values.push(data[i][1]);
+    }
+
+    let details = {};
+
+    return details = {
+      'labels': Labels,
+      'values': Values
+    }
+
+  }
+
+  private show_BSC_RNC_Details(BSC: any) {
+
+    let BSCs: any[] = [];
+
+    for (var i = 0; i < BSC.length - 10; i++) {
+      BSCs.push(BSC[i])
+
+    }
+    BSCs.push(BSC[12])
+    BSCs.push(BSC[14])
+
+    this.BSCChartLabels = this.getLAbels_Values(BSCs).labels;
+    this.BSCChartData = [{
+      data: this.getLAbels_Values(BSCs).values, label: 'No.Sites', backgroundColor: '#FF6600', yAxisID: 'yAxis',
+     
+      maxBarThickness:25 ,
+      minBarLength: 10
+    }];
+
+    let RNCs: any[] = [];
+
+    for (var i = 5; i < BSC.length - 3; i++) {
+      RNCs.push(BSC[i])
+    }
+    RNCs.push(BSC[13])
+
+    this.RNCChartLabels = this.getLAbels_Values(RNCs).labels;
+    console.log(this.getLAbels_Values(RNCs).values)
+    this.RNCChartData = [{ data: this.getLAbels_Values(RNCs).values, label: 'No.Sites', backgroundColor: '#FF6600', maxBarThickness:25 ,
+    minBarLength: 10 }];
+  }
+
+
+  private showCategoriesDetails(sites_categories: any) {
+    this.categoryChartLabels = Object.keys(sites_categories);
+    this.categoryChartData = [{ data: Object.values(sites_categories), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis',  maxBarThickness:25 ,
+    minBarLength: 10 }]
+
+  }
+
+  private showSiteSeverityDetails(sites_severity: any) {
+    this.sites_severityChartLabels = Object.keys(sites_severity);
+    this.sites_severityChartData = [{ data: Object.values(sites_severity), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis',  maxBarThickness:25 ,
+    minBarLength: 10}]
+  }
+
+  private showSiteTypeDetails(sites_types: any) {
+    this.sites_typesChartLabels = Object.keys(sites_types);
+    this.sites_typesChartData = [{ data: Object.values(sites_types), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis',  maxBarThickness:25 ,
+    minBarLength: 10 }]
+
+  }
+
+ private showOfficesDetails(offices:any)
   {
-    this._siteServices.showStatistics(token).subscribe((response:any)=>{
+    this.officesChartLabels = Object.keys(offices);
+    this.officesChartData = [{ data: Object.values(offices), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis',  maxBarThickness:25 ,
+    minBarLength: 10}]
+
+  }
+
+  public getSitesStatestics() {
+    this._siteServices.showStatistics(this.token).subscribe((response: any) => {
       console.log(response)
-      this.offices=Object.entries(response.offices);
-     let BSC=Object.entries(response.BSCs) ;
-      this.sites_categories=Object.entries(response.sites_categories);
-      this.sites_severity=Object.entries(response.sites_severity);
-      this.sites_types=Object.entries(response.sites_types);
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+      else if (response.message == 'success') {
+        this.show_BSC_RNC_Details(Object.entries(response.BSCs));
+        this.showCategoriesDetails(response.sites_categories);
+        this.showSiteSeverityDetails(response.sites_severity);
+        this.showSiteTypeDetails(response.sites_types);
+        this.showOfficesDetails(response.offices);
 
-      console.log(BSC);
-      this.showBSCDetails(BSC);
-     
-     
-
-
-
-
-
-
-
+      }
 
     });
 
@@ -71,29 +323,18 @@ export class UserComponent implements OnInit,AfterViewInit {
 
 
   ngOnInit(): void {
-
-    if (this._AuthService.currentUser.getValue() != null) {
-      let token: any = this._AuthService.currentUser.getValue();
-
-      this.getSitesStatestics(token)
+    this.getUserData();
+    this.getSitesStatestics()
 
 
-    }
-    else {
-      this._Router.navigate(['/home']);
-
-
-
-    }
   }
 
-  ngAfterViewInit(): void {
-    // let x:any= document.getElementById('loading');
-  //  x.classList.add("animate__animated","animate__fadeOut");
-  //  setTimeout(() => {
-    //  this.fadefinished=true;
-  //  },3000);
- }
+
+
+
+
+
+
 
 
 

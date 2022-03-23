@@ -1,63 +1,58 @@
 <section id="cards">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <div class="card  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">
-                        <h5 class="card-title h2">BSCs</h5>
-                    </div>
-                    <div class="card-body">
+            <div class="col-12 col-md-6">
+                <div class="card  mb-3">
 
-                        <p class="card-text" *ngFor="let element of BSCs ">{{element[0]}}: <span style="color: green;">{{element[1]}}</span></p>
-                    </div>
+                    <canvas baseChart [datasets]='BSCChartData' [labels]="BSCChartLabels" [options]="BSCChartOptions"
+                        [legend]="BSCChartLegend" [type]="BSCChartType" [plugins]="chartPlugins">
+                    </canvas>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">
-                        <h5 class="card-title h2">RNCs</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text" *ngFor="let element of RNCs ">{{element[0]}}: <span style="color: green;">{{element[1]}}</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">
-                        <h5 class="card-title h2">Categories</h5>
-                    </div>
-                    <div class="card-body">
+            <div class="col-12 col-md-6">
+                <div class="card  mb-3">
+                    <canvas baseChart [datasets]='RNCChartData' [labels]="RNCChartLabels" [options]="RNCChartOptions"
+                        [legend]="RNCChartLegend" [type]="RNCChartType" [plugins]="chartPlugins">
+                    </canvas>
 
-                        <p class="card-text" *ngFor="let category of sites_categories">{{category[0]}}: <span style="color: green;">{{category[1]}}</span></p>
-                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">
-                        <h5 class="card-title h2">Severity</h5>
-                    </div>
-                    <div class="card-body">
+            <div class="col-12 col-md-6">
+                <div class="card  mb-3">
+                    <canvas baseChart [datasets]='categoryChartData' [labels]="categoryChartLabels"
+                    [plugins]="chartPlugins"   [options]="categoryChartOptions" [legend]="categoryChartLegend" [type]="categoryChartType">
+                    </canvas>
 
-                        <p class="card-text" *ngFor="let severity of sites_severity ">{{severity[0]}}: <span style="color: green;">{{severity[1]}}</span></p>
-                    </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card  mb-3" style="max-width: 18rem;">
-                    <div class="card-header">
-                        <h5 class="card-title h2">Type</h5>
-                    </div>
-                    <div class="card-body">
+            <div class="col-12 col-md-6">
+                <div class="card  mb-3">
 
-                        <p class="card-text" *ngFor="let type of sites_types">{{type[0]}}: <span style="color: green;">{{type[1]}}</span></p>
-                    </div>
+                    <canvas baseChart [plugins]="chartPlugins" [datasets]='sites_severityChartData' [labels]="sites_severityChartLabels"
+                        [options]="sites_severityChartOptions" [legend]="sites_severityChartLegend" [type]="sites_severityChartType">
+                    </canvas> 
                 </div>
             </div>
+            <div class="col-12 col-md-6">
+                <div class="card  mb-3">
+    
+                    <canvas baseChart [plugins]="chartPlugins" [datasets]='sites_typesChartData' [labels]="sites_typesChartLabels"
+                    [options]="sites_typesChartOptions" [legend]="sites_typesChartLegend" [type]="sites_typesChartType">
+                </canvas> 
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="card  mb-3">
+                    <canvas baseChart [plugins]="chartPlugins" [datasets]='officesChartData' [labels]="officesChartLabels"
+                    [options]="officesChartOptions" [legend]="officesChartLegend" [type]="officesChartType">
+                </canvas> 
+                </div>
+            </div>
+            
         </div>
     </div>
-    <div>
-        hello
-    </div>
+
+
+
 </section>
