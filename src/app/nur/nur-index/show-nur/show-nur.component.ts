@@ -2,7 +2,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NurService } from '../../nur.service';
-import { ChartOptions, ChartType } from 'chart.js';
+
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
 
 
 @Component({
@@ -15,21 +17,47 @@ export class ShowNurComponent implements OnInit {
   public NUR: any;
   private statestics: any;
   public microwaveNUR: any;
-  public avgTicketDur:any;
+  public avgTicketDur: any;
   public isMicrowaveNur: boolean = false;
   public timeSpan: any;
   public tickets: any;
   public isGenStatestics: boolean = false;
-  public totalGenTicketsCount:any;
-  public topETGenTicket:any[]=[];
-  public topVFGenTicket:any[]=[];
-  public topOGGenTicket:any[]=[];
-  public topRentGenTicket:any[]=[];
-
+  public totalGenTicketsCount: any;
+  public totalGenTicketsNUR: any;
+  public topETGenTicket: any[] = [];
+  public topVFGenTicket: any[] = [];
+  public topOGGenTicket: any[] = [];
+  public topRentGenTicket: any[] = [];
+  public VIPs:any[]=[];
+  public chartPlugins = [pluginDataLabels.default]
 
 
   public BSCChartType: any = 'bar';
   public BSCChartOptions = {
+    scales: {
+      yAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red',
+
+        },
+        ticks: {
+          color: 'red'
+        },
+      },
+      xAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red',
+
+        },
+        ticks: {
+          color: 'red'
+        },
+      }
+    },
     plugins: {
       legend: {
         position: 'top'
@@ -53,17 +81,33 @@ export class ShowNurComponent implements OnInit {
 
   public genChartType: any = 'bar';
   public genChartOptions = {
+    scales: {
+      yAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+      },
+      xAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+      }
+    },
     plugins: {
       legend: {
         position: 'top'
       },
-      title: {
-        display: true,
-        text: 'gen Analysis',
-        align: 'center',
-        color: '#ff6600',
-        font: { weight: 'bold' }
-      }
+     
     },
     responsive: true
   };
@@ -72,23 +116,7 @@ export class ShowNurComponent implements OnInit {
   public genChartLabels: any;
 
   public subsystemChartType: any = 'doughnut';
-  public subsystemChartOptions = {
-    plugins: {
-      legend: {
-        position: 'left',
-
-      },
-      title: {
-        display: true,
-        text: 'subsystem Analysis',
-        align: 'center',
-        color: '#ff6600',
-        font: { weight: 'bold' }
-
-      }
-    },
-    responsive: true
-  };
+  public subsystemChartOptions:any;
   public subsystemChartLegend = true;
   public subsystemChartData: any;
   public subsystemChartLabels: any;
@@ -164,6 +192,13 @@ export class ShowNurComponent implements OnInit {
 
   }
 
+public goToShowSiteNUR(siteCode:any)
+{
+  console.log(siteCode)
+  this._NURService.site_code.next(siteCode);
+  localStorage.setItem('site_code',siteCode);
+  this._Router.navigate(['/nur/show-site-nur'])
+}
 
   public analyzeBSC() {
     let BSC: any = this.statestics.BSC;
@@ -173,8 +208,16 @@ export class ShowNurComponent implements OnInit {
     console.log(this.analyze(BSC).NUR);
     console.log(this.analyze(BSC).AvgTicketDur)
     this.BSCChartData = [
-      { data: this.analyze(BSC).TotalTickets, label: 'Tickets', backgroundColor: 'orange' },
-      { data: this.analyze(BSC).NUR, label: 'NUR', backgroundColor: 'rgb(54, 162, 235)' },
+      {
+        data: this.analyze(BSC).TotalTickets, label: 'Tickets', backgroundColor: 'orange',
+        yAxisID: 'yAxis', xAxisID: 'xAxis', maxBarThickness: 25,
+        minBarLength: 10, borderColor: 'red', borderWidth: 1, borderRadius: 2, pointStyle: 'circle'
+      },
+      {
+        data: this.analyze(BSC).NUR, label: 'NUR', backgroundColor: 'rgb(54, 162, 235)',
+        yAxisID: 'yAxis', xAxisID: 'xAxis', maxBarThickness: 25,
+        minBarLength: 10, borderColor: 'red', borderWidth: 1, borderRadius: 2, pointStyle: 'circle'
+      },
 
 
 
@@ -220,7 +263,30 @@ export class ShowNurComponent implements OnInit {
     this.subsystemChartData = [
       // { data: this.analyze(subSystem).TotalTickets, label: 'Tickets', backgroundColor: 'orange' },
       { data: this.analyze(subSystem).NUR, label: 'NUR' },
-    ]
+    ],
+      this.subsystemChartOptions = {
+
+        plugins: {
+          legend: {
+            position: 'left',
+            title: {
+              display: true,
+              color: 'blue',
+              text:`Total NUR ${this.NUR}`
+
+            }
+          },
+          title: {
+            display: true,
+            text: 'subsystem Analysis',
+            align: 'center',
+            color: '#ff6600',
+            font: { weight: 'bold' }
+          }
+        },
+        responsive: true
+       
+      }
 
   }
 
@@ -230,7 +296,11 @@ export class ShowNurComponent implements OnInit {
     this.generateMonths(this.timeSpan);
 
   }
+  private getVIP()
+  {
+    this.VIPs=this.statestics.vip;
 
+  }
   private analyzeGenerator() {
 
     let genStatestics: any = this.statestics.Generator_statestic;
@@ -239,56 +309,61 @@ export class ShowNurComponent implements OnInit {
 
     }
     else {
-      let vendors:any[]=[];
-      let count_tickets:any[]=[];
-      let NUR:any[]=[];
+      let vendors: any[] = [];
+      let count_tickets: any[] = [];
+      let NUR: any[] = [];
       this.isGenStatestics = true;
-      this.totalGenTicketsCount=genStatestics.No_Gen_tickets;
-      let ET_Tickets=genStatestics.count_ET_Gen_tickets;
-      if(ET_Tickets!=0)
-      {
+      this.totalGenTicketsCount = genStatestics.No_Gen_tickets;
+      this.totalGenTicketsNUR = genStatestics.total_Gen_Nur;
+      let ET_Tickets = genStatestics.count_ET_Gen_tickets;
+      if (ET_Tickets != 0) {
         vendors.push('ET');
         count_tickets.push(ET_Tickets);
         NUR.push(genStatestics.total_ET_Gen_Nur);
-        this.topETGenTicket=genStatestics. top_ET_Nur_tickets;
+        this.topETGenTicket = genStatestics.top_ET_Nur_tickets;
       }
-      let VF_Tickets=genStatestics.count_VF_Gen_tickets;
-      if(VF_Tickets!=0)
-      {
+      let VF_Tickets = genStatestics.count_VF_Gen_tickets;
+      if (VF_Tickets != 0) {
         vendors.push('VF');
         count_tickets.push(VF_Tickets);
         NUR.push(genStatestics.total_VF_Gen_Nur);
-        this.topVFGenTicket=genStatestics. top_VF_Nur_tickets;
+        this.topVFGenTicket = genStatestics.top_VF_Nur_tickets;
       }
-      let OG_Tickets=genStatestics.count_OG_Gen_tickets;
-      if(OG_Tickets!=0)
-      {
+      let OG_Tickets = genStatestics.count_OG_Gen_tickets;
+      if (OG_Tickets != 0) {
         vendors.push('OG');
         count_tickets.push(OG_Tickets);
         NUR.push(genStatestics.total_OG_Gen_Nur);
-        this.topOGGenTicket=genStatestics. top_OG_Nur_tickets;
+        this.topOGGenTicket = genStatestics.top_OG_Nur_tickets;
       }
-      let Rent_Tickets=genStatestics.count_Rent_Gen_tickets;
-      if(Rent_Tickets!=0)
-      {
+      let Rent_Tickets = genStatestics.count_Rent_Gen_tickets;
+      if (Rent_Tickets != 0) {
         vendors.push('Rent');
         count_tickets.push(Rent_Tickets);
         NUR.push(genStatestics.total_Rent_Gen_Nur);
-        this.topRentGenTicket=genStatestics. top_Rent_Nur_tickets;
+        this.topRentGenTicket = genStatestics.top_Rent_Nur_tickets;
       }
-      this.genChartLabels=vendors;
-      this.genChartData=[{
-        data:count_tickets,label:'Number of tickets',backgroundColor: 'orange'},
-        {data:NUR,label:'NUR',backgroundColor: 'rgb(54, 162, 235)'}
+      this.genChartLabels = vendors;
+      this.genChartData = [{
+        data: count_tickets, label: 'Number of tickets', backgroundColor: 'orange',
+        yAxisID: 'yAxis', xAxisID: 'xAxis', maxBarThickness: 25,
+        minBarLength: 10, borderColor: 'red', borderWidth: 1, borderRadius: 2, pointStyle: 'circle'
+      },
+      {
+        data: NUR, label: 'NUR', backgroundColor: 'rgb(54, 162, 235)',
+        yAxisID: 'yAxis', xAxisID: 'xAxis', maxBarThickness: 25,
+        minBarLength: 10, borderColor: 'red', borderWidth: 1, borderRadius: 2, pointStyle: 'circle'
+      }
       ]
+
+     
 
 
     }
   }
 
-  private getAvgTicketDur()
-  {
-    this.avgTicketDur=this.statestics.average_tickets_duration
+  private getAvgTicketDur() {
+    this.avgTicketDur = this.statestics.average_tickets_duration
 
   }
 
@@ -317,6 +392,7 @@ export class ShowNurComponent implements OnInit {
     this.analyzeBSC();
     this.analyzeSubsystem();
     this.analyzeGenerator();
+    this.getVIP();
 
 
 

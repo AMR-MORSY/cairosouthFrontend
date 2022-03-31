@@ -8,7 +8,7 @@
                             <div class="dashboard-caption">
                                 <h1>The Dashboard <span>{{timeSpan}}</span></h1>
                             </div>
-                          
+
 
                         </div>
                         <div class="basics">
@@ -45,71 +45,148 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-2">
+              
+              
+              
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="BSC">
+                        <canvas baseChart [datasets]='BSCChartData' [labels]="BSCChartLabels"
+                            [options]="BSCChartOptions" [legend]="BSCChartLegend" [type]="BSCChartType"></canvas>
+
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="subSystem">
+                        <canvas baseChart [datasets]='subsystemChartData' [labels]="subsystemChartLabels"
+                            [options]="subsystemChartOptions" [legend]="subsystemChartLegend"
+                            [type]="subsystemChartType" [plugins]="chartPlugins">
+                        </canvas>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div *ngIf="isGenStatestics" class="col-12 col-md-6">
+                    <div class="generator">
+                        <div class="NUR">
+                            <div class="NUR-img">
+                                <i class="fa-solid fa-star"></i>
+                                <div class="NUR-caption">
+                                    <p>NUR</p>
+                                    <p>{{totalGenTicketsNUR}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tickets">
+                            <div class="tickets-img">
+                                <i class="fa-solid fa-ticket"></i>
+                                <div class="tickets-caption">
+                                    <p>Tickets</p>
+                                    <p>{{totalGenTicketsCount}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gen-title">
+                            <p>Generator Analysis</p>
+                        </div>
+                        <canvas baseChart [datasets]='genChartData' [labels]="genChartLabels"
+                            [options]="genChartOptions" [legend]="genChartLegend" [type]="genChartType"
+                            [plugins]="chartPlugins">
+                        </canvas>
+
+                        <div class="gen-caption">
+                            <p>Top Sites NUR</p>
+                        </div>
+
+                        <div class="table-container table-responsive ">
+                            <table class=" table table-warning table-hover table-bordered">
+                                <thead>
+                                    <tr class=" table-danger align-middle text-center">
+                                        <th scope="col">Vendor</th>
+                                        <th scope="col">Site Code</th>
+                                        <th scope="col">Site Name</th>
+                                        <th scope="col">NUR</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let site of topETGenTicket" (click)="goToShowSiteNUR(site.problem_site_code)" >
+                                        <td class=" text-center align-middle">ET</td>
+                                        <td class=" text-center align-middle">{{site.problem_site_code}}</td>
+                                        <td class=" text-center align-middle">{{site.problem_site_name}}</td>
+                                        <td class=" text-center align-middle">{{site.nur}}</td>
+                                    </tr>
+                                    <tr *ngFor="let site of topVFGenTicket" (click)="goToShowSiteNUR(site.problem_site_code)">
+                                        <td class=" text-center align-middle">VF</td>
+                                        <td class=" text-center align-middle">{{site.problem_site_code}}</td>
+                                        <td class=" text-center align-middle">{{site.problem_site_name}}</td>
+                                        <td class=" text-center align-middle">{{site.nur}}</td>
+                                    </tr>
+                                  
+                                        <tr *ngFor=" let site of topOGGenTicket" (click)="goToShowSiteNUR(site.problem_site_code)">
+                                        <td class=" text-center align-middle">OG</td>
+                                        <td class=" text-center align-middle">{{site.problem_site_code}}</td>
+                                        <td class=" text-center align-middle">{{site.problem_site_name}}</td>
+                                        <td class=" text-center align-middle">{{site.nur}}</td>
+                                        </tr>
+                                   
+                                    <tr *ngFor="let site of topRentGenTicket" (click)="goToShowSiteNUR(site.problem_site_code)">
+                                        <td class=" text-center align-middle">Rented</td>
+                                        <td class=" text-center align-middle">{{site.problem_site_code}}</td>
+                                        <td class=" text-center align-middle">{{site.problem_site_name}}</td>
+                                        <td class=" text-center align-middle">{{site.nur}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                
+                </div>
+
+              <div class="col-12 col-md-6">
+                <div class="table-container table-responsive ">
+                    <table class=" table table-warning table-hover table-bordered">
+                        <thead>
+                            <tr class=" table-danger align-middle text-center">
+                                
+                                <th scope="col">Site Code</th>
+                                <th scope="col">Site Name</th>
+                                <th scope="col">NUR</th>
+                                <th scope="col">Site Category</th>
+                                <th scope="col">Tickets Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let site of VIPs" (click)="goToShowSiteNUR(site.site_code)">
+                                <td class=" text-center align-middle">{{site.site_code}}</td>
+                                <td class=" text-center align-middle">{{site.site_name}}</td>
+                                <td class=" text-center align-middle">{{site.NUR}}</td>
+                                <td class=" text-center align-middle">{{site.site_category}}</td>
+                                <td class=" text-center align-middle">{{site.count_tickets}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6">
                     <div class="microwave" *ngIf="isMicrowaveNur">
                         <div class="microwave-img">
                             <img src="../../../../assets/CableFree-FOR2-3.webp" alt="">
-
                         </div>
-
                         <div class="microwave-nur">
                             <p>NUR:{{microwaveNUR}}</p>
-
                         </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 col-md-6" >
-                    <div class="BSC">
-                        <canvas baseChart
-                            [datasets]='BSCChartData' 
-                            [labels]="BSCChartLabels"
-                            [options]="BSCChartOptions"
-                            [legend]="BSCChartLegend"
-                            [type]="BSCChartType">
-                        </canvas>
-                        
-                        
-
-                       
                     </div>
                 </div>
-                <div class="col-12 col-md-6" >
-                    <div class="subSystem">
-                        <canvas baseChart
-                            [datasets]='subsystemChartData' 
-                            [labels]="subsystemChartLabels"
-                            [options]="subsystemChartOptions"
-                            [legend]="subsystemChartLegend"
-                            [type]="subsystemChartType">
-                        </canvas>
-                        
-                        
-                       
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div *ngIf="isGenStatestics" class="col-12 col-md-6" >
-                    <div class="generator">
-                        <canvas baseChart
-                            [datasets]='genChartData' 
-                            [labels]="genChartLabels"
-                            [options]="genChartOptions"
-                            [legend]="genChartLegend"
-                            [type]="genChartType">
-                        </canvas>
-                        
-                        
-                       
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

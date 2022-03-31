@@ -1,3 +1,4 @@
+import { NurService } from './../nur.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
@@ -10,14 +11,41 @@ import { SitesService } from 'src/app/sites/sites.service';
 })
 export class ShowSiteNurComponent implements OnInit {
 
-  constructor(private _SitesServices: SitesService,private _AuthServices: AuthenticationService, private _Router:Router) { }
-  public goToCreteNur()
-  {
-    this._Router.navigate(['/nur/create-site-nur']);
+  public siteCode:any='';
+  private token:any='';
 
+  constructor(private _NurServices:NurService,private _AuthServices: AuthenticationService, private _Router:Router) { }
+  
+  
+  
+
+  
+
+  private getSiteCode()
+  {
+    this._NurServices.site_code.subscribe(()=>{
+      if (this._NurServices.site_code.getValue()!=null)
+      {
+      this.siteCode=this._NurServices.site_code.getValue();
+     
+        console.log(this.siteCode)
+      }
+
+    })
+  }
+  private getUserData() {
+    this._AuthServices.currentUser.subscribe(() => {
+      if(this._AuthServices.currentUser.getValue()!=null)
+      this.token = this._AuthServices.currentUser.getValue();
+    })
   }
 
   ngOnInit(): void {
+
+    this.getSiteCode();
+    this.getUserData()
+
+
   }
 
 }

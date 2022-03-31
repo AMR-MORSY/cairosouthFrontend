@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../auth/authentication.service';
 import { SitesService } from '../sites/sites.service';
-import {Chart} from 'chart.js';
+import { Chart } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
@@ -12,47 +12,52 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
- 
+
   public token: any;
 
 
-  public chartPlugins=[pluginDataLabels.default]
+  public chartPlugins = [pluginDataLabels.default]
   public BSCChartType: any = 'bar';
   public BSCChartOptions = {
     scales: {
       yAxis: {
-        title: {
-          display: true,
-          text: 'No.sites',
-          align: 'start'
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
         },
         ticks: {
-          display: true,
-          z: 1
-        }
+          color: 'red'
+        },
       },
-
-
-
-
-
+      xAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+      }
     },
+   
     plugins: {
       legend: {
         position: 'top'
       },
-      datalabels:{
-        color:'black'
+      datalabels: {
+        color: 'black'
       },
       title: {
         display: true,
         text: 'BSC Analysis',
         align: 'center',
-        color: '#ff6600',
+        color: 'red',
         font: { weight: 'bold' }
       }
     },
-    responsive:true
+    responsive: true
   };
   public BSCChartLegend = true;
   public BSCChartData: any;
@@ -61,6 +66,28 @@ export class UserComponent implements OnInit {
 
   public RNCChartType: any = 'bar';
   public RNCChartOptions = {
+    scales: {
+      yAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+      },
+      xAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+      }
+    },
     plugins: {
       legend: {
         position: 'top'
@@ -69,7 +96,7 @@ export class UserComponent implements OnInit {
         display: true,
         text: 'RNC Analysis',
         align: 'center',
-        color: '#ff6600',
+        color: 'red',
         font: { weight: 'bold' }
       }
     },
@@ -84,13 +111,25 @@ export class UserComponent implements OnInit {
   public categoryChartOptions = {
     scales: {
       yAxis: {
-        title: {
-          display: true,
-          text: 'No.sites',
-          align: 'start'
-        }
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
       },
-
+      xAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+      }
     },
 
     plugins: {
@@ -102,7 +141,7 @@ export class UserComponent implements OnInit {
         display: true,
         text: 'category Analysis',
         align: 'center',
-        color: '#ff6600',
+        color: 'red',
         font: { weight: 'bold' }
       }
     },
@@ -116,15 +155,26 @@ export class UserComponent implements OnInit {
   public sites_severityChartOptions = {
     scales: {
       yAxis: {
-        title: {
-          display: true,
-          text: 'No.sites',
-          align: 'start'
-        }
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
       },
-
+      xAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+      }
     },
-
     plugins: {
 
       legend: {
@@ -134,7 +184,7 @@ export class UserComponent implements OnInit {
         display: true,
         text: 'Severity Analysis',
         align: 'center',
-        color: '#ff6600',
+        color: 'red',
         font: { weight: 'bold' }
       }
     },
@@ -149,12 +199,25 @@ export class UserComponent implements OnInit {
   public sites_typesChartOptions = {
     scales: {
       yAxis: {
-        title: {
-          display: true,
-          text: 'No.sites',
-          align: 'start'
-        }
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
       },
+      xAxis: {
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+      }
     },
     plugins: {
 
@@ -165,7 +228,7 @@ export class UserComponent implements OnInit {
         display: true,
         text: 'Site Type Analysis',
         align: 'center',
-        color: '#ff6600',
+        color: 'red',
         font: { weight: 'bold' }
       }
     },
@@ -178,24 +241,50 @@ export class UserComponent implements OnInit {
 
   public officesChartType: any = 'bar';
   public officesChartOptions = {
+
     scales: {
       yAxis: {
-        title: {
-          display: true,
-          text: 'No.sites',
-          align: 'start'
-        }
+       
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+
+        ticks: {
+          color: 'red'
+        },
+
       },
+      xAxis: {
+
+        grid: {
+          tickWidth: 1,
+          tickColor: 'blue',
+          borderColor: 'red'
+        },
+        ticks: {
+          color: 'red'
+        },
+
+
+      }
     },
     plugins: {
       legend: {
-        position: 'top'
+        position: 'top',
+        align:'center',
+        title:{
+          display:true,
+          color:'blue',
+          text:'hello'
+        }
       },
       title: {
         display: true,
         text: 'Offices Analysis',
         align: 'center',
-        color: '#ff6600',
+        color: 'red',
         font: { weight: 'bold' }
       }
     },
@@ -205,7 +294,7 @@ export class UserComponent implements OnInit {
   public officesChartData: any;
   public officesChartLabels: any;
 
- 
+
 
 
 
@@ -253,8 +342,8 @@ export class UserComponent implements OnInit {
     this.BSCChartLabels = this.getLAbels_Values(BSCs).labels;
     this.BSCChartData = [{
       data: this.getLAbels_Values(BSCs).values, label: 'No.Sites', backgroundColor: '#FF6600', yAxisID: 'yAxis',
-     
-      maxBarThickness:25 ,
+
+      maxBarThickness: 25,
       minBarLength: 10
     }];
 
@@ -267,36 +356,46 @@ export class UserComponent implements OnInit {
 
     this.RNCChartLabels = this.getLAbels_Values(RNCs).labels;
     console.log(this.getLAbels_Values(RNCs).values)
-    this.RNCChartData = [{ data: this.getLAbels_Values(RNCs).values, label: 'No.Sites', backgroundColor: '#FF6600', maxBarThickness:25 ,
-    minBarLength: 10 }];
+    this.RNCChartData = [{
+      data: this.getLAbels_Values(RNCs).values, label: 'No.Sites', backgroundColor: '#FF6600', maxBarThickness: 25,
+      minBarLength: 10
+    }];
   }
 
 
   private showCategoriesDetails(sites_categories: any) {
     this.categoryChartLabels = Object.keys(sites_categories);
-    this.categoryChartData = [{ data: Object.values(sites_categories), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis',  maxBarThickness:25 ,
-    minBarLength: 10 }]
+    this.categoryChartData = [{
+      data: Object.values(sites_categories), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis', maxBarThickness: 25,
+      minBarLength: 10
+    }]
 
   }
 
   private showSiteSeverityDetails(sites_severity: any) {
     this.sites_severityChartLabels = Object.keys(sites_severity);
-    this.sites_severityChartData = [{ data: Object.values(sites_severity), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis',  maxBarThickness:25 ,
-    minBarLength: 10}]
+    this.sites_severityChartData = [{
+      data: Object.values(sites_severity), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis', maxBarThickness: 25,
+      minBarLength: 10
+    }]
   }
 
   private showSiteTypeDetails(sites_types: any) {
     this.sites_typesChartLabels = Object.keys(sites_types);
-    this.sites_typesChartData = [{ data: Object.values(sites_types), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis',  maxBarThickness:25 ,
-    minBarLength: 10 }]
+    this.sites_typesChartData = [{
+      data: Object.values(sites_types), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis', maxBarThickness: 25,
+      minBarLength: 10
+    }]
 
   }
 
- private showOfficesDetails(offices:any)
-  {
+  private showOfficesDetails(offices: any) {
     this.officesChartLabels = Object.keys(offices);
-    this.officesChartData = [{ data: Object.values(offices), label: 'No.Sites', backgroundColor: '#ff6600', yAxisID: 'yAxis',  maxBarThickness:25 ,
-    minBarLength: 10}]
+    this.officesChartData = [{
+      data: Object.values(offices), label: 'No.Sites', backgroundColor: '#ff6600',
+       yAxisID: 'yAxis', xAxisID: 'xAxis', maxBarThickness: 25,
+      minBarLength: 10, borderColor: 'red',borderWidth:1,borderRadius:2,pointStyle:'circle'
+    }]
 
   }
 

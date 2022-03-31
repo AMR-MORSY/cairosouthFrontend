@@ -14,6 +14,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import { AllSitesComponent } from './all-sites/all-sites.component';
 import { UpdateSiteComponent } from './update-site/update-site.component';
+import { BackNavigateDirective } from '../back-navigate.directive';
 
 
 
@@ -29,7 +30,7 @@ import { UpdateSiteComponent } from './update-site/update-site.component';
     SiteDetailsComponent,
     SearchResultsComponent,
     CreateNewSiteComponent,
-
+    BackNavigateDirective,
     AllSitesComponent,
     UpdateSiteComponent,
 

@@ -11,9 +11,12 @@ export class NurService {
 
 
   public NUR=new BehaviorSubject(null);
+  public site_code=new BehaviorSubject(null);
 
   constructor(private _HttpClient: HttpClient) {
+    this.getSiteCode();
     // this.getNUR();
+
   }
 
   // public getNUR()
@@ -29,6 +32,20 @@ export class NurService {
 
 
   // }
+
+   public getSiteCode()
+ {
+   let storage:any=localStorage.getItem('site_code');
+   if(storage!=null){
+  
+     this.site_code.next(storage);
+
+   }
+
+
+
+
+ }
 
 
   createNUR(data:any):Observable<any>{
