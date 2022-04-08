@@ -11,6 +11,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { NurIndexComponent } from './nur-index/nur-index.component';
 import { ShowNurComponent } from './nur-index/show-nur/show-nur.component';
 import {NgChartsModule} from 'ng2-charts';
+import { BackNavigationDirective } from './back-navigation.directive';
 
 
 
@@ -22,6 +23,7 @@ import {NgChartsModule} from 'ng2-charts';
     ShowAllNurComponent,
     NurIndexComponent,
     ShowNurComponent,
+    BackNavigationDirective,
 
   ],
   imports: [

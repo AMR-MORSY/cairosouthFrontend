@@ -45,9 +45,9 @@
                         </div>
                     </div>
                 </div>
-              
-              
-              
+
+
+
             </div>
 
             <div class="row">
@@ -56,6 +56,37 @@
                         <canvas baseChart [datasets]='BSCChartData' [labels]="BSCChartLabels"
                             [options]="BSCChartOptions" [legend]="BSCChartLegend" [type]="BSCChartType"></canvas>
 
+                    </div>
+                    <div class="table-container table-responsive ">
+                        <table class=" table table-warning table-hover table-bordered">
+                            <thead>
+                                <tr class=" table-danger align-middle text-center">
+                                    <th></th>
+                                    <th></th>
+                                    <th colspan="2">Top Sites NUR</th>
+                                   
+
+                                </tr>
+                                <tr class=" table-danger align-middle text-center">
+                                    <th scope="col">BSC</th>
+                                    <th scope="col">Avg.tickets Dur</th>
+                                    <th scope="col">Site Code</th>
+                                    <th scope="col">Site Name</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let BSC of BSCs"
+                                    (click)="goToShowSiteNUR(BSC.topSiteNur.problem_site_code)">
+                                    <td class=" text-center align-middle">{{BSC.name}}</td>
+                                    <td class=" text-center align-middle">{{BSC.ticketDur}}</td>
+                                    <td class=" text-center align-middle">{{BSC.topSiteNur.problem_site_code}}</td>
+                                    <td class=" text-center align-middle">{{BSC.topSiteNur.problem_site_name}}</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -113,27 +144,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let site of topETGenTicket" (click)="goToShowSiteNUR(site.problem_site_code)" >
+                                    <tr *ngFor="let site of topETGenTicket"
+                                        (click)="goToShowSiteNUR(site.problem_site_code)">
                                         <td class=" text-center align-middle">ET</td>
                                         <td class=" text-center align-middle">{{site.problem_site_code}}</td>
                                         <td class=" text-center align-middle">{{site.problem_site_name}}</td>
                                         <td class=" text-center align-middle">{{site.nur}}</td>
                                     </tr>
-                                    <tr *ngFor="let site of topVFGenTicket" (click)="goToShowSiteNUR(site.problem_site_code)">
+                                    <tr *ngFor="let site of topVFGenTicket"
+                                        (click)="goToShowSiteNUR(site.problem_site_code)">
                                         <td class=" text-center align-middle">VF</td>
                                         <td class=" text-center align-middle">{{site.problem_site_code}}</td>
                                         <td class=" text-center align-middle">{{site.problem_site_name}}</td>
                                         <td class=" text-center align-middle">{{site.nur}}</td>
                                     </tr>
-                                  
-                                        <tr *ngFor=" let site of topOGGenTicket" (click)="goToShowSiteNUR(site.problem_site_code)">
+
+                                    <tr *ngFor=" let site of topOGGenTicket"
+                                        (click)="goToShowSiteNUR(site.problem_site_code)">
                                         <td class=" text-center align-middle">OG</td>
                                         <td class=" text-center align-middle">{{site.problem_site_code}}</td>
                                         <td class=" text-center align-middle">{{site.problem_site_name}}</td>
                                         <td class=" text-center align-middle">{{site.nur}}</td>
-                                        </tr>
-                                   
-                                    <tr *ngFor="let site of topRentGenTicket" (click)="goToShowSiteNUR(site.problem_site_code)">
+                                    </tr>
+
+                                    <tr *ngFor="let site of topRentGenTicket"
+                                        (click)="goToShowSiteNUR(site.problem_site_code)">
                                         <td class=" text-center align-middle">Rented</td>
                                         <td class=" text-center align-middle">{{site.problem_site_code}}</td>
                                         <td class=" text-center align-middle">{{site.problem_site_name}}</td>
@@ -144,35 +179,35 @@
                         </div>
 
                     </div>
-                
+
                 </div>
 
-              <div class="col-12 col-md-6">
-                <div class="table-container table-responsive ">
-                    <table class=" table table-warning table-hover table-bordered">
-                        <thead>
-                            <tr class=" table-danger align-middle text-center">
-                                
-                                <th scope="col">Site Code</th>
-                                <th scope="col">Site Name</th>
-                                <th scope="col">NUR</th>
-                                <th scope="col">Site Category</th>
-                                <th scope="col">Tickets Count</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let site of VIPs" (click)="goToShowSiteNUR(site.site_code)">
-                                <td class=" text-center align-middle">{{site.site_code}}</td>
-                                <td class=" text-center align-middle">{{site.site_name}}</td>
-                                <td class=" text-center align-middle">{{site.NUR}}</td>
-                                <td class=" text-center align-middle">{{site.site_category}}</td>
-                                <td class=" text-center align-middle">{{site.count_tickets}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="col-12 col-md-6">
+                    <div class="table-container table-responsive ">
+                        <table class=" table table-warning table-hover table-bordered">
+                            <thead>
+                                <tr class=" table-danger align-middle text-center">
 
-              </div>
+                                    <th scope="col">Site Code</th>
+                                    <th scope="col">Site Name</th>
+                                    <th scope="col">NUR</th>
+                                    <th scope="col">Site Category</th>
+                                    <th scope="col">Tickets Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let site of VIPs" (click)="goToShowSiteNUR(site.site_code)">
+                                    <td class=" text-center align-middle">{{site.site_code}}</td>
+                                    <td class=" text-center align-middle">{{site.site_name}}</td>
+                                    <td class=" text-center align-middle">{{site.NUR}}</td>
+                                    <td class=" text-center align-middle">{{site.site_category}}</td>
+                                    <td class=" text-center align-middle">{{site.count_tickets}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
 
             </div>
 

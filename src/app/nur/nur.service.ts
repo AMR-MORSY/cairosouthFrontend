@@ -60,6 +60,10 @@ export class NurService {
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/nurindex/${token}`)
 
   }
+  getSiteNUR(siteCode:any, token:any):Observable<any>
+  {
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/siteNur/${siteCode}/${token}`)
+  }
 
   getAllNUR(data:any,token:any):Observable<any>
   {

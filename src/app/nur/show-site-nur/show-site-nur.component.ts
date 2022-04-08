@@ -13,6 +13,8 @@ export class ShowSiteNurComponent implements OnInit {
 
   public siteCode:any='';
   private token:any='';
+  public siteName:any='';
+  public tickets:any[]=[];
 
   constructor(private _NurServices:NurService,private _AuthServices: AuthenticationService, private _Router:Router) { }
   
@@ -39,11 +41,34 @@ export class ShowSiteNurComponent implements OnInit {
       this.token = this._AuthServices.currentUser.getValue();
     })
   }
+  private getSiteNUR()
+  {
+    this._NurServices.getSiteNUR(this.siteCode,this.token).subscribe((response)=>{
+      console.log(response);
+      if (response.message=='success')
+      {
+        this.siteName=response.NUR.site_name;
+        this.tickets=response.NUR.tickets;
+
+      }
+      else if (response.message == "token expired, please login") {
+        localStorage.clear();
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+      }
+      else
+      {
+        let error:any=response.errors;
+        alert(JSON.stringify(error))
+      }
+    })
+  }
 
   ngOnInit(): void {
 
     this.getSiteCode();
-    this.getUserData()
+    this.getUserData();
+    this.getSiteNUR();
 
 
   }

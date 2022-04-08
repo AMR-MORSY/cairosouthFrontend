@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HttpInterceptorService } from './http-interceptor.service';
 import {NgChartsModule} from 'ng2-charts';
-import { BackNavigateDirective } from './back-navigate.directive';
+
 
 
 
@@ -37,6 +37,7 @@ import { BackNavigateDirective } from './back-navigate.directive';
     BrowserModule,
     CommonModule,
     NgChartsModule,
+    
     AppRoutingModule,HttpClientModule,FormsModule,ReactiveFormsModule, NgxPaginationModule, NgxTypedJsModule, BrowserAnimationsModule
   ],
   providers: [{

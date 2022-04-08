@@ -1,7 +1,54 @@
 <section id="create-nur">
   <div class="container">
-    <div class="button-container">
-    
+
+    <div class="siteName-code">
+      <div class="form-group">
+        <label for="siteCode">Site Code</label>
+        <input type="text" id="siteCode" value="{{siteCode}}">
+      </div>
+      <div class="form-group">
+        <label for="siteName">Site Name</label>
+        <input type="text" id="siteName" value="{{siteName}}">
+      </div>
     </div>
+
+    <div class="table-container table-responsive ">
+      <table class=" table table-warning table-hover table-bordered">
+        <thead>
+          <tr class=" table-danger align-middle text-center">
+            <th scope="col">Impacted Sites</th>
+            <th scope="col">Solution</th>
+            <th scope="col">Subsystem</th>
+            <th scope="col">Cells</th>
+            <th scope="col">Technology</th>
+            <th scope="col">Begin</th>
+            <th scope="col">End</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Week</th>
+            <th scope="col">NUR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of tickets">
+            <td class=" text-center align-middle">{{ticket.impacted_sites}}</td>
+            <td class=" text-center align-middle">{{ticket.solution}}</td>
+            <td class=" text-center align-middle">{{ticket.sub_system}}</td>
+            <td class=" text-center align-middle">{{ticket.cells}}</td>
+            <td class=" text-center align-middle">{{ticket.technology}}</td>
+            <td class=" text-center align-middle">{{ticket.begin}}</td>
+            <td class=" text-center align-middle">{{ticket.end}}</td>
+            <td class=" text-center align-middle">{{ticket.Dur_Hr}}</td>
+            <td class=" text-center align-middle">{{ticket.week}}</td>
+            <td class=" text-center align-middle">{{ticket.nur}}</td>
+          </tr>
+
+
+        </tbody>
+      </table>
+    </div>
+
+
   </div>
 </section>
+
+<button appBackNavigation class="btn btn-primary mt-4">Back</button>

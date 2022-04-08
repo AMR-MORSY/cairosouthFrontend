@@ -1,4 +1,4 @@
-import { NavigationServiceService } from './navigation-service.service';
+import { NavigationServiceService } from '../navigation-service.service';
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({

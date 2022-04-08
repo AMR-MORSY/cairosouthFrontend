@@ -18,6 +18,7 @@ export class ShowNurComponent implements OnInit {
   private statestics: any;
   public microwaveNUR: any;
   public avgTicketDur: any;
+  public BSCs:any[]=[];
   public isMicrowaveNur: boolean = false;
   public timeSpan: any;
   public tickets: any;
@@ -173,11 +174,20 @@ export class ShowNurComponent implements OnInit {
     let TotalTickets = [];
     let NUR = [];
     let AvgTicketDur = [];
+    let BSCs:any[]=[];
     for (var i = 0; i < names.length; i++) {
       let tickets = Object.getOwnPropertyDescriptor(data, names[i])?.value;
       let numberTickets: any = tickets['No.tickets'];
       let sumNur: any = tickets['sum_nur'];
       let ticketDur = tickets['average_tickets_duration'];
+      let topSiteNur=tickets['top_site_nur'][0];
+
+      let BSC:any={
+        'name':names[i],
+        'ticketDur':ticketDur,
+        'topSiteNur': topSiteNur
+      }
+      BSCs.push(BSC);
       NUR.push(sumNur);
       AvgTicketDur.push(ticketDur);
       TotalTickets.push(numberTickets);
@@ -186,6 +196,7 @@ export class ShowNurComponent implements OnInit {
     return analysis = {
       chartLabels: chartLabels,
       NUR: NUR,
+      BSCs:BSCs,
       AvgTicketDur: AvgTicketDur,
       TotalTickets: TotalTickets
     }
@@ -202,11 +213,14 @@ public goToShowSiteNUR(siteCode:any)
 
   public analyzeBSC() {
     let BSC: any = this.statestics.BSC;
+    console.log(BSC)
     this.BSCChartLabels = this.analyze(BSC).chartLabels;
     console.log(this.BSCChartLabels);
     console.log(this.analyze(BSC).TotalTickets);
     console.log(this.analyze(BSC).NUR);
-    console.log(this.analyze(BSC).AvgTicketDur)
+    console.log(this.analyze(BSC).AvgTicketDur);
+    console.log(this.analyze(BSC).BSCs)
+    this.BSCs=this.analyze(BSC).BSCs;
     this.BSCChartData = [
       {
         data: this.analyze(BSC).TotalTickets, label: 'Tickets', backgroundColor: 'orange',

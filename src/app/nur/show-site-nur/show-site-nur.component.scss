@@ -3,9 +3,34 @@
   margin-top: 8rem;
   .container{
     margin: auto;
-    .button-container{
-      width: 50%;
+    .siteName-code{
+      display: flex;
+      
       margin: auto;
+      color: white;
+      justify-content: space-around;
+      align-items: center;
+      width: 50%;
+      padding-bottom: 2rem;
+      .form-group{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        input{
+          text-align: center;
+          color: red;
+        }
+
+      }
+     
+     
+     
+     
     }
+   
+   
+   
+   
   }
 }
