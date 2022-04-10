@@ -27,20 +27,6 @@
           display: flex;
           justify-content: space-around;
           align-items: center;
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-  
           .duration {
             display: flex;
             flex-direction: column;
@@ -117,9 +103,27 @@
         }
        
       }
-      .generator{
+
+      
+
+      
+        .chart{
+          width: 100%;
+        }
+        .BSC-title,.sub-title,.vip-title{
+          p{
+            font-size: 1.5rem;
+            color: #ff6600;
+            text-align: center;
+           padding-top: 3rem;
+          }
+
+        }
+      
+      .generator,.BSC,.subsystem,.vip{
         position: relative;
         padding: 0 1rem 1rem 1rem;
+        margin-bottom: 1rem;
 
         display: flex;
         flex-direction: column;

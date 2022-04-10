@@ -46,56 +46,117 @@
                     </div>
                 </div>
 
-
-
             </div>
 
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="BSC">
-                        <canvas baseChart [datasets]='BSCChartData' [labels]="BSCChartLabels"
-                            [options]="BSCChartOptions" [legend]="BSCChartLegend" [type]="BSCChartType"></canvas>
-
-                    </div>
-                    <div class="table-container table-responsive ">
-                        <table class=" table table-warning table-hover table-bordered">
-                            <thead>
-                                <tr class=" table-danger align-middle text-center">
-                                    <th></th>
-                                    <th></th>
-                                    <th colspan="2">Top Sites NUR</th>
-                                   
-
-                                </tr>
-                                <tr class=" table-danger align-middle text-center">
-                                    <th scope="col">BSC</th>
-                                    <th scope="col">Avg.tickets Dur</th>
-                                    <th scope="col">Site Code</th>
-                                    <th scope="col">Site Name</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let BSC of BSCs"
-                                    (click)="goToShowSiteNUR(BSC.topSiteNur.problem_site_code)">
-                                    <td class=" text-center align-middle">{{BSC.name}}</td>
-                                    <td class=" text-center align-middle">{{BSC.ticketDur}}</td>
-                                    <td class=" text-center align-middle">{{BSC.topSiteNur.problem_site_code}}</td>
-                                    <td class=" text-center align-middle">{{BSC.topSiteNur.problem_site_name}}</td>
-                                </tr>
+                        <div class="BSC-title">
+                            <p>BSC Analysis</p>
+                        </div>
 
 
-                            </tbody>
-                        </table>
+                        <div class="chart">
+                            <canvas baseChart [datasets]='BSCChartData' [labels]="BSCChartLabels"
+                                [options]="BSCChartOptions" [legend]="BSCChartLegend" [type]="BSCChartType"></canvas>
+
+                        </div>
+                        <div class="gen-caption">
+                            <p>Top Sites NUR</p>
+                        </div>
+                        <div class="table-container table-responsive ">
+                            <table class=" table table-warning table-hover table-bordered">
+                                <thead>
+                                    <tr class=" table-primary align-middle text-center">
+                                        <th class=" table-danger"></th>
+                                        <th class=" table-danger"></th>
+                                        <th colspan="3">Top Sites NUR</th>
+
+
+                                    </tr>
+                                    <tr class=" table-danger align-middle text-center">
+                                        <th scope="col">BSC</th>
+                                        <th scope="col">Avg.tickets Dur</th>
+                                        <th scope="col">Site Code</th>
+                                        <th scope="col">Site Name</th>
+                                        <th scope="col">NUR</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let BSC of BSCs"
+                                        (click)="goToShowSiteNUR(BSC.topSiteNur.problem_site_code)">
+                                        <td class=" text-center align-middle">{{BSC.name}}</td>
+                                        <td class=" text-center align-middle">{{BSC.ticketDur}}</td>
+                                        <td class=" text-center align-middle">{{BSC.topSiteNur.problem_site_code}}</td>
+                                        <td class=" text-center align-middle">{{BSC.topSiteNur.problem_site_name}}</td>
+                                        <td class=" text-center align-middle">{{BSC.topSiteNur.nur}}</td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="subSystem">
-                        <canvas baseChart [datasets]='subsystemChartData' [labels]="subsystemChartLabels"
-                            [options]="subsystemChartOptions" [legend]="subsystemChartLegend"
-                            [type]="subsystemChartType" [plugins]="chartPlugins">
-                        </canvas>
+                    <div class="subsystem">
+                        <div class="sub-title">
+                            <p>Subsystem Analysis</p>
+                        </div>
+                        <div class="chart">
+                            <canvas baseChart [datasets]='subsystemChartData' [labels]="subsystemChartLabels"
+                                [options]="subsystemChartOptions" [legend]="subsystemChartLegend"
+                                [type]="subsystemChartType" [plugins]="chartPlugins">
+                            </canvas>
 
+                        </div>
+                        <div class="gen-caption">
+                            <p>Most Repeated Sites</p>
+                        </div>
+
+                        <div class="table-container table-responsive ">
+                            <table class=" table table-warning table-hover table-bordered">
+                                <thead>
+
+                                    <tr class=" table-danger align-middle text-center">
+                                        <th scope="col">Site Name</th>
+                                        <th scope="col">Count of Tickets</th>
+                                        <th scope="col">Sum NUR</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let site of repeatedSites" (click)="goToShowSiteNUR(site.site_code)">
+                                        <td class=" text-center align-middle">{{site.site_name}}</td>
+                                        <td class=" text-center align-middle">{{site.count_tickets}}</td>
+                                        <td class=" text-center align-middle">{{site.sum_nur}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="gen-caption">
+                            <p>Top Sites NUR</p>
+                        </div>
+                        <div class="table-container table-responsive ">
+                            <table class=" table table-warning table-hover table-bordered">
+                                <thead>
+                                    <tr class=" table-danger align-middle text-center">
+                                        <th scope="col">Site Name</th>
+                                        <!-- <th scope="col">Count of Tickets</th> -->
+                                        <th scope="col">Sum NUR</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let site of topSitesNUR" (click)="goToShowSiteNUR(site.site_code)">
+                                        <td class=" text-center align-middle">{{site.site_name}}</td>
+                                        <!-- <td class=" text-center align-middle">{{site.No.tickets}}</td> -->
+                                        <td class=" text-center align-middle">{{site.sum_nur}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -183,28 +244,33 @@
                 </div>
 
                 <div class="col-12 col-md-6">
-                    <div class="table-container table-responsive ">
-                        <table class=" table table-warning table-hover table-bordered">
-                            <thead>
-                                <tr class=" table-danger align-middle text-center">
+                    <div class="vip">
+                        <div class="vip-title">
+                            <p>Vip Sites NUR</p>
+                        </div>
+                        <div class="table-container table-responsive ">
+                            <table class=" table table-warning table-hover table-bordered">
+                                <thead>
+                                    <tr class=" table-danger align-middle text-center">
 
-                                    <th scope="col">Site Code</th>
-                                    <th scope="col">Site Name</th>
-                                    <th scope="col">NUR</th>
-                                    <th scope="col">Site Category</th>
-                                    <th scope="col">Tickets Count</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let site of VIPs" (click)="goToShowSiteNUR(site.site_code)">
-                                    <td class=" text-center align-middle">{{site.site_code}}</td>
-                                    <td class=" text-center align-middle">{{site.site_name}}</td>
-                                    <td class=" text-center align-middle">{{site.NUR}}</td>
-                                    <td class=" text-center align-middle">{{site.site_category}}</td>
-                                    <td class=" text-center align-middle">{{site.count_tickets}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <th scope="col">Site Code</th>
+                                        <th scope="col">Site Name</th>
+                                        <th scope="col">NUR</th>
+                                        <th scope="col">Site Category</th>
+                                        <th scope="col">Tickets Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let site of VIPs" (click)="goToShowSiteNUR(site.site_code)">
+                                        <td class=" text-center align-middle">{{site.site_code}}</td>
+                                        <td class=" text-center align-middle">{{site.site_name}}</td>
+                                        <td class=" text-center align-middle">{{site.NUR}}</td>
+                                        <td class=" text-center align-middle">{{site.site_category}}</td>
+                                        <td class=" text-center align-middle">{{site.count_tickets}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>

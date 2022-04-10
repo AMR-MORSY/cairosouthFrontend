@@ -30,7 +30,9 @@ export class ShowNurComponent implements OnInit {
   public topOGGenTicket: any[] = [];
   public topRentGenTicket: any[] = [];
   public VIPs:any[]=[];
-  public chartPlugins = [pluginDataLabels.default]
+  public chartPlugins = [pluginDataLabels.default];
+  public repeatedSites:any[]=[];
+  public topSitesNUR:any[]=[];
 
 
   public BSCChartType: any = 'bar';
@@ -63,15 +65,8 @@ export class ShowNurComponent implements OnInit {
       legend: {
         position: 'top'
 
-      },
-      title: {
-        display: true,
-        text: 'BSC Analysis',
-        align: 'center',
-        color: '#ff6600',
-        font: { weight: 'bold' }
-
       }
+     
     },
     responsive: true
   };
@@ -129,9 +124,6 @@ export class ShowNurComponent implements OnInit {
 
 
   constructor(private _NURService: NurService, private _Router: Router) {
-
-
-
 
   }
 
@@ -267,15 +259,12 @@ public goToShowSiteNUR(siteCode:any)
 
   private analyzeSubsystem() {
     let subSystem: any = this.statestics.sub_system;
-    console.log(subSystem);
+  
     this.getMicrowaveNur(subSystem);
     this.subsystemChartLabels = this.analyze(subSystem).chartLabels;
-    console.log(this.subsystemChartLabels);
-    console.log(this.analyze(subSystem).TotalTickets);
-    console.log(this.analyze(subSystem).NUR);
-    console.log(this.analyze(subSystem).AvgTicketDur)
+
     this.subsystemChartData = [
-      // { data: this.analyze(subSystem).TotalTickets, label: 'Tickets', backgroundColor: 'orange' },
+    
       { data: this.analyze(subSystem).NUR, label: 'NUR' },
     ],
       this.subsystemChartOptions = {
@@ -289,14 +278,8 @@ public goToShowSiteNUR(siteCode:any)
               text:`Total NUR ${this.NUR}`
 
             }
-          },
-          title: {
-            display: true,
-            text: 'subsystem Analysis',
-            align: 'center',
-            color: '#ff6600',
-            font: { weight: 'bold' }
           }
+          
         },
         responsive: true
        
@@ -381,22 +364,15 @@ public goToShowSiteNUR(siteCode:any)
 
   }
 
+  private getRepeatedSites()
+  {
+    this.repeatedSites=this.statestics.repeated_sites;
+  }
 
-  // No_Gen_tickets: 8
-  // count_ET_Gen_tickets: 1
-  // count_OG_Gen_tickets: 6
-  // count_Rent_Gen_tickets: 0
-  // count_VF_Gen_tickets: 1
-  // top_ET_Nur_tickets: [{… }]
-  // top_OG_Nur_tickets: [{… }]
-  // top_Rent_Nur_tickets: []
-  // top_VF_Nur_tickets: [{… }]
-  // total_ET_Gen_Nur: "0.08"
-  // total_Gen_Nur: "1.98"
-  // total_OG_Gen_Nur: "1.76"
-  // total_Rent_Gen_Nur: "0.00"
-  // total_VF_Gen_Nur: "0.14"
-
+  private getTopSitesNUR()
+  {
+    this.topSitesNUR=this.statestics.top_sites_nur
+  }
 
   private getNURStatestics() {
     this.getTimeSpan();
@@ -407,11 +383,8 @@ public goToShowSiteNUR(siteCode:any)
     this.analyzeSubsystem();
     this.analyzeGenerator();
     this.getVIP();
-
-
-
-
-
+    this.getRepeatedSites();
+    this.getTopSitesNUR();
 
   }
 
