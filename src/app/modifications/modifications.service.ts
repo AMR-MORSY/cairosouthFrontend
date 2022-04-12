@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,15 @@ export class ModificationsService {
     if (storag != null) {
       this.modification.next(storag)
     }
+    else
+    {
+      this._Router.navigate(['auth/logout']);
+    }
 
 
 
   }
-  constructor(private _HttpClient: HttpClient) {
+  constructor(private _HttpClient: HttpClient,private _Router:Router) {
     this.getModification();
 
 

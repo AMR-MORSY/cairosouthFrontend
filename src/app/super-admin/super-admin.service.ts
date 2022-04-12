@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class SuperAdminService {
 
   public user=new BehaviorSubject(null);
-  constructor(private _HttpClient: HttpClient) {
+  constructor(private _HttpClient: HttpClient,private _Router:Router) {
     this.get_User();
    }
 
@@ -19,6 +20,11 @@ export class SuperAdminService {
     {
       this.user.next(JSON.parse(storage) )
     }
+    else
+    {
+      this._Router.navigate(['auth/logout']);
+    }
+
   }
   getAllUsers(id:any, token:any):Observable<any>
   {

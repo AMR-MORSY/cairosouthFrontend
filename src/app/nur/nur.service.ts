@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class NurService {
   public NUR=new BehaviorSubject(null);
   public site_code=new BehaviorSubject(null);
 
-  constructor(private _HttpClient: HttpClient) {
+  constructor(private _HttpClient: HttpClient,private _Router:Router) {
     this.getSiteCode();
     // this.getNUR();
 
@@ -37,10 +38,15 @@ export class NurService {
  {
    let storage:any=localStorage.getItem('site_code');
    if(storage!=null){
-  
+
      this.site_code.next(storage);
 
    }
+   else
+   {
+     this._Router.navigate(['auth/logout']);
+   }
+
 
 
 

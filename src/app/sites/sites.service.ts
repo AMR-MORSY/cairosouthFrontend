@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class SitesService {
   .set('Content-Type', 'application/json')
   .set('Access-Control-Allow-Origin', '*');
 
-  constructor(private _HttpClient: HttpClient) {
+  constructor(private _HttpClient: HttpClient, private _Router:Router) {
 
     this.getSearchStr();
     this.getSite();
@@ -35,6 +36,10 @@ export class SitesService {
     if (storag != null) {
       this.site.next(storag)
     }
+    else
+    {
+      this._Router.navigate(['auth/logout']);
+    }
 
 
 
@@ -47,6 +52,11 @@ export class SitesService {
     if (storag != null) {
       this.cascades.next(storag)
     }
+    else
+    {
+      this._Router.navigate(['auth/logout']);
+    }
+
 
 
 
@@ -58,6 +68,11 @@ export class SitesService {
     if (storag != null) {
       this.nodals.next(storag)
     }
+    else
+    {
+      this._Router.navigate(['auth/logout']);
+    }
+
 
 
 
@@ -68,6 +83,11 @@ export class SitesService {
     if (storage != null) {
       this.searchStr.next(storage)
     }
+    else
+    {
+      this._Router.navigate(['auth/logout']);
+    }
+
 
 
 
