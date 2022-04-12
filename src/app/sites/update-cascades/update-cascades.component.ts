@@ -27,7 +27,7 @@ export class UpdateCascadesComponent implements OnInit {
   public nodalCode: any = "";
   public nodalName: any = "";
   public newCascades: any = [];
-  public isInsertedToList:boolean=false;
+  public isInsertedToList: boolean = false;
 
 
 
@@ -55,7 +55,7 @@ export class UpdateCascadesComponent implements OnInit {
   private getSite() {
     this._siteService.site.subscribe(() => {
       this.site = this._siteService.site.getValue();
-      console.log(this.site);
+      // console.log(this.site);
       this.site_id = this.site.id
       this.nodalCode = this.site.site_code;
       this.nodalName = this.site.site_name;
@@ -74,6 +74,19 @@ export class UpdateCascadesComponent implements OnInit {
     return casscade;
   }
 
+  private makeDeletedNodalObject(site:any)
+  {
+    let casscade = {
+      "cascade_code": site.cascade_code,
+      "cascade_name": site.cascade_name,
+      "cascade_id": site.cascade_id,
+      "nodal_code": this.nodalCode,
+      "nodal_id": this.site_id,
+      "nodal_name": this.nodalName
+    };
+    return casscade;
+
+  }
   private checkTheCascadesCont(casc: any) {
     let cascade = this.cascadesContainer.filter((site: any) => {
       return site.cascade_code == casc.cascade_code;
@@ -88,24 +101,30 @@ export class UpdateCascadesComponent implements OnInit {
   public displaySearchedCascades() {
     this.isCascadesAvailable = true;
     this.checkTheCascadesCont(this.cascade)
-    console.log(this.cascadesContainer);
+    // console.log(this.cascadesContainer);
     this.searchRecivedSiteCode = '';
     this.searchRecivedSiteName = '';
     this.isSearchOk = true;
-    this.isInsertedToList=true;
+    this.isInsertedToList = true;
   }
-  public deleteSite(index: any) {
-    this.isInsertedToList=true;
-    let deleted = this.cascadesContainer.splice(index, 1);
-    let deletedindex=this.newCascades.indexOf(deleted[0]);
-    console.log(deletedindex);
-    if (deletedindex!=-1)
-   { this.newCascades.splice(deletedindex,1);
-   }
-   else{
-    this.deletedCascades.push(deleted[0]);
 
-   }
+
+  public deleteSite(index: any) {
+    this.isInsertedToList = true;
+    // console.log(this.cascadesContainer);
+    // console.log(this.deletedCascades)
+    let deleted = this.cascadesContainer.splice(index, 1);
+    let deletedindex = this.newCascades.indexOf(deleted[0]);
+    // console.log(deletedindex);
+    if (deletedindex != -1) {
+      this.newCascades.splice(deletedindex, 1);
+    }
+    else {
+      let deletedCascade:any=this.makeDeletedNodalObject(deleted[0])
+      this.deletedCascades.push(deletedCascade);
+      // console.log(this.deletedCascades)
+
+    }
 
   }
 
@@ -151,10 +170,9 @@ export class UpdateCascadesComponent implements OnInit {
 
   }
 
-  private insertNewcascades(data:any)
-  {
+  private insertNewcascades(data: any) {
     this._siteService.updateCascades(data).subscribe((response: any) => {
-      console.log(response);
+      // console.log(response);
 
       if (response.message == "token expired, please login") {
         alert("token expired, please login");
@@ -186,10 +204,10 @@ export class UpdateCascadesComponent implements OnInit {
         function getNewError(cascadesContainer: any, strNumbers: any) {
           let casc = [];
           let site: any = cascadesContainer[Number(strNumbers)];
-          console.log(site);
+          // console.log(site);
           casc.push(site.cascade_code, site.cascade_name);
           let strCasc: any = JSON.stringify(casc);
-          console.log(strCasc);
+          // console.log(strCasc);
           let newError = strError.replace(strNumbers, strCasc);
           return newError;
         }
@@ -202,25 +220,22 @@ export class UpdateCascadesComponent implements OnInit {
 
 
   }
-  private deleteCascadesFromDB(data:any)
-  {
-    this._siteService.deleteCascades(data).subscribe((response)=>{
-      console.log(response);
+  private deleteCascadesFromDB(data: any) {
+    this._siteService.deleteCascades(data).subscribe((response) => {
+      // console.log(response);
       if (response.message == "token expired, please login") {
         alert("token expired, please login");
         this._Router.navigate(['/auth/login']);
       }
 
-      if (response.message=="success")
-      {
+      if (response.message == "success") {
         alert("sites deleted successfully")
         this._Router.navigate(['/sites/site-details'])
       }
-      if(response.message=="failed")
-      {
-        let error=response.errors;
+      if (response.message == "failed") {
+        let error = response.errors;
         alert(JSON.stringify(error))
-       this.deletedCascades=[];
+        this.deletedCascades = [];
       }
     })
 
@@ -234,15 +249,16 @@ export class UpdateCascadesComponent implements OnInit {
     if (this.newCascades.length != 0) {
       this.displayNewCascadesAlert()
       let data = this.formateCascadesData(this.newCascades)
-      console.log(data);
+      // console.log(data);
       this.insertNewcascades(data)
 
     }
 
     if (this.deletedCascades.length != 0) {
       this.displayDeletedCascadesAlert()
-      let data=this.formateCascadesData(this.deletedCascades)
-      console.log(data);
+      // console.log(this.deletedCascades)
+      let data = this.formateCascadesData(this.deletedCascades)
+      // console.log(data);
       this.deleteCascadesFromDB(data);
     }
 
@@ -263,7 +279,7 @@ export class UpdateCascadesComponent implements OnInit {
         alert("token expired, please login");
         this._Router.navigate(['/auth/login']);
       }
-     else if (response.message == "failed") {
+      else if (response.message == "failed") {
         let error: any = response.errors.search[0];
         if (error == null) {
           error = response.errors;
@@ -287,38 +303,35 @@ export class UpdateCascadesComponent implements OnInit {
 
   public fillCascadesContainer() {
     this._siteService.cascades.subscribe(() => {
-        this.cascadesContainer = this._siteService.cascades.getValue();
-        console.log(this.cascadesContainer)
-        if (this.cascadesContainer.length != 0)
-          this.isCascadesAvailable = true;
-        else {
-          this.isCascadesAvailable = false;
+      this.cascadesContainer = this._siteService.cascades.getValue();
+      // console.log(this.cascadesContainer)
+      if (this.cascadesContainer.length != 0)
+        this.isCascadesAvailable = true;
+      else {
+        this.isCascadesAvailable = false;
 
-        }
+      }
 
 
     })
-    console.log(this.isCascadesAvailable)
+    // console.log(this.isCascadesAvailable)
 
     this._siteService.nodals.subscribe(() => {
 
-        let nodals: any = this._siteService.nodals.getValue();
-        if (nodals.length !=0)
-        {
-          for (var i = 0; i < nodals.length; i++) {
-            this.cascadesContainer.push(nodals[i])
-          }
-          this.isCascadesAvailable = true;
+      let nodals: any = this._siteService.nodals.getValue();
+      if (nodals.length != 0) {
+        for (var i = 0; i < nodals.length; i++) {
+          this.cascadesContainer.push(nodals[i])
+        }
+        this.isCascadesAvailable = true;
 
 
+      }
+      else {
+        if (this.isCascadesAvailable == false) {
+          this.isCascadesAvailable = false;
         }
-        else
-        {
-          if (this.isCascadesAvailable==false)
-          {
-            this.isCascadesAvailable=false;
-          }
-        }
+      }
 
 
 
