@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import { BehaviorSubject } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {saveAs} from 'file-saver';
+import { IndexingContext } from '@angular/compiler-cli/src/ngtsc/indexer';
 
 @Component({
   selector: 'app-all-modifications',
@@ -19,23 +20,31 @@ export class AllModificationsComponent implements OnInit {
   public config: any;
   public pagination_link: any;
   public token: any;
-  public sites: any;
+  public sites: any[]=[];
   public id: any;
   public modificationId: any;
   public isModificationClicked: boolean = false;
   public site: any;
   public site_code: any;
-  public status:any;
+  public data:any;
+  public columns:any[]=[];
+  public index:any[]=[];
+  public columnValues:any[]=[];
 
   public statusForm = new FormGroup({
     status: new FormControl(null, [Validators.required])
   })
 
+  public filterForm = new FormGroup({
+    column: new FormControl(null, [Validators.required]),
+    columnValue:new FormControl(null, [Validators.required])
+  })
+
 
   public downloadsites(statusForm: any) {
-    this.status = statusForm.value.status;
+    this.data= statusForm.value;
     let filename = "allModifications.xlsx";
-    this._Modifications.download({ 'filename': filename },this.status).subscribe((data) => {
+    this._Modifications.download({ 'filename': filename },this.data,this.id,this.token).subscribe((data) => {
 
 
       saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
@@ -96,14 +105,38 @@ export class AllModificationsComponent implements OnInit {
     return chosenMod[0];
 
   }
-  public submitStatusForm(statusForm: any) {
+  // public submitStatusForm(statusForm: any) {
 
-    this.status = statusForm.value.status;
+  //   this.status = statusForm.value.status;
 
-    this.displayModifications(this.status)
+  //   this.displayModifications(this.status)
+
+  // }
+
+  public submitColumn(e:any)
+  {
+    let column:any=e.target.value;
+
+     for (var i=0;i<this.index.length;i++)
+     {
+       if (Object.keys(this.index[i])==column)
+       {
+         this.columnValues=Object.getOwnPropertyDescriptor(this.index[i],column)?.value;
+       }
+     }
+
+
+    // console.log(column);
+    // console.log(this.columnValues);
 
   }
 
+ public submitFilterForm(filterForm:any)
+  {
+    this. data=filterForm.value;
+    this.displayModifications();
+
+  }
   private getSiteDataFromDB() {
     this._siteService.searchSites(this.site_code, this.token).subscribe((response) => {
 
@@ -142,36 +175,36 @@ export class AllModificationsComponent implements OnInit {
   }
 
 
-  private displayModifications(status: any) {
+  private displayModifications() {
 
-    this.sites = [];
+    // this.sites = [];
 
-    this._Modifications.getAllModifications(this.id, this.token, status).subscribe((response) => {
+    this._Modifications.getAllModifications(this.id, this.token, this.data).subscribe((response) => {
       console.log(response)
 
-      if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+       if (response.message == "token expired, please login") {
+         alert("token expired, please login");
+         this._Router.navigate(['/auth/login']);
 
-      }
+       }
 
-      if (response.data != null) {
-        this.sites = response.data;
-        this.pagination_link = response.links.first;
+       if (response.modifications.data != null) {
+         this.sites = response.modifications.data;
+         this.pagination_link = response.modifications.links.first;
 
-        this.config = {
-          currentPage: response.meta.curent_page,
-          itemsPerPage: response.meta.per_page,
-          totalItems: response.meta.total
-        }
-        this.isDataFound = true;
-      }
+         this.config = {
+           currentPage: response.modifications.curent_page,
+           itemsPerPage: response.modifications.per_page,
+           totalItems: response.modifications.total
+         }
+         this.isDataFound = true;
+       }
 
-      else {
-        let error = response.errors;
-        alert(JSON.stringify(error))
-        this.isDataFound = false;
-      }
+       else {
+         let error = response.errors;
+         alert(JSON.stringify(error))
+         this.isDataFound = false;
+       }
 
     })
 
@@ -184,7 +217,7 @@ export class AllModificationsComponent implements OnInit {
 
   public pageChange(newpage: any) {
     this.config.currentPage = newpage;
-    this._Modifications.getAllModificationsPagination(this.status,this.id, this.token, newpage).subscribe((response: any) => {
+    this._Modifications.getAllModificationsPagination(this.data,this.id, this.token, newpage).subscribe((response: any) => {
 
       if (response.message == "token expired, please login") {
         alert("token expired, please login");
@@ -192,9 +225,47 @@ export class AllModificationsComponent implements OnInit {
 
       }
       else
-        this.sites = response.data;
+        this.sites = response.modifications.data;
     })
 
+
+  }
+  private indexing()
+  {
+    let keys:any[]=[];
+    for (var i=0;i<this.index.length;i++)
+    {
+      let key:any=Object.keys(this.index[i]);
+      keys.push(key[0]);
+
+    }
+    this.columns=keys;
+    console.log(this.columns);
+
+  }
+
+  private getModiificationAnalysis()
+  {
+    this._Modifications.getModificationsAnalysis(this.token).subscribe((response)=>{
+      console.log(response)
+      if (response.message == "token expired, please login") {
+        alert("token expired, please login");
+        this._Router.navigate(['/auth/login']);
+
+      }
+      else if (response.message=='success')
+      {
+        this.index=response.index;
+        this.indexing();
+
+      }
+      else
+      {
+        let error=response.errors;
+        alert(JSON.stringify(error));
+      }
+
+    })
 
   }
 
@@ -203,6 +274,7 @@ export class AllModificationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserData();
+    this.getModiificationAnalysis();
 
   }
 

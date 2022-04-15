@@ -1,46 +1,88 @@
 
-<section id="selection">
+
+<section id="analysis">
+  <div class="container">
+    <div class="form-container">
+      <form [formGroup]="filterForm" (ngSubmit)="submitFilterForm(filterForm)">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="column">Filter By:</label>
+              <select class="form-control" formControlName="column" (change)="submitColumn($event)" id="column">
+                <option value=""></option>
+                <option [value]="column" *ngFor="let column of columns">{{column}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label ></label>
+              <select class="form-control" formControlName="columnValue" id="columnValue">
+                <option value=""></option>
+                <option [value]="column" *ngFor="let column of columnValues">{{column}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="button-container">
+              <button class="btn btn-primary" [disabled]='filterForm.status=="INVALID"' type="submit">submit</button>
+               <button class="btn btn-primary"[disabled]='filterForm.status=="INVALID"'  (click)="downloadsites(filterForm)">Excel Export</button>
+
+
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section id="selection">
 
   <div class="container">
 
-      <div class="form-container">
+    <div class="form-container">
 
-        <form [formGroup]="statusForm" (ngSubmit)="submitStatusForm(statusForm)">
-          <div class="row">
-            <div class="col-12">
-              <div class="form-group">
-                <label for="choose">Choose Status:  </label>
-                <select class="form-control" formControlName="status" id="choose">
-                  <option value=""></option>
-                  <option value="in progress">in progress</option>
-                  <option value="done">done</option>
-                  <option value="waiting D6">Waiting D6</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col-12">
-              <div class="button-container">
-                <button class="btn btn-primary"[disabled]='statusForm.status=="INVALID"' type="submit">submit</button>
-                <button class="btn btn-primary"[disabled]='statusForm.status=="INVALID"'  (click)="downloadsites(statusForm)">download</button>
-
-
-              </div>
-
+      <form [formGroup]="statusForm" (ngSubmit)="submitStatusForm(statusForm)">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="choose">Choose Status: </label>
+              <select class="form-control" formControlName="status" id="choose">
+                <option value=""></option>
+                <option value="in progress">in progress</option>
+                <option value="done">done</option>
+                <option value="waiting D6">Waiting D6</option>
+              </select>
             </div>
           </div>
-        </form>
+
+          <div class="col-12">
+            <div class="button-container">
+              <button class="btn btn-primary" [disabled]='statusForm.status=="INVALID"' type="submit">submit</button>
+              <button class="btn btn-primary" [disabled]='statusForm.status=="INVALID"'
+                (click)="downloadsites(statusForm)">download</button>
+
+
+            </div>
+
+          </div>
+        </div>
+      </form>
 
 
     </div>
   </div>
 
-</section>
+</section> -->
 
 <section id="table-section">
   <div class="container">
 
-    <div class="no-data-caption"  *ngIf="!isDataFound">
+    <div class="no-data-caption" *ngIf="!isDataFound">
       <p>No Data Found</p>
     </div>
 
@@ -64,23 +106,23 @@
         </thead>
         <tbody>
           <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
-             (click)="sendSiteId(site.id, $event,site.site_code) ">
-            <td class=" text-center align-middle">{{site.site_code}}</td>
-            <td  class=" text-center align-middle">{{site.site_name}}</td>
-            <td  class=" text-center align-middle">{{site.subcontractor}}</td>
-            <td  class=" text-center align-middle">{{site.requester}}</td>
-            <td  class=" text-center align-middle">{{site.action}}</td>
-            <td  class=" text-center align-middle">{{site.project}}</td>
-            <td  class=" text-center align-middle">{{site.status}}</td>
-            <td  class=" text-center align-middle">{{site.request_date}}</td>
-            <td  class=" text-center align-middle">{{site.finish_date}}</td>
-            <td  class=" text-center align-middle">{{site.materials}}</td>
-            <td  class=" text-center align-middle">{{site.cost}}</td>
+            (click)="sendSiteId(site.id, $event,site.site_code) ">
+            <td class=" text-center align-middle">{{site.code}}</td>
+            <td class=" text-center align-middle">{{site.site_name}}</td>
+            <td class=" text-center align-middle">{{site.subcontractor}}</td>
+            <td class=" text-center align-middle">{{site.requester}}</td>
+            <td class=" text-center align-middle">{{site.action}}</td>
+            <td class=" text-center align-middle">{{site.project}}</td>
+            <td class=" text-center align-middle">{{site.status}}</td>
+            <td class=" text-center align-middle">{{site.request_date}}</td>
+            <td class=" text-center align-middle">{{site.finish_date}}</td>
+            <td class=" text-center align-middle">{{site.materials}}</td>
+            <td class=" text-center align-middle">{{site.cost}}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div *ngIf="isDataFound " class="pagination-container" >
+    <div *ngIf="isDataFound " class="pagination-container">
       <pagination-controls (pageChange)="pageChange($event) " class="pagination"></pagination-controls>
     </div>
 
@@ -94,7 +136,8 @@
     <div class="create-btn-cont ">
 
       <button class="btn btn-danger " (click)="goToCreateNew()">Create Modification</button>
-      <button class="btn btn-primary " [disabled]="!isModificationClicked" (click)="goToUpdateModification()">Update</button>
+      <button class="btn btn-primary " [disabled]="!isModificationClicked"
+        (click)="goToUpdateModification()">Update</button>
 
 
     </div>

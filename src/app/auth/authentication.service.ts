@@ -30,11 +30,7 @@ export class AuthenticationService {
     {
       this.currentUser.next(storage);
     }
-    else
-    {
-      this._Router.navigate(['auth/login']);
-    }
-
+   
    }
 
   signIn(Data: any): Observable<any> {

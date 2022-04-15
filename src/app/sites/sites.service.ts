@@ -36,10 +36,7 @@ export class SitesService {
     if (storag != null) {
       this.site.next(storag)
     }
-    else
-    {
-      this._Router.navigate(['auth/logout']);
-    }
+
 
 
 
@@ -51,10 +48,6 @@ export class SitesService {
     storag = JSON.parse(storag);
     if (storag != null) {
       this.cascades.next(storag)
-    }
-    else
-    {
-      this._Router.navigate(['auth/logout']);
     }
 
 
@@ -68,10 +61,6 @@ export class SitesService {
     if (storag != null) {
       this.nodals.next(storag)
     }
-    else
-    {
-      this._Router.navigate(['auth/logout']);
-    }
 
 
 
@@ -83,11 +72,7 @@ export class SitesService {
     if (storage != null) {
       this.searchStr.next(storage)
     }
-    else
-    {
-      this._Router.navigate(['auth/logout']);
-    }
-
+  
 
 
 

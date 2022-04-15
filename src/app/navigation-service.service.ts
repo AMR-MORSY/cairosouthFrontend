@@ -18,10 +18,11 @@ export class NavigationServiceService {
     })
   }
   public back(){
-    this.history.pop()
+
     if (this.history.length>0)
     {
       this._Location.back();
+      this.history.pop()
     }
     else
     {

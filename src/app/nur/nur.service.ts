@@ -16,23 +16,16 @@ export class NurService {
 
   constructor(private _HttpClient: HttpClient,private _Router:Router) {
     this.getSiteCode();
-    // this.getNUR();
+
 
   }
 
-  // public getNUR()
-  // {
-    // let storage:any=localStorage.getItem('NUR');
-    // if(storage!=null){
-      // storage=JSON.parse(storage);
-      // this.NUR.next(storage);
-
-    // }
 
 
 
 
-  // }
+
+
 
    public getSiteCode()
  {
@@ -41,10 +34,6 @@ export class NurService {
 
      this.site_code.next(storage);
 
-   }
-   else
-   {
-     this._Router.navigate(['auth/logout']);
    }
 
 

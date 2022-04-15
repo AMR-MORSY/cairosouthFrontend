@@ -19,10 +19,6 @@ export class ModificationsService {
     if (storag != null) {
       this.modification.next(storag)
     }
-    else
-    {
-      this._Router.navigate(['auth/logout']);
-    }
 
 
 
@@ -34,10 +30,10 @@ export class ModificationsService {
 
    }
 
-   download(data:any,status:any):Observable<any>
+   download(file:any,data:any,id:any,token:any):Observable<any>
    {
-     const REQUEST_PARAMS=new HttpParams().set('fileName',data.filename);
-     const REQUEST_URI=`https://cairo-south.herokuapp.com/api/downloadallmodifications/${status}`;
+     const REQUEST_PARAMS=new HttpParams().set('fileName',file.filename);
+     const REQUEST_URI=`https://cairo-south.herokuapp.com/api/downloadallmodifications/${data.column}/${data.columnValue}/${id}/${token}`;
      return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
    };
 
@@ -50,14 +46,14 @@ export class ModificationsService {
     return this._HttpClient.post('https://cairo-south.herokuapp.com/api/siteModifications',data)
 
   };
-  getAllModifications(id:any, token:any,status:any):Observable<any>
+  getAllModifications(id:any, token:any,data:any):Observable<any>
   {
-    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${status}/${id}/${token}`)
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${data.column}/${data.columnValue}/${id}/${token}`)
 
   };
-  getAllModificationsPagination(status:any,id:any, token:any, new_page:any):Observable<any>
+  getAllModificationsPagination(data:any,id:any, token:any, new_page:any):Observable<any>
   {
-    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${status}/${id}/${token}?page=${new_page}`)
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/modifications/${data.column}/${data.columnValue}/${id}/${token}?page=${new_page}`)
 
   };
 
@@ -74,6 +70,11 @@ export class ModificationsService {
   updateSiteModification(data:any):Observable<any>
   {
     return this._HttpClient.post('https://cairo-south.herokuapp.com/api/updateMod',data)
+
+  };
+  getModificationsAnalysis( token:any):Observable<any>
+  {
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/analysis/${token}`)
 
   };
 }

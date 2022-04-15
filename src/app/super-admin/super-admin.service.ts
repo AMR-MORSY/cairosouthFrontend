@@ -20,11 +20,7 @@ export class SuperAdminService {
     {
       this.user.next(JSON.parse(storage) )
     }
-    else
-    {
-      this._Router.navigate(['auth/logout']);
-    }
-
+   
   }
   getAllUsers(id:any, token:any):Observable<any>
   {
