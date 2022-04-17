@@ -5,7 +5,7 @@
     margin: auto;
     .siteName-code{
       display: flex;
-      
+
       margin: auto;
       color: white;
       justify-content: space-around;
@@ -23,14 +23,28 @@
         }
 
       }
-     
-     
-     
-     
+
+
+
+
     }
-   
-   
-   
-   
+
+
+
+
+  }
+}
+
+#navigation-export
+{
+  .container{
+    margin: auto;
+    .buttun-container{
+      margin: auto;
+      width: 70%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
   }
 }

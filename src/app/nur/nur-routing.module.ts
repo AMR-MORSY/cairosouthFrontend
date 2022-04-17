@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateSiteNurComponent } from './create-site-nur/create-site-nur.component';
 import { NurIndexComponent } from './nur-index/nur-index.component';
-import { ShowAllNurComponent } from './show-all-nur/show-all-nur.component';
+import { ShowNurComponent } from './show-nur/show-nur.component';
+
 import { ShowSiteNurComponent } from './show-site-nur/show-site-nur.component';
 
 const routes: Routes = [
   { path: 'create-site-nur', component: CreateSiteNurComponent },
   { path: 'show-site-nur', component: ShowSiteNurComponent },
-  { path: 'show-all-nur', component: ShowAllNurComponent },
+  { path: 'show-nur', component: ShowNurComponent },
   { path: 'nur-index', component: NurIndexComponent },
 ];
 

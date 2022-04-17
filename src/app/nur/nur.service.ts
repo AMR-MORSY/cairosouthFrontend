@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class NurService {
 
   public NUR=new BehaviorSubject(null);
   public site_code=new BehaviorSubject(null);
+  public NURIndex=new BehaviorSubject(null);
 
   constructor(private _HttpClient: HttpClient,private _Router:Router) {
     this.getSiteCode();
@@ -65,5 +66,22 @@ export class NurService {
     return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/nurstatestics/${data.week}/${data.month}/${data.year}/${data.tech}/${token}`)
 
   }
+  downloadSiteNur(data:any,siteCode:any,token:any):Observable<any>
+  {
+    const REQUEST_PARAMS=new HttpParams().set('fileName',data.filename);
+    const REQUEST_URI=`https://cairo-south.herokuapp.com/api/downloadSiteNur/${siteCode}/${token}`;
+    return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
+  };
+
+  downloadNur(file:any,data:any,token:any):Observable<any>
+  {
+    const REQUEST_PARAMS=new HttpParams().set('fileName',file.filename);
+    const REQUEST_URI=`https://cairo-south.herokuapp.com/api/downloadNur/${data.week}/${data.month}/${data.year}/${data.tech}/${token}`;
+    return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
+  };
+
+
+
+
 
 }

@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from "../../auth/authentication.service";
 import { SitesService } from "../sites.service";
+import { NurService } from "src/app/nur/nur.service";
 
 
 
@@ -173,6 +174,14 @@ export class SiteDetailsComponent implements OnInit {
 
   }
 
+  public goToShowSiteNUR()
+{
+
+  this._NURService.site_code.next(this.site.site_code);
+  localStorage.setItem('site_code',this.site.site_code);
+  this._Router.navigate(['/nur/show-site-nur'])
+}
+
   ///////click on nodal//////
   public goToSiteDetailsFromNodals(index: any) {
 
@@ -308,7 +317,7 @@ export class SiteDetailsComponent implements OnInit {
   ////////////////////////////////////////////////////////////////
 
 
-  constructor(private _siteService: SitesService, private _Router: Router, private _AuthService: AuthenticationService) { }
+  constructor(private _siteService: SitesService, private _NURService:NurService,private _Router: Router, private _AuthService: AuthenticationService) { }
 
   ngOnInit(): void {
 

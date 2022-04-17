@@ -41,8 +41,8 @@ export class AllModificationsComponent implements OnInit {
   })
 
 
-  public downloadsites(statusForm: any) {
-    this.data= statusForm.value;
+  public downloadsites() {
+   
     let filename = "allModifications.xlsx";
     this._Modifications.download({ 'filename': filename },this.data,this.id,this.token).subscribe((data) => {
 
@@ -177,7 +177,7 @@ export class AllModificationsComponent implements OnInit {
 
   private displayModifications() {
 
-    // this.sites = [];
+
 
     this._Modifications.getAllModifications(this.id, this.token, this.data).subscribe((response) => {
       console.log(response)

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { SitesService } from 'src/app/sites/sites.service';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-show-site-nur',
@@ -17,11 +18,11 @@ export class ShowSiteNurComponent implements OnInit {
   public tickets:any[]=[];
 
   constructor(private _NurServices:NurService,private _AuthServices: AuthenticationService, private _Router:Router) { }
-  
-  
-  
 
-  
+
+
+
+
 
   private getSiteCode()
   {
@@ -29,7 +30,7 @@ export class ShowSiteNurComponent implements OnInit {
       if (this._NurServices.site_code.getValue()!=null)
       {
       this.siteCode=this._NurServices.site_code.getValue();
-     
+
         console.log(this.siteCode)
       }
 
@@ -40,6 +41,16 @@ export class ShowSiteNurComponent implements OnInit {
       if(this._AuthServices.currentUser.getValue()!=null)
       this.token = this._AuthServices.currentUser.getValue();
     })
+  }
+
+  public downloadSiteNur() {
+    let filename = "siteNur.xlsx";
+    this._NurServices.downloadSiteNur({ 'filename': filename }, this.siteCode,this.token).subscribe((data) => {
+      console.log(data);
+      saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
+
+    });
+
   }
   private getSiteNUR()
   {

@@ -27,7 +27,7 @@
           <div class="col-12">
             <div class="button-container">
               <button class="btn btn-primary" [disabled]='filterForm.status=="INVALID"' type="submit">submit</button>
-               <button class="btn btn-primary"[disabled]='filterForm.status=="INVALID"'  (click)="downloadsites(filterForm)">Excel Export</button>
+               <button class="btn btn-primary"[disabled]='!isDataFound'  (click)="downloadsites()">Excel Export</button>
 
 
             </div>

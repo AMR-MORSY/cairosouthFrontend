@@ -25,7 +25,7 @@ export class NurIndexComponent implements OnInit {
   public months_year:any;
   public weeks_year:any;
   public technologies:any;
-  public showNUR:boolean=false;
+
 
 
   public indexFormMonth:any;
@@ -79,12 +79,12 @@ public submitWeek(e:any)
     {
       let statestics:any=response.statestics;
       console.log(statestics);
-      this.SendNURTOShowComponent(statestics);
-      this.showNUR=true;
+      this.SendNURTOShowComponent(statestics,data);
+
     }
     else
     {
-      this.showNUR=false;
+
       alert(response.errors)
     }
       this.indexFormMonth=new FormGroup({
@@ -115,9 +115,11 @@ public submitWeek(e:any)
 
     }
   }
- public SendNURTOShowComponent(statestics:any)
+ public SendNURTOShowComponent(statestics:any,data:any)
   {
-    this._NURService.NUR.next(statestics)
+    this._NURService.NUR.next(statestics);
+    this._NURService.NURIndex.next(data);
+    this._Router.navigate(['/nur/show-nur']);
 
   }
 

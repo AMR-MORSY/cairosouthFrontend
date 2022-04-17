@@ -1,9 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NurService } from '../../nur.service';
-
+import { NurService } from '../nur.service';
+import {saveAs} from 'file-saver';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { AuthenticationService } from 'src/app/auth/authentication.service';
 
 
 
@@ -33,6 +34,8 @@ export class ShowNurComponent implements OnInit {
   public chartPlugins = [pluginDataLabels.default];
   public repeatedSites:any[]=[];
   public topSitesNUR:any[]=[];
+  private NURIndex:any=null;
+  private token:any;
 
 
   public BSCChartType: any = 'bar';
@@ -66,7 +69,7 @@ export class ShowNurComponent implements OnInit {
         position: 'top'
 
       }
-     
+
     },
     responsive: true
   };
@@ -103,7 +106,7 @@ export class ShowNurComponent implements OnInit {
       legend: {
         position: 'top'
       },
-     
+
     },
     responsive: true
   };
@@ -123,7 +126,7 @@ export class ShowNurComponent implements OnInit {
 
 
 
-  constructor(private _NURService: NurService, private _Router: Router) {
+  constructor(private _NURService: NurService, private _Router: Router,private _AuthServices:AuthenticationService) {
 
   }
 
@@ -259,12 +262,12 @@ public goToShowSiteNUR(siteCode:any)
 
   private analyzeSubsystem() {
     let subSystem: any = this.statestics.sub_system;
-  
+
     this.getMicrowaveNur(subSystem);
     this.subsystemChartLabels = this.analyze(subSystem).chartLabels;
 
     this.subsystemChartData = [
-    
+
       { data: this.analyze(subSystem).NUR, label: 'NUR' },
     ],
       this.subsystemChartOptions = {
@@ -279,14 +282,30 @@ public goToShowSiteNUR(siteCode:any)
 
             }
           }
-          
+
         },
         responsive: true
-       
+
       }
 
   }
+  private getUserData() {
+    this._AuthServices.currentUser.subscribe(() => {
+      if(this._AuthServices.currentUser.getValue()!=null)
+      this.token = this._AuthServices.currentUser.getValue();
+    })
+  }
 
+
+  public downloadNur() {
+    let filename = "Nur.xlsx";
+    this._NURService.downloadNur({ 'filename': filename }, this.NURIndex,this.token).subscribe((data) => {
+      console.log(data);
+      saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
+
+    });
+
+  }
   private getTimeSpan() {
 
     this.timeSpan = this.statestics.time_span;
@@ -353,7 +372,7 @@ public goToShowSiteNUR(siteCode:any)
       }
       ]
 
-     
+
 
 
     }
@@ -367,6 +386,17 @@ public goToShowSiteNUR(siteCode:any)
   private getRepeatedSites()
   {
     this.repeatedSites=this.statestics.repeated_sites;
+  }
+  private getNURIndex()
+  {
+    this._NURService.NURIndex.subscribe(()=>{
+      if( this._NURService.NURIndex.getValue()!=null)
+      {
+        this.NURIndex=this._NURService.NURIndex.getValue();
+        console.log(this.NURIndex);
+
+      }
+    })
   }
 
   private getTopSitesNUR()
@@ -402,7 +432,9 @@ public goToShowSiteNUR(siteCode:any)
 
   ngOnInit(): void {
 
+    this. getUserData();
     this.getNUR();
+    this.getNURIndex();
 
   }
 
