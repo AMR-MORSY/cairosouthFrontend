@@ -48,11 +48,13 @@
     }
 }
 
-#notification {
+#delete_notification,#indirect_notification {
+
   .container {
     margin: auto;
     .notification-body {
-      position: absolute;
+
+      position: fixed;
       top: 0;
       right: 0;
       left: 0;
@@ -66,7 +68,8 @@
 
       .notification-content {
         width: 50%;
-        height: 30%;
+         height: 80%;
+         overflow-y: scroll;
         background-color: white;
         border: solid;
         border-radius: 10px;
@@ -89,6 +92,7 @@
         .notification-caption {
           color: $mainColor;
           padding-top: 1em;
+
         }
         .notification-footer{
           padding-top: 1em;

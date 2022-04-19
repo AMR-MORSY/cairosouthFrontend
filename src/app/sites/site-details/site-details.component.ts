@@ -29,6 +29,11 @@ export class SiteDetailsComponent implements OnInit {
   public isNodalFound: boolean = false;
   public nodal: any;
   public isNotificationShown:boolean=false;
+  public totalIndirectCascades:any[]=[];
+  public countIndirectCascades:any=0;
+  public countDirectIndirect:any;
+  public isInirectCascadesFound:boolean=false;
+ public isCascadesNotificationShown:boolean=false;
 
 
   private decodeToken(token: any) {
@@ -52,6 +57,16 @@ export class SiteDetailsComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  public showIndirectCascadesList()
+  {
+    this.isCascadesNotificationShown=true;
+  }
+  public closeCascadesNotification()
+  {
+    this.isCascadesNotificationShown=false;
+
   }
 
   public goToShowSiteNur()
@@ -185,6 +200,8 @@ export class SiteDetailsComponent implements OnInit {
   ///////click on nodal//////
   public goToSiteDetailsFromNodals(index: any) {
 
+    this.isCascadesNotificationShown=false;
+
     this.getSiteDataFromDB(index);
 
   }
@@ -198,11 +215,15 @@ export class SiteDetailsComponent implements OnInit {
       "token": this.token,
       "nodal_id": this.site_id
     }
+    this.cascades = [];
+    this.nodals = [];
+    this.totalIndirectCascades=[];
+    this.countDirectIndirect=0;
+    this.countIndirectCascades=0;
 
     this._siteService.getCascades(tokenId).subscribe((response: any) => {
       console.log(response);
-      this.cascades = [];
-      this.nodals = [];
+
 
       function updateCascades(nodals: any, cascades: any) {
         for (var i = 0; i < nodals.length; i++) {
@@ -228,6 +249,17 @@ export class SiteDetailsComponent implements OnInit {
         this.isCascadesFound = true;
         let cascades:any = response.cascades;
         this.cascadesCount = response.count_cascades;
+        this.totalIndirectCascades=response.total_indirect_cascades;
+        if(this.totalIndirectCascades.length>0)
+        {
+          this.isInirectCascadesFound=true;
+        }
+        else
+        {
+          this.isInirectCascadesFound=false;
+        }
+        this.countIndirectCascades=this.totalIndirectCascades.length;
+        this.countDirectIndirect=this.countIndirectCascades+this.cascadesCount;
         let nodals:any = response.nodals
 
         if (nodals.length == 0) {
@@ -249,6 +281,7 @@ export class SiteDetailsComponent implements OnInit {
       else {
         this.isNodalsFound = false;
         this.isCascadesFound = false;
+        this.isInirectCascadesFound=false;
       }
     });
 
@@ -294,6 +327,7 @@ export class SiteDetailsComponent implements OnInit {
     }
 
     this._siteService.getNodal(tokenId).subscribe((response: any) => {
+      console.log(response)
 
       if (response.message == "token expired, please login") {
         alert("token expired, please login");

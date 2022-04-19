@@ -5,7 +5,7 @@
 
 
 
-        <div class="col-12 col-sm-12 col-md-6 mb-5">
+        <div class="col-12 col-sm-12 col-md-5 mb-5">
           <div class="row">
             <div class="col-6">
               <label for="site-code">Site-Code</label>
@@ -139,7 +139,7 @@
           </div>
         </div>
 
-        <div class="col-12 col-sm-12 col-md-2 mb-5">
+        <div class="col-12 col-sm-12 col-md-3 mb-5">
           <div class="cascade-on">
             <h3>Cascaded On:</h3>
             <div class="nodal-container">
@@ -156,6 +156,8 @@
 
 
             </div>
+            <h3 class=" pt-4">Total Cascades:{{countDirectIndirect}}</h3>
+            <button class="btn btn-danger" [disabled]="!isInirectCascadesFound" (click)="showIndirectCascadesList()">Show Indirect Cascades</button>
 
           </div>
         </div>
@@ -246,7 +248,7 @@
 </section>
 
 
-<section id='notification' [hidden]='!isNotificationShown'>
+<section id='delete_notification' [hidden]='!isNotificationShown'>
   <div class="container">
     <div class="notification-body">
       <div class="notification-content">
@@ -261,6 +263,49 @@
         <div class="notification-footer">
           <button class="btn btn-danger" (click)="closeNotification()">No</button>
           <button class=" btn btn-primary" (click)="deleteSite()">Yes</button>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id='indirect_notification' [hidden]='!isCascadesNotificationShown'>
+  <div class="container">
+    <div class="notification-body">
+      <div class="notification-content">
+        <div class="close" (click)="closeCascadesNotification()"><i class="fas fa-times"></i></div>
+        <div class="notification-title">
+          <h3>Total Indirect Cascades: {{countIndirectCascades}}</h3>
+        </div>
+
+        <div class="notification-caption">
+          <div class="table-container table-responsive" >
+            <table class=" table table-hover table-bordered">
+              <thead>
+                <tr class="text-center align-middle">
+                  <th scope="col">Site Code</th>
+                  <th scope="col">Site Name</th>
+
+                </tr>
+              </thead>
+              <tbody>
+
+
+                <tr *ngFor="let site of totalIndirectCascades; let i=index "
+                  (click)="goToSiteDetailsFromNodals(site.cascade_id)">
+                  <td class="text-center align-middle">{{site.cascade_code}}</td>
+                  <td class="text-center align-middle">{{site.cascade_name}}</td>
+                
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
 
