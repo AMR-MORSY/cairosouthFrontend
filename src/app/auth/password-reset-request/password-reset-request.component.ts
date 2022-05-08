@@ -11,6 +11,15 @@ import { AuthenticationService } from '../authentication.service';
 export class PasswordResetRequestComponent implements OnInit {
   public error: any;
 public isError: boolean = false;
+public isEmailError: boolean = false;
+public emailError:any='';
+public isSuccess: boolean = false;
+  public isTokenExpired: boolean = false;
+
+  public success: any = '';
+
+
+
 
   constructor(private _AuthService:AuthenticationService, private _Router:Router) { }
 
@@ -20,15 +29,45 @@ public isError: boolean = false;
 
     }
   )
-
   disableEmailNotfication()
-{
-  this.isError=false;
-}
+  {
+    this.isError=false;
+  }
+  closeSuccessNotification(data: any) {
+    this.isSuccess = data;
+
+
+  }
+  public closeTokenExpirationNotification(data: any) {
+    this.isTokenExpired = data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
+
 submitEmail(data: any) {
 
   this._AuthService.sendPassResEmail(data.value).subscribe((response:any) => {
     console.log(response);
+    if (response.message == "token expired, please login") {
+      this.error = "token expired, please login";
+      this.isTokenExpired = true;
+    }
+    else if (response.message=='failed')
+    {
+
+      this.error=response.error;
+      this.isError=true
+
+    }
+    else
+    {
+      this.success=response.message;
+      this.isSuccess=true
+    }
+
+
   });
   }
   ngOnInit(): void {

@@ -11,17 +11,44 @@ import jwt_decode from "jwt-decode";
 export class AuthenticationService {
 
   public currentUser = new BehaviorSubject(null);
+  // public id=new BehaviorSubject(null);
+  // public isAdmin=new BehaviorSubject(false);
+  // public isSuperAdmin=new BehaviorSubject(false);
 
 
 
-  saveCurrentUser(token: any) {
+  // private getUserData(token:any)
+  // {
+  //   let decodedToken:any=this.decodeToken(token);
+  //   this.id.next(decodedToken.id);
+
+  //   if (decodedToken.role=='admin')
+  //   {
+  //     this.isAdmin.next(true)
+  //   }
+  //  else if (decodedToken.role=='super admin')
+  //   {
+  //     this.isAdmin.next(true)
+  //     this.isSuperAdmin.next(true);
+  //   }
+
+  // }
+ public saveCurrentUser(token: any) {
 
     localStorage.setItem('token',token);
     this.currentUser.next(token);
-    this._Router.navigate(['/user']);
+    // this.getUserData(token);
+    this._Router.navigate(['/statestics']);
+
 
 
   }
+  // private decodeToken(token: any) {
+  //   let decToken = jwt_decode(token);
+  //   return decToken;
+
+  // }
+
 
   constructor(private _HttpClient: HttpClient, private _Router:Router) {
 
@@ -29,8 +56,10 @@ export class AuthenticationService {
     if (storage!=null)
     {
       this.currentUser.next(storage);
+      // this.getUserData(storage);
     }
    
+
    }
 
   signIn(Data: any): Observable<any> {
@@ -51,7 +80,7 @@ export class AuthenticationService {
     return this._HttpClient.post("https://cairo-south.herokuapp.com/api/sendEmail",email);
   }
   sendPassResForm(passResForm:any) {
-    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/sendEmail",passResForm);
+    return this._HttpClient.post("https://cairo-south.herokuapp.com/api/resetPassword",passResForm);
   }
 
 

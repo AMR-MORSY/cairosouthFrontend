@@ -4,16 +4,16 @@
 
       <form [formGroup]="createSiteForm" (ngSubmit)="submitCreateSiteForm(createSiteForm)">
         <div class="row">
-          <div class="col-6 col-sm-6 col-md-2 mt-2">
+          <div class="col-6 col-sm-6 col-lg-3 mt-2">
             <label for="site-code">Site-Code</label>
             <input type="text" class="form-control" formControlName="site_code" id="site-code">
           </div>
-          <div class="col-6 col-sm-6 col-md-4 mt-2">
+          <div class="col-6 col-sm-6 col-lg-3 mt-2">
             <label for="site-name">Site-Name</label>
             <input type="text" class="form-control" formControlName="site_name" id="site-name">
           </div>
 
-          <div class="col-6 col-sm-6 col-md-2 mt-2">
+          <div class="col-6 col-sm-6 col-lg-3  mt-2">
             <label for="type">Site-Type</label>
             <select formControlName="site_type" id="type" class=" form-control d-block">
               <option value=""></option>
@@ -22,7 +22,7 @@
               <option value="Shelter">Shelter</option>
             </select>
           </div>
-          <div class="col-6 col-sm-6 col-md-4 mt-2">
+          <div class="col-6 col-sm-6 col-lg-3 mt-2">
             <label for="BSC">BSC/RNC</label>
             <select id="BSC" formControlName="BSC_RNC" class=" form-control d-block">
               <option value=""></option>
@@ -50,7 +50,7 @@
 
         <div class="row">
 
-          <div class="col-6 col-sm-6 col-md-3 mt-2">
+          <div class="col-6 col-sm-6 col-lg-3 mt-2">
             <label for="category">Site-Category</label>
             <select formControlName="site_category" id="category" class=" form-control d-block">
               <option value=""></option>
@@ -63,7 +63,7 @@
             </select>
           </div>
 
-          <div class="col-6  col-sm-6 col-md-3  mt-2">
+          <div class="col-6  col-sm-6 col-lg-3  mt-2">
             <label for="severity">Site-Severity</label>
             <select formControlName="severity" id="severity" class=" form-control d-block">
               <option value=""></option>
@@ -75,7 +75,7 @@
           </div>
 
 
-          <div class="col-6 col-sm-6 col-md-3 mt-2 ">
+          <div class="col-6 col-sm-6 col-lg-3 mt-2 ">
             <label for="office">Office</label>
             <select formControlName="office" id="office" class=" form-control d-block">
               <option value=""></option>
@@ -85,7 +85,7 @@
             </select>
           </div>
 
-          <div class="col-6 col-sm-6 col-md-3 mt-2">
+          <div class="col-6 col-sm-6 col-lg-3 mt-2">
             <label for="build-date">Build-Date</label>
             <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="build_date" placement="bottom"
               [(bsValue)]="datepicker" class="form-control d-block" id="build-date">
@@ -94,7 +94,7 @@
         </div>
 
         <div class="row">
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6 col-lg-4">
             <div class="cells">
               <div class="header pt-4">
                 <p>Cells:</p>
@@ -127,14 +127,14 @@
         </div>
 
         <div class="row">
-          <div class="col-6 col-sm-6 col-md-3 mt-2">
+          <div class="col-6 col-sm-6 col-lg-2 mt-2">
             <label for="sharing">Sharing</label>
             <select formControlName="sharing" id="sharing" class=" form-control d-block">
               <option value="No" selected> No</option>
               <option value="Yes"> Yes </option>
             </select>
           </div>
-          <div class="col-6 col-sm-6 col-md-3 mt-2">
+          <div class="col-6 col-sm-6 col-lg-2 mt-2">
             <label for="host">Host</label>
             <select formControlName="host" class=" form-control d-block" id="host">
               <option value='' selected></option>
@@ -148,11 +148,11 @@
           </div>
 
 
-          <div class="col-6 col-sm-6 col-md-3 pb-5 mt-2">
+          <div class="col-12 col-sm-6  pb-5 mt-2">
             <button class="btn btn-danger mt-4" type="submit" [disabled]='createSiteForm.status=="INVALID"'>Create
               Site</button>
 
-              
+
 
 
           </div>
@@ -164,7 +164,7 @@
 
       </form>
 
-      <button appBackNavigate class="btn btn-primary mt-4">Back</button>
+
 
 
 
@@ -174,7 +174,7 @@
 
 </section>
 
-<section id='notification' [hidden]='isSiteNotInserted'>
+<section id='notification' [hidden]='!isSiteInserted'>
   <div class="container">
     <div class="notification-body">
       <div class="notification-content">
@@ -199,3 +199,10 @@
   </div>
 
 </section>
+
+
+
+<app-back-button-component></app-back-button-component>
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)" ></app-error-notification>
+<app-success-notification [hidden]="!isSuccess" [successMessage]="success" (closeNotification)="closeSuccessNotification($event)"></app-success-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired' (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

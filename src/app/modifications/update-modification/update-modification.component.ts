@@ -32,7 +32,11 @@ export class UpdateModificationComponent implements OnInit {
   public materials:any;
   public action:any;
   public project:any;
-
+  public isError:boolean=false;
+  public error:any='';
+  public isSuccess:boolean=false;
+  public success:any=false;
+public isTokenExpired:boolean=false;
   public createModForm=new FormGroup({
 
 
@@ -63,6 +67,24 @@ export class UpdateModificationComponent implements OnInit {
   }
 
 
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
+  closeSuccessNotification(data:any)
+
+  {
+    this.isSuccess=data;
+
+  }
+  public closeTokenExpirationNotification(data:any)
+  {
+    this. isTokenExpired=data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
 
   private sendNewModTODB(mod:any,token:any,id:any)
   {
@@ -75,13 +97,29 @@ export class UpdateModificationComponent implements OnInit {
       console.log(response);
       if (response.message=="success")
       {
-        alert ("Modification inserted Successfully")
-        this._Router.navigate(['/modifications/show-site-modifications'])
+        // alert ("Modification inserted Successfully")
+        // this._Router.navigate(['/modifications/show-site-modifications'])
+        this.success='Modification inserted Successfully';
+        this.isSuccess=true;
+        this.isError=false;
+        this.isTokenExpired=false;
+      }
+      else if (response.message == "token expired, please login") {
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+        this.isError = false;
+
+
+
       }
       else
       {
         let error=response.errors;
-        alert(JSON.stringify(error));
+        // alert(JSON.stringify(error));
+        this.error=error;
+        this.isError=true;
+        this.isSuccess=false;
+        this.isTokenExpired=false;
       }
     })
 

@@ -6,8 +6,8 @@
   {
     margin: auto;
     .form-container{
-      width: 70%;
-      margin: auto;
+      // width: 70%;
+      // margin: auto;
 
       .all-cells{
         display: flex;
@@ -41,9 +41,9 @@
 
       .notification-content {
         width: 50%;
-        height: 30%;
+        // height: 30%;
         background-color: white;
-        border: solid;
+        border: solid $mainColor 2px;
         border-radius: 10px;
         padding: 2rem 2rem;
         position: relative;
@@ -79,4 +79,105 @@
       }
     }
   }
+}
+
+
+
+
+@media screen and (max-width: 575px) {
+
+
+
+
+#notification {
+  .container {
+
+    .notification-body {
+
+
+      .notification-content {
+        width: 95%;
+
+
+
+
+      }
+    }
+  }
+}
+
+
+
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+
+
+
+#notification {
+  .container {
+
+    .notification-body {
+
+
+      .notification-content {
+        width: 85%;
+
+
+
+
+      }
+    }
+  }
+
+}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+
+#notification {
+  .container {
+
+    .notification-body {
+
+
+      .notification-content {
+        width: 85%;
+
+
+
+
+      }
+    }
+  }
+
+}
+
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  
+
+#notification {
+  .container {
+
+    .notification-body {
+
+
+      .notification-content {
+        width: 85%;
+
+
+
+
+      }
+    }
+  }
+
+}
+
+}
+
+@media (min-width: 1200px) and (max-width: 1500px) /* extra large windows*/ {
 }

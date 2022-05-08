@@ -18,32 +18,53 @@ export class CreateNewSiteComponent implements OnInit {
   public hidden: boolean = true;
   public token: any;
   public id: any;
-  public isSiteNotInserted: boolean = true;
-  public newSite:any;
+  public isSiteInserted: boolean = false;
+  public newSite: any;
+  public isSuccess: boolean = false;
+  public isTokenExpired: boolean = false;
+  public error: any = '';
+  public success: any = '';
+  public isError: boolean = false;
 
 
   public createSiteForm = new FormGroup({
-    site_code: new FormControl(null,[Validators.required]),
-    site_name: new FormControl(null,[Validators.required]),
-    BSC_RNC: new FormControl(null,[Validators.required]),
-    office: new FormControl(null,[Validators.required]),
-    site_type: new FormControl(null,[Validators.required]),
-    site_category: new FormControl(null,[Validators.required]),
-    build_date: new FormControl(null,[Validators.required]),
-    severity: new FormControl(null,[Validators.required]),
-    sharing: new FormControl(null,[Validators.required]),
+    site_code: new FormControl(null, [Validators.required]),
+    site_name: new FormControl(null, [Validators.required]),
+    BSC_RNC: new FormControl(null, [Validators.required]),
+    office: new FormControl(null, [Validators.required]),
+    site_type: new FormControl(null, [Validators.required]),
+    site_category: new FormControl(null, [Validators.required]),
+    build_date: new FormControl(null, [Validators.required]),
+    severity: new FormControl(null, [Validators.required]),
+    sharing: new FormControl(null, [Validators.required]),
     host: new FormControl(''),
-    two_G:new FormControl(null),
-    three_G:new FormControl(null),
-    four_G:new FormControl(null),
+    two_G: new FormControl(null),
+    three_G: new FormControl(null),
+    four_G: new FormControl(null),
 
 
   })
 
-  constructor(private _SitesServices: SitesService,public datepipe: DatePipe, private _AuthServices: AuthenticationService, private _Router:Router) {
+  constructor(private _SitesServices: SitesService, public datepipe: DatePipe, private _AuthServices: AuthenticationService, private _Router: Router) {
     this.datePickerConfig = Object.assign({}, { containerClass: 'theme-orange' }, { dateInputFormat: 'YYYY-MM-DD' }, { isAnimated: true });
   }
 
+  closeSuccessNotification(data: any) {
+    this.isSuccess = data;
+    this.isSiteInserted = false;
+
+  }
+  public closeTokenExpirationNotification(data: any) {
+    this.isTokenExpired = data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
 
   private decodeToken(token: any) {
     let decToken = jwt_decode(token);
@@ -61,20 +82,19 @@ export class CreateNewSiteComponent implements OnInit {
   }
   public closeNotification() {
     this._SitesServices.site.next(this.newSite);
-    localStorage.setItem('site',JSON.stringify( this.newSite));
-    this.isSiteNotInserted=true;
+    localStorage.setItem('site', JSON.stringify(this.newSite));
+    this.isSiteInserted = true;
     this._Router.navigate(['/sites/site-details']);
 
 
 
 
   }
-  public goToUpdateCascades()
-  {
+  public goToUpdateCascades() {
     this._SitesServices.site.next(this.newSite);
-    localStorage.setItem('site',JSON.stringify( this.newSite));
+    localStorage.setItem('site', JSON.stringify(this.newSite));
     this._Router.navigate(['/sites/update-cascades']);
-    this.isSiteNotInserted=true;
+    this.isSiteInserted = true;
 
 
 
@@ -90,16 +110,34 @@ export class CreateNewSiteComponent implements OnInit {
 
 
     this._SitesServices.addNewSite(data).subscribe((response: any) => {
-      console.log(response);
+
       if (response.message == 'failed') {
         let errors = response.errors;
-        alert(JSON.stringify(errors));
-        this.isSiteNotInserted=true;
+        errors = JSON.stringify(errors);
+        this.error = errors;
+        this.isError = true;
+        this.isTokenExpired=false;
+        this.isSuccess=false;
+
+        this.isSiteInserted = false;
       }
-      else
-      {alert ("New site created Successfully");
-        this.isSiteNotInserted=false;
-        this.newSite=response.site;
+      else if (response.message == "token expired, please login") {
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
+        this.isSiteInserted = false;
+        this.isError = false;
+        this.isSuccess=false;
+
+
+      }
+      else {
+        alert("New site created Successfully");
+
+        this.newSite = response.site;
+        this.isSuccess=true;
+        this.success=  "New site created Successfully";
+        this.isError = false;
+        this.isTokenExpired = false;
       }
     })
 
@@ -107,7 +145,7 @@ export class CreateNewSiteComponent implements OnInit {
 
   submitCreateSiteForm(data: any) {
     let createdSite: any = data.value;
-    let newBuildate=this.datepipe.transform(this.datepicker, 'yyyy-MM-dd')
+    let newBuildate = this.datepipe.transform(this.datepicker, 'yyyy-MM-dd')
     createdSite.build_date = newBuildate;
     createdSite = JSON.stringify(createdSite);
     this.getUserData();

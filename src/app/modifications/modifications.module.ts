@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { AllModificationsComponent } from './all-modifications/all-modifications.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModuleModule } from '../shared-module/shared-module.module';
+import { ModificationIndexComponent } from './modification-index/modification-index.component';
+
 
 
 
@@ -18,11 +21,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CreateNewModificationComponent,
     UpdateModificationComponent,
     ShowSiteModificationsComponent,
-    AllModificationsComponent
+    AllModificationsComponent,
+    ModificationIndexComponent,
+
   ],
   imports: [
-    CommonModule,
-    ModificationsRoutingModule,NgxPaginationModule,FormsModule,ReactiveFormsModule,BsDatepickerModule.forRoot(),ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    CommonModule,SharedModuleModule
+    ,ModificationsRoutingModule,NgxPaginationModule,FormsModule,ReactiveFormsModule,BsDatepickerModule.forRoot(),ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
   providers: [DatePipe],
 })

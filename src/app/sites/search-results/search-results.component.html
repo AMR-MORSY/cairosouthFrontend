@@ -1,47 +1,54 @@
-
 <section id="search-table">
 
-<div class="container">
-
-<div class="No-data" *ngIf="!isDataFound"> <p  style="color: white;margin-top: 8em;">No Data Found</p></div>
+  <div class="container-xl">
 
 
-  <div class="table-container table-responsive">
+
+
+    <div class="table-container  table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl">
       <table *ngIf="isDataFound" class="table table-hover table-bordered">
-          <thead>
-              <tr>
-                  <th>Site Code</th>
-                  <th>Site Name</th>
-                  <th>BSC/RNC</th>
-                  <th>Site Category</th>
-                  <th>Office</th>
-                  <th>Build date </th>
-                  <th>Sharing</th>
-                  <th>Host</th>
-                  <th>Severity</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let site of sites|paginate:config; let i=index" (click)="sendSiteId(site.id)">
-                  <td>{{site.site_code}}</td>
-                  <td>{{site.site_name}}</td>
-                  <td>{{site.BSC_RNC}}</td>
-                  <td>{{site.site_category}}</td>
-                  <td>{{site.office}}</td>
-                  <td>{{site.build_date}}</td>
-                  <td>{{site.sharing}}</td>
-                  <td>{{site.host}}</td>
-                  <td>{{site.severity}}</td>
-              </tr>
-          </tbody>
+        <thead>
+          <tr>
+            <th>Site Code</th>
+            <th>Site Name</th>
+            <th>BSC/RNC</th>
+            <th>Site Category</th>
+            <th>Office</th>
+            <th>Build date </th>
+            <th>Sharing</th>
+            <th>Host</th>
+            <th>Severity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let site of sites|paginate:config; let i=index" (click)="sendSiteId(site.id)">
+            <td>{{site.site_code}}</td>
+            <td>{{site.site_name}}</td>
+            <td>{{site.BSC_RNC}}</td>
+            <td>{{site.site_category}}</td>
+            <td>{{site.office}}</td>
+            <td>{{site.build_date}}</td>
+            <td>{{site.sharing}}</td>
+            <td>{{site.host}}</td>
+            <td>{{site.severity}}</td>
+          </tr>
+        </tbody>
       </table>
-  </div>
-  <div *ngIf="isDataFound" style="color: white;">
+    </div>
+    <div *ngIf="isDataFound" class="pagination-container" style="color: white;">
       <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+    </div>
+    <div class="button-container" [hidden]="!showBackButton">
+
+      <app-back-button-component></app-back-button-component>
+    </div>
+
+
+
   </div>
-
-
-
-</div>
 
 </section>
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)">
+</app-error-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired'
+  (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

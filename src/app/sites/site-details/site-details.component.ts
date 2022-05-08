@@ -28,12 +28,24 @@ export class SiteDetailsComponent implements OnInit {
   public cascadesCount: any;
   public isNodalFound: boolean = false;
   public nodal: any;
-  public isNotificationShown:boolean=false;
+  public showDeleteNotification:boolean=false;
   public totalIndirectCascades:any[]=[];
   public countIndirectCascades:any=0;
   public countDirectIndirect:any;
   public isInirectCascadesFound:boolean=false;
  public isCascadesNotificationShown:boolean=false;
+ public isTokenExpired:boolean=false;
+ public error:any='';
+
+ public isSuccess: boolean = false;
+
+ public success: any = '';
+ public isError: boolean = false;
+
+
+
+
+
 
 
   private decodeToken(token: any) {
@@ -50,7 +62,7 @@ export class SiteDetailsComponent implements OnInit {
     }
 
   }
-  isSuperAdminCheck(role: any) {
+ private isSuperAdminCheck(role: any) {
     if (role == "super admin") {
       return true;
     }
@@ -74,9 +86,33 @@ export class SiteDetailsComponent implements OnInit {
     this._Router.navigate(['/nur/show-site-nur'])
   }
 
-  public closeNotification()
+  closeSuccessNotification(data: any) {
+    this.isSuccess = data;
+    this._Router.navigate(['/sites/allSites'])
+
+
+  }
+  public closeTokenExpirationNotification(data: any) {
+    this.isTokenExpired = data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
+
+  public closeDeleteNotification()
   {
-    this.isNotificationShown=false;
+    this.showDeleteNotification=false;
+  }
+
+  public openDeleteNotification()
+  {
+    this.showDeleteNotification=true;
+
   }
 
   private getUserData() {
@@ -84,8 +120,17 @@ export class SiteDetailsComponent implements OnInit {
       this.token = this._AuthService.currentUser.getValue();
       let decToken: any = this.decodeToken(this.token);
       this.id = decToken.id;
-      this.isAdmin = this.isAdminCheck(decToken.role);
-      this.isSuperAdmin = this.isSuperAdminCheck(decToken.role);
+      if (decToken. role == "super admin") {
+        this.isAdmin=true;
+        this.isSuperAdmin=true;
+      }
+      else if(decToken. role == "admin") {
+        this.isAdmin= true;
+        this.isSuperAdmin = false;
+      }
+      else{
+      this.isAdmin = false;
+      this.isSuperAdmin = false;}
     })
 
   }
@@ -96,16 +141,24 @@ export class SiteDetailsComponent implements OnInit {
       "site_id":this.site_id,
       "token":this.token
     }
+    this.showDeleteNotification=false;
     this._siteService.deleteSite(data).subscribe((response)=>{
       console.log(response)
       if (response.message=="success")
       {
-        alert("site deleted")
-        this._Router.navigate(['/home'])
+        this.success="site deleted";
+        this.isSuccess=true;
+
+      }
+      else if (response.message == "token expired, please login") {
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
       }
       else{
         let error=response.errors
-        alert(JSON.stringify(error));
+         error=JSON.stringify(error);
+         this.error=error;
+         this.isError=true
 
       }
 
@@ -147,11 +200,12 @@ export class SiteDetailsComponent implements OnInit {
 
 
     this._siteService.getsite(data).subscribe((response: any) => {
-      console.log(response)
+
 
 
       if (response.message == "success") {
         this.site = response.site;
+        this.isTokenExpired=false;
         this.goToSiteDetails();
         this.site_id = this.site.id
         this._siteService.site.next(this.site);
@@ -164,9 +218,8 @@ export class SiteDetailsComponent implements OnInit {
 
       }
       else if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-
-        this._Router.navigate(['/auth/login']);
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
       }
 
 
@@ -239,14 +292,14 @@ export class SiteDetailsComponent implements OnInit {
 
       }
       if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-
-        this._Router.navigate(['/auth/login']);
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
       }
 
       else if (response.message == "success") {
 
         this.isCascadesFound = true;
+        this.isTokenExpired = false;
         let cascades:any = response.cascades;
         this.cascadesCount = response.count_cascades;
         this.totalIndirectCascades=response.total_indirect_cascades;
@@ -269,8 +322,7 @@ export class SiteDetailsComponent implements OnInit {
         else {
           this.cascades = updateCascades(nodals, cascades);
           this.nodals=nodals;
-           console.log(this.cascades);
-           console.log(this.nodals);
+
           this.isNodalsFound = true;
 
         }
@@ -282,6 +334,8 @@ export class SiteDetailsComponent implements OnInit {
         this.isNodalsFound = false;
         this.isCascadesFound = false;
         this.isInirectCascadesFound=false;
+        this.isTokenExpired = false;
+
       }
     });
 
@@ -330,18 +384,19 @@ export class SiteDetailsComponent implements OnInit {
       console.log(response)
 
       if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-
-        this._Router.navigate(['/auth/login']);
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
       }
       else if (response.message == "success") {
         this.isNodalFound = true;
+        this.isTokenExpired = false;
         this.nodal = response;
 
 
       }
       else {
         this.isNodalFound = false;
+        this.isTokenExpired = false;
       }
 
     });

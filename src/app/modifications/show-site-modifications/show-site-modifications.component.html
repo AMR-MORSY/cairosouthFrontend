@@ -12,8 +12,9 @@
         </div>
         <div class="col-12">
           <div *ngIf="!isModificationFound" class="no-modification">
-            <p class=" mt-5">No Modifications</p>
-            <button class="btn btn-danger" (click)="goToNewMod()"> New Modification</button>
+
+            <button class="btn btn-danger mt-5" (click)="goToNewMod()"> New Modification</button>
+
           </div>
         </div>
       </div>
@@ -28,8 +29,8 @@
 </section>
 
 <section id="table">
-  <div class="container">
-    <div class="table-container table-responsive ">
+  <div class="container-xl">
+    <div class="table-container table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl">
       <table *ngIf="isModificationFound" class="table table-bordered ">
         <thead>
           <tr>
@@ -67,11 +68,15 @@
       <button class="btn btn-primary" [disabled]="!isModificationClicked" (click)="goToUpdateModification()">
         Update</button>
       <button class="btn btn-info" (click)="goToNewMod()"> Create New</button>
+
     </div>
 
   </div>
 
 </section>
+
+
+<app-back-button-component></app-back-button-component>
 
 
 <section id='notification' [hidden]='!isNotificationShown'>
@@ -99,3 +104,8 @@
   </div>
 
 </section>
+
+<app-success-notification [hidden]="!isSuccess" [successMessage]="success" (closeNotification)="closeSuccessNotification($event)"></app-success-notification>
+
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)" ></app-error-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired' (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

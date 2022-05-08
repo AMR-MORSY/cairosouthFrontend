@@ -16,6 +16,10 @@ export class ShowSiteNurComponent implements OnInit {
   private token:any='';
   public siteName:any='';
   public tickets:any[]=[];
+  public isNURFound:boolean=false;
+  public isTokenExpired:boolean=false;
+  public isError:boolean=false;
+  public error:any=';'
 
   constructor(private _NurServices:NurService,private _AuthServices: AuthenticationService, private _Router:Router) { }
 
@@ -42,11 +46,30 @@ export class ShowSiteNurComponent implements OnInit {
       this.token = this._AuthServices.currentUser.getValue();
     })
   }
+  public closeTokenExpirationNotification(data:any)
+{
+  this. isTokenExpired=data;
+  localStorage.clear();
+  this._Router.navigate(['/auth/login']);
+
+
+}
+public closeErrorNotification(data: any) {
+  this.isError = data;
+
+}
 
   public downloadSiteNur() {
     let filename = "siteNur.xlsx";
     this._NurServices.downloadSiteNur({ 'filename': filename }, this.siteCode,this.token).subscribe((data) => {
-      console.log(data);
+    
+
+      if (data.message == "token expired, please login") {
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+        this.isError = false;
+
+      }
       saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
 
     });
@@ -60,17 +83,26 @@ export class ShowSiteNurComponent implements OnInit {
       {
         this.siteName=response.NUR.site_name;
         this.tickets=response.NUR.tickets;
+        this.isNURFound=true;
+        this.isTokenExpired=false;
+        this.isError = false;
 
       }
       else if (response.message == "token expired, please login") {
-        localStorage.clear();
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+        this.isError = false;
+        this.isNURFound=false;
+
       }
       else
       {
+        this.isNURFound=false;
+        this.isTokenExpired=false;
+        this.isError=true;
         let error:any=response.errors;
-        alert(JSON.stringify(error))
+       error=JSON.stringify(error)
+       this.error=error;
       }
     })
   }

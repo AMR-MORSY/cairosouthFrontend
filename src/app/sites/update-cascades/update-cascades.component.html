@@ -1,13 +1,13 @@
 <section id="insert-cascades">
-  <div class="container">
+  <div class="container-xl">
     <div class="row">
       <div class="col-md-6">
         <div class="row">
-          <div class="col-4 col-md-4">
+          <div class="col-5 col-sm-4 col-md-6">
             <label for="code">Site Code:</label>
             <input type="text" class="form-control" id="code" [(ngModel)]='nodalCode'>
           </div>
-          <div class="col-8 col-md-4">
+          <div class="col-7 col-sm-6 col-md-6">
             <label for="name">Site Name:</label>
             <input type="text" class=" form-control" id="name" [(ngModel)]="nodalName">
           </div>
@@ -22,13 +22,13 @@
         <form [formGroup]='searchCascades' (ngSubmit)="searchForCascadeSite(searchCascades)">
 
           <div class="row">
-            <div class="col-4 col-md-4">
-              <label for="site-code">Site-Code:</label>
+            <div class="col-5 col-md-6">
+              <label for="site-code">Site Code:</label>
               <input type="text" class="form-control" formControlName="search" id="site-code"
                 [value]="searchRecivedSiteCode">
             </div>
-            <div class="col-8 col-md-4">
-              <label for="site-name">Site-Name:</label>
+            <div class="col-7 col-md-6">
+              <label for="site-name">Site Name:</label>
               <input type="text" class="form-control" id="site-name" [value]="searchRecivedSiteName">
             </div>
 
@@ -57,18 +57,18 @@
         </form>
       </div>
       <div class="col-md-6">
-        <div *ngIf="isCascadesAvailable" class="table-container table-responsive">
-          <table class=" table table-bordered table-hover">
+        <div *ngIf="isCascadesAvailable" class="table-container table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl">
+          <table class="table table-bordered table-hover">
             <thead>
-              <tr>
+              <tr class=" align-middle text-center">
                 <th>Site Code</th>
                 <th>Site Name</th>
-                <th>Cascahes</th>
+                <th>Cascades</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody *ngIf="isCascadesAvailable">
-              <tr *ngFor="let site of cascadesContainer; let i=index">
+              <tr *ngFor="let site of cascadesContainer; let i=index" >
                 <td>{{site.cascade_code}}</td>
                 <td>{{site.cascade_name}}</td>
                 <td>{{site.count_cascades}}</td>
@@ -86,3 +86,11 @@
     </div>
   </div>
 </section>
+
+
+
+<app-back-button-component></app-back-button-component>
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)" ></app-error-notification>
+
+<app-success-notification [hidden]="!isSuccess" [successMessage]="success" (closeNotification)="closeSuccessNotification($event)"></app-success-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired' (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

@@ -1,0 +1,93 @@
+@import "../../../scss/variables";
+
+#indirect_notification {
+  .container {
+    margin: auto;
+    .notification-body {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 9999999999999;
+      background-color: rgba($color: #000000, $alpha: 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+      .notification-content {
+        width: 50%;
+        background-color: white;
+        border: solid 2px $mainColor;
+        border-radius: 10px;
+        padding: 2rem 2rem;
+        position: relative;
+        .close {
+          color: $mainColor;
+          font-size: 2rem;
+          position: absolute;
+          top: 28px;
+          right: 35px;
+          cursor: pointer;
+        }
+
+        .notification-title {
+          color: $mainColor;
+          padding-top: 2em;
+          i {
+            font-size: 2rem;
+            color: $mainColor;
+          }
+        }
+        .notification-caption {
+          color: $mainColor;
+          padding-top: 1em;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 575px) {
+  #indirect_notification {
+    .container {
+      .notification-body {
+      .notification-content {
+        width: 90%;
+      }
+    }
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  #indirect_notification {
+    .container {
+      .notification-body {
+      .notification-content {
+        width: 90%;
+      }
+    }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  #indirect_notification {
+    .container {
+      .notification-body {
+      .notification-content {
+        width: 90%;
+      }
+    }
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1200px) and (max-width: 1500px) /* extra large windows*/ {
+}

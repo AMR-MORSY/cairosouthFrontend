@@ -1,34 +1,36 @@
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuardGuard } from './auth/auth-guard.guard';
+import { AdminGuardGuard } from './auth/admin-guard.guard';
+import { SuperAdminGuardGuard } from './auth/super-admin-guard.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { UserComponent } from './user/user.component';
+import { StatesticsComponent } from './statestics/statestics.component';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'user',canActivate:[AuthGuardGuard] ,component:UserComponent },
+  { path: 'statestics',canActivate:[AuthGuardGuard] ,component:StatesticsComponent },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'nur',
-    loadChildren: () => import('./nur/nur.module').then(m => m.NurModuleModule)
+    canActivate:[AuthGuardGuard] , loadChildren: () => import('./nur/nur.module').then(m => m.NurModuleModule)
   },
   {
     path: 'sites',
-    loadChildren: () => import('./sites/sites.module').then(m => m.SitesModule)
+    canActivate:[AuthGuardGuard] ,  loadChildren: () => import('./sites/sites.module').then(m => m.SitesModule)
   },
   {
     path: 'modifications',
-    loadChildren: () => import('./modifications/modifications.module').then(m => m.ModificationsModule)
+    canActivate:[AuthGuardGuard] , loadChildren: () => import('./modifications/modifications.module').then(m => m.ModificationsModule)
   },
   {
     path: 'super-admin',
-    loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule)
+    canActivate:[AuthGuardGuard,SuperAdminGuardGuard] , loadChildren: () => import('./super-admin/super-admin.module').then(m => m.SuperAdminModule)
   },
 
   {

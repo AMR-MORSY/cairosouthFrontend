@@ -1,12 +1,12 @@
 <section id='new-site'>
   <div class="container">
 
-    <div class="row">
-      <div class="col-6 mt-2">
+    <div class="row  d-flex justify-content-center align-items-center">
+      <div class="col-6 col-sm-6 col-lg-3 mt-2">
         <label for="site-code">Site-Code</label>
         <input type="text" class="form-control" [(ngModel)]="site_code" id="site-code">
       </div>
-      <div class="col-6 mt-2">
+      <div class="col-6 col-sm-6 col-lg-3 mt-2">
         <label for="site-name">Site-Name</label>
         <input type="text" class="form-control" id="site-name" [(ngModel)]="site_name">
       </div>
@@ -18,7 +18,7 @@
       <div class="row">
 
 
-        <div class="col-6 col-md-3 mt-2">
+        <div class="col-6 col-sm-6 col-lg-3 mt-2">
           <label for="subcontractor">Subcontractor</label>
           <select formControlName="subcontractor" id="subcontractor" class=" form-control d-block">
             <option value=""></option>
@@ -37,7 +37,7 @@
             <option value="TeleTrust">TeleTrust</option>
           </select>
         </div>
-        <div class="col-6 col-md-3 mt-2">
+        <div class="col-6 col-sm-6 col-lg-3 mt-2">
           <label for="requester">Requester</label>
           <select id="requester" formControlName="requester" class=" form-control d-block">
             <option value=""></option>
@@ -57,7 +57,7 @@
         </div>
 
 
-        <div class="col-6 col-md-3 mt-2">
+        <div class="col-6 col-sm-6 col-lg-3 mt-2">
           <label for="project">Project</label>
           <select formControlName="project" id="project" class=" form-control d-block">
             <option value=""></option>
@@ -73,9 +73,9 @@
             <option value="L2600">L2600</option>
           </select>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-6 col-md-4 mt-2">
+
+
+        <div class="col-6 col-sm-6 col-lg-3 mt-2">
           <label for="status">Status</label>
           <select formControlName="status" id="office" class=" form-control d-block">
             <option value="in progress">in progress</option>
@@ -84,48 +84,58 @@
 
           </select>
         </div>
-        <div class="col-6  col-md-4 mt-2">
+      </div>
+      <div class="row ">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 mt-2">
+          <label for="materials">Materials</label>
+          <textarea formControlName="materials" cols="30" rows="3" id="materials" class=" form-control d-block">
+          </textarea>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3 mt-2">
           <label for="request_date">Request Date</label>
-          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="request_date" placement="top"
-            [(bsValue)]="requestdatepicker" class="form-control" id="request_date">
+          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="request_date"
+            placement="bottom" [(bsValue)]="requestdatepicker" class="form-control" id="request_date">
 
         </div>
-        <div class="col-6  col-md-4  mt-2">
+        <div class="col-12 col-sm-6 col-lg-3 mt-2">
           <label for="finish_date">Finish Date</label>
-          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="finish_date" placement="top"
+          <input type="text" bsDatepicker [bsConfig]="datePickerConfig" formControlName="finish_date" placement="bottom"
             [(bsValue)]="finishdatepicker" class="form-control" id="finish_date">
+
+        </div>
+
+
+
+
+        <div class="col-6 col-sm-4 col-md-4 col-lg-2 mt-2">
+          <label for="cost">Cost</label>
+          <input formControlName="cost" class="form-control d-block" id="cost">
 
         </div>
 
       </div>
 
       <div class="row">
-        <div class="col-6  mt-2">
+        <div class="col-12 col-sm-12 col-lg-6 mt-2">
           <label for="action">Action</label>
           <textarea formControlName="action" cols="30" rows="3" id="action" class="form-control d-block">
 
         </textarea>
         </div>
 
-        <div class="col-6 mt-2">
-          <label for="materials">Materials</label>
-          <textarea formControlName="materials" cols="30" rows="3" id="materials" class=" form-control d-block">
-          </textarea>
-        </div>
+
+        <div class="col-12 col-lg-6 mt-3">
+          <div class=" d-flex justify-content-lg-start align-items-center">
+            <button class="btn btn-danger mt-3" type="submit"
+              [disabled]='createModForm.status=="INVALID"'>Create</button>
 
 
-        <div class="col-6 mt-2">
-          <label for="cost">Cost</label>
-          <input formControlName="cost" class="form-control d-block" id="cost">
+          </div>
 
         </div>
 
 
-        <div class=" d-flex justify-content-lg-start align-items-center">
-          <button class="btn btn-danger mt-3" type="submit" [disabled]='createModForm.status=="INVALID"'>Create</button>
 
-
-        </div>
 
 
       </div>
@@ -134,6 +144,17 @@
 
     </form>
 
+
   </div>
 
 </section>
+
+
+<app-back-button-component></app-back-button-component>
+
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)">
+</app-error-notification>
+<app-success-notification [hidden]="!isSuccess" [successMessage]="success"
+  (closeNotification)="closeSuccessNotification($event)"></app-success-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired'
+  (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

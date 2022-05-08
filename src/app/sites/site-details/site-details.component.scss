@@ -1,59 +1,60 @@
-
 @import "../../../scss/variables";
 #site_data {
-    color: white;
-    margin-top: 12em;
-    .container {
-        margin: auto;
-        .all-data{
-          width: 90%;
-          margin: auto;
-          .direct-cascades,
-          .cascade-on {
-              h3 {
-                  color: #ff6600;
-                  font-size: 1.5rem;
+  color: white;
+  margin-top: 6em;
+  .container-xl {
+    margin: auto;
+
+    .direct-cascades,
+    .cascade-on {
+      h3 {
+        color: #ff6600;
+        font-size: 1.5rem;
+      }
+      .cascades-container {
+        // background-color: burlywood;
+        .table-container {
+          .table {
+            font-size: 0.75rem;
+            thead {
+              background-color: #ff6600;
+
+              th {
+                text-align: center;
+                color: white;
               }
-              .cascades-container
-             {
-
-                  // background-color: burlywood;
-                  .table-container {
-                    .table{
-                      background-color: burlywood;
-                      tbody {
-                        tr {
-                            cursor: pointer;
-                        }
-                    }
-
-                    }
-
-                  }
+            }
+            tbody {
+              td {
+                text-align: center;
+                color: white;
+                button {
+                  font-size: 0.75rem;
+                }
               }
-          }
-
-          .all-cells{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-
-            .form-group{
-             padding-right: 3rem;
             }
           }
-
         }
-
+      }
     }
+
+    .all-cells {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .form-group {
+        padding-right: 3rem;
+      }
+    }
+  }
 }
 
-#delete_notification,#indirect_notification {
-
+#delete_notification,
+#indirect_notification {
   .container {
     margin: auto;
     .notification-body {
-
       position: fixed;
       top: 0;
       right: 0;
@@ -68,10 +69,10 @@
 
       .notification-content {
         width: 50%;
-         height: 80%;
-         overflow-y: scroll;
+        //  height: 80%;
+
         background-color: white;
-        border: solid;
+        border: solid 2px $mainColor;
         border-radius: 10px;
         padding: 2rem 2rem;
         position: relative;
@@ -87,20 +88,18 @@
         .notification-title {
           color: $mainColor;
           padding-top: 2em;
-
         }
         .notification-caption {
           color: $mainColor;
           padding-top: 1em;
-
         }
-        .notification-footer{
+        .notification-footer {
           padding-top: 1em;
           border-top: 2px solid $mainColor;
           display: flex;
           justify-content: flex-end;
           align-items: center;
-          .btn{
+          .btn {
             display: inline block;
             margin-right: 1em;
           }
@@ -109,51 +108,55 @@
     }
   }
 }
-
-
-
-@media screen and (max-width: 575px) {
-  #site_data {
-    margin-top: 8em;
-
-    .container {
-
-        .all-data{
-          width: 80%;
-          margin: auto;
-
-
-
-        }
-
+#indirect_notification {
+  .container {
+    .notification-body {
+      .notification-content {
+        height: 80%;
+        overflow-y: scroll;
+      }
     }
   }
+}
 
+@media screen and (max-width: 575px) {
+  #indirect_notification,
+  #delete_notification {
+    .container {
+      .notification-body {
+        .notification-content {
+          width: 90%;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
-  #site_data {
-    margin-top: 8em;
-
+  #indirect_notification,
+  #delete_notification {
     .container {
-
-        .all-data{
-          width: 80%;
-          margin: auto;
-
-
-
+      .notification-body {
+        .notification-content {
+          width: 90%;
         }
-
+      }
     }
   }
-
 }
 @media (min-width: 768px) and (max-width: 991px) {
-
+  #indirect_notification,
+  #delete_notification {
+    .container {
+      .notification-body {
+        .notification-content {
+          width: 90%;
+        }
+      }
+    }
+  }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
-
 }
 @media (min-width: 1200px) and (max-width: 1500px) /* extra large windows*/ {
 }

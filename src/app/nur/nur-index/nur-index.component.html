@@ -1,128 +1,125 @@
 <section id='new-site'>
   <div class="container">
-    <div class="form-container">
 
-      <div class="row">
-        <div class="col-12">
-          <div>
-            <p>Filter By:</p>
-          </div>
+
+    <div class="row mb-3  d-flex justify-content-center align-items-center  ">
+      <div class="col-6  d-flex justify-content-center align-items-center">
+        <div>
+          <p>Filter</p>
         </div>
-        <form action="">
-          <div class="col-3">
-            <div class="form-group">
-              <label for="month">Month</label>
-              <input type="radio" value="month" (change)="submit($event)" name="month" id="month">
+      </div>
+    </div>
+    <form action="">
+      <div class="row mb-4 d-flex justify-content-center align-items-center">
+        <div class="col-4 col-sm-3 d-flex justify-content-center align-items-center">
+          <div class="form-group">
+            <label for="month">Month</label>
+            <input type="radio" value="month" (change)="submit($event)" name="month" id="month">
 
-            </div>
-            <div class="form-group">
-              <label for="week">Week</label>
-              <input type="radio" value="week" (change)="submit($event)" name="month" id="week">
-
-            </div>
           </div>
 
-        </form>
+
+        </div>
+        <div class="col-4 col-sm-3 d-flex justify-content-center align-items-center ">
+          <div class="form-group">
+            <label for="week">Week</label>
+            <input type="radio" value="week" (change)="submit($event)" name="month" id="week">
+
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+
+
+
+    <form [formGroup]="indexFormMonth" (ngSubmit)="submitIndexFormMonth(indexFormMonth)">
+      <div class="row  d-flex  justify-content-sm-center justify-content-md-center align-items-center ">
+
+        <div class="col-7 col-sm-4 d-flex flex-column align-items-sm-center  col-md-3 mt-2">
+          <label for="technology">Technology</label>
+          <select class="form-control" formControlName="tech" id="technology">
+            <option value=""></option>
+            <option [value]="technology" *ngFor="let technology of technologies">{{technology}}</option>
+          </select>
+        </div>
+        <div class="col-7 col-sm-4  flex-column align-items-sm-center col-md-3 mt-2" [ngClass]="[showMonthForm?'display-flex':'display-none']">
+          <label for="month">Month</label>
+          <select class="form-control" (change)="submitmonth($event)" formControlName="month" id="month">
+            <option value=""></option>
+            <option [value]="month" *ngFor="let month of months">{{month}}</option>
+          </select>
+        </div>
+        <div class="col-7 col-sm-4  flex-column align-items-sm-center  col-md-3 mt-2"  [ngClass]="[showWeekForm?'display-flex':'display-none']">
+          <label for="week">Week</label>
+          <select class="form-control" formControlName="week" (change)="submitWeek($event)" id="week">
+            <option value=""></option>
+            <option [value]="week" *ngFor="let week of weeks">{{week}}</option>
+          </select>
+        </div>
+
+        <div class="col-7 col-sm-4 d-flex flex-column align-items-sm-center  col-md-3 mt-2">
+          <label for="years">Years</label>
+          <select formControlName="year" id="years" (change)="submityear($event)" class=" form-control d-flex">
+            <option value=""></option>
+            <option [value]="year" *ngFor="let year of years">{{year}}</option>
+
+          </select>
+        </div>
+
+
+        <div class="col-7 col-sm-6 d-flex flex-column align-items-sm-center  col-md-3 mt-2">
+          <button class="btn btn-danger mt-4" type="submit" [disabled]='indexFormMonth.status=="INVALID"'>Show</button>
+
+
+        </div>
+
 
       </div>
 
 
-      <form [formGroup]="indexFormMonth"  (ngSubmit)="submitIndexFormMonth(indexFormMonth)">
-        <div class="row">
-          <div class="col-6 col-sm-6  col-md-2 mt-2" [hidden]="!showMonthForm">
-            <label for="month">Month:</label>
-            <select class="form-control" (change)="submitmonth($event)" formControlName="month" id="month">
-              <option value=""></option>
-              <option [value]="month" *ngFor="let month of months">{{month}}</option>
-            </select>
-          </div>
-          <div class="col-6 col-sm-6 col-md-2 mt-2"[hidden]="!showWeekForm">
-            <label for="week">Week:</label>
-            <select class="form-control" formControlName="week" (change)="submitWeek($event)" id="week">
-              <option value=""></option>
-              <option [value]="week" *ngFor="let week of weeks">{{week}}</option>
-            </select>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 mt-2">
-            <label for="technology">Technology:</label>
-            <select class="form-control" formControlName="tech" id="technology">
-              <option value=""></option>
-              <option [value]="technology"  *ngFor="let technology of technologies">{{technology}}</option>
-            </select>
-          </div>
-
-          <div class="col-6 col-sm-6 col-md-2 mt-2">
-            <label for="years">Years:</label>
-            <select formControlName="year" id="years" (change)="submityear($event)" class=" form-control d-block">
-              <option value=""></option>
-              <option [value]="year" *ngFor="let year of years" >{{year}}</option>
-
-            </select>
-          </div>
-          <div class="col-6 col-sm-6 col-md-3 pb-5 mt-2">
-            <button class="btn btn-danger mt-4" type="submit"
-              [disabled]='indexFormMonth.status=="INVALID"'>Show</button>
 
 
-          </div>
-
-
-        </div>
+    </form>
 
 
 
 
 
 
-
-
-
-
-      </form>
-
-      <!-- <form [formGroup]="indexFormWeek"  (ngSubmit)="submitIndexFormWeek(indexFormWeek)">
-        <div class="row">
-
-          <div class="col-6 col-sm-6 col-md-4 mt-2">
-            <label for="technology">Technology:</label>
-            <select class="form-control" formControlName="tech" id="technology">
-              <option [value]="technology"  *ngFor="let technology of technologies">{{technology}}</option>
-            </select>
-          </div>
-
-          <div class="col-6 col-sm-6 col-md-2 mt-2">
-            <label for="years">Years:</label>
-            <select formControlName="year" id="years" (change)="submityear($event)" class=" form-control d-block">
-              <option [value]="year" *ngFor="let year of years">{{year}}</option>
-
-            </select>
-          </div>
-          <div class="col-6 col-sm-6 col-md-3 pb-5 mt-2">
-            <button class="btn btn-danger mt-4" type="submit" [disabled]='indexFormWeek.status=="INVALID"'>Show</button>
-
-
-          </div>
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-      </form>
- -->
-
-
-
-
-    </div>
   </div>
 
 </section>
 
+<section id="buttons-sec">
+  <div class="container-xl">
+    <div class="row">
+      <div class="col-12 mt-2">
+        <div class="create-btn-cont justify-content-evenly justify-content-sm-arround   ">
+          <app-back-button-component></app-back-button-component>
+
+
+        <button class="btn btn-danger" (click)="export('VIP')">
+          <i class="fa-solid fa-file-excel" ></i>Export VIP NUR
+        </button>
+        <button class="btn btn-info" (click)="export('NDL')">
+          <i class="fa-solid fa-file-excel"></i>Export NDL NUR
+        </button>
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)">
+</app-error-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired'
+  (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

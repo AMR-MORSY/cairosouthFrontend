@@ -72,7 +72,7 @@ export class SitesService {
     if (storage != null) {
       this.searchStr.next(storage)
     }
-  
+
 
 
 
@@ -110,6 +110,14 @@ export class SitesService {
     const REQUEST_URI="https://cairo-south.herokuapp.com/api/downloadallsites";
     return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
   };
+
+  downloadAllNodals(data:any,id:any,token:any):Observable<any>
+  {
+    const REQUEST_PARAMS=new HttpParams().set('fileName',data.filename);
+    const REQUEST_URI=`https://cairo-south.herokuapp.com/api/downloadallNodals/${id}/${token}`;
+    return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
+  };
+
 
 
   getNodal(data:any):Observable<any>{

@@ -1,6 +1,6 @@
 <section id="site_data">
-  <div class="container">
-    <div class="all-data">
+  <div class="container-xl">
+
       <div class="row">
 
 
@@ -85,7 +85,7 @@
                 <div class="all-cells">
                   <div class="form-group">
                     <label for="2G">2G</label>
-                  <input type="number" class="form-control d-inline" id="2G" [value]="site.two_G">
+                    <input type="number" class="form-control d-inline" id="2G" [value]="site.two_G">
 
                   </div>
 
@@ -110,28 +110,32 @@
           </div>
 
           <div class="row">
-            <div class="col-6 col-md-3">
+            <!-- <div class="col-6 col-md-2">
 
-                <button class="btn btn-dark mt-4 " (click)="goToUpdateSite()">Update</button>
+              <button appBackNavigation class="btn btn-primary mt-4">Back</button>
+            </div> -->
+            <div class="col-6 col-sm-6 col-md-3">
 
-
-
-            </div>
-            <div class="col-6 col-md-3">
-              <button class="btn btn-danger mt-4 " (click)="deleteSite()">Delete</button>
-
-
-            </div>
-            <div class="col-6 col-md-3">
-
-                <button class="btn btn-danger mt-4 " (click)="goToShowSiteNUR()">NUR</button>
+              <button class="btn btn-primary mt-4 "[disabled]="!isSuperAdmin" (click)="goToUpdateSite()">Update</button>
 
 
 
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-sm-6 col-md-3">
+              <button class="btn btn-danger mt-4 "[disabled]="!isSuperAdmin" (click)="openDeleteNotification()">Delete</button>
 
-                <button class="btn btn-secondary mt-4" (click)="goToSiteModifications()">Modificatios</button>
+
+            </div>
+            <div class="col-6 col-sm-6 col-md-3">
+
+              <button class="btn btn-info mt-4 " [disabled]="!isAdmin" (click)="goToShowSiteNUR()">NUR</button>
+
+
+
+            </div>
+            <div class="col-6 col-sm-6 col-md-3">
+
+              <button class="btn btn-success mt-4" [disabled]="!isAdmin" (click)="goToSiteModifications()">Modificatios</button>
 
 
 
@@ -147,9 +151,9 @@
               <div class="table-container" *ngIf="isNodalFound">
 
                 <label for="site-code">Site code</label>
-                <input type="text"  class="form-control" id="site-code" [(ngModel)]="nodal.nodal_code">
+                <input type="text" class="form-control" id="site-code" [(ngModel)]="nodal.nodal_code">
                 <label for="site-name">Site name</label>
-                <input type="text"  class="form-control" id="site-name" [(ngModel)]="nodal.nodal_name">
+                <input type="text" class="form-control" id="site-name" [(ngModel)]="nodal.nodal_name">
 
 
               </div>
@@ -157,7 +161,8 @@
 
             </div>
             <h3 class=" pt-4">Total Cascades:{{countDirectIndirect}}</h3>
-            <button class="btn btn-danger" [disabled]="!isInirectCascadesFound" (click)="showIndirectCascadesList()">Show Indirect Cascades</button>
+            <button class="btn btn-danger" [disabled]="!isInirectCascadesFound"
+              (click)="showIndirectCascadesList()">Show Indirect Cascades</button>
 
           </div>
         </div>
@@ -172,8 +177,8 @@
                 </h3>
                 <div class="cascades-container">
                   <p *ngIf="!isCascadesFound">No Cascades</p>
-                  <div class="table-container table-responsive" *ngIf="isCascadesFound">
-                    <table class=" table table-hover table-bordered">
+                  <div class="table-container table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl" *ngIf="isCascadesFound">
+                    <table class="table table-hover table-bordered">
                       <thead>
                         <tr class="text-center align-middle">
                           <th scope="col">Site Code</th>
@@ -203,7 +208,7 @@
 
             </div>
             <div class="col-12 d-flex justify-content-center align-items-center ">
-              <button type="button " (click)="goToUpdateCascades() " class="btn d-block btn-primary mt-4 mb-4 ">
+              <button type="button " [disabled]="!isSuperAdmin" (click)="goToUpdateCascades() " class="btn d-block btn-primary mt-4 mb-4 ">
                 Update Cascades
               </button>
 
@@ -235,7 +240,7 @@
 
 
       </div>
-    </div>
+
 
   </div>
 
@@ -247,12 +252,14 @@
 
 </section>
 
+<app-back-button-component></app-back-button-component>
 
-<section id='delete_notification' [hidden]='!isNotificationShown'>
+
+<section id='delete_notification' [hidden]='!showDeleteNotification'>
   <div class="container">
     <div class="notification-body">
       <div class="notification-content">
-        <div class="close" (click)="closeNotification()"><i class="fas fa-times"></i></div>
+        <div class="close" (click)="closeDeleteNotification()"><i class="fas fa-times"></i></div>
         <div class="notification-title">
           <h3>Delete Site</h3>
         </div>
@@ -261,7 +268,7 @@
           <p>Are you sure?, this will delete all relevant data</p>
         </div>
         <div class="notification-footer">
-          <button class="btn btn-danger" (click)="closeNotification()">No</button>
+          <button class="btn btn-danger" (click)="closeDeleteNotification()">No</button>
           <button class=" btn btn-primary" (click)="deleteSite()">Yes</button>
         </div>
 
@@ -285,7 +292,7 @@
         </div>
 
         <div class="notification-caption">
-          <div class="table-container table-responsive" >
+          <div class="table-container table-responsive">
             <table class=" table table-hover table-bordered">
               <thead>
                 <tr class="text-center align-middle">
@@ -301,7 +308,7 @@
                   (click)="goToSiteDetailsFromNodals(site.cascade_id)">
                   <td class="text-center align-middle">{{site.cascade_code}}</td>
                   <td class="text-center align-middle">{{site.cascade_name}}</td>
-                
+
                 </tr>
               </tbody>
             </table>
@@ -316,3 +323,7 @@
   </div>
 
 </section>
+
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)" ></app-error-notification>
+<app-success-notification [hidden]="!isSuccess" [successMessage]="success" (closeNotification)="closeSuccessNotification($event)"></app-success-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired' (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

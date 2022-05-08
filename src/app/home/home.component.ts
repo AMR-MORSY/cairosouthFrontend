@@ -5,6 +5,7 @@ import { AuthenticationService } from '../auth/authentication.service';
 
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,6 +16,8 @@ export class HomeComponent implements OnInit {
   public isLogin: boolean = false;
   public userEmail: any;
   public fadefinished: boolean = false;
+  public error:any='';
+  public isError:boolean=false;
 
 
 
@@ -24,22 +27,35 @@ export class HomeComponent implements OnInit {
 
   }
 
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
 
 
   displayLoginMessage() {
 
     setInterval(() => {
 
-      let x: any = document.getElementById("hello-container");
-      x.style.display = "flex";
+      // let x: any = document.getElementById("hello-container");
+      // x.style.display = "flex";
+      this.isError=true;
+      this.error='Please Login to search sites'
 
-    }, 5000);
+    }, 15000);
 
   }
+  private getUserData() {
+    this._AuthService.currentUser.subscribe(() => {
+     if (this._AuthService.currentUser.getValue()==null)
+      this.displayLoginMessage()
+    })
+  }
+
 
   constructor(private _sitesService: SitesService, private _Router: Router, private _AuthService: AuthenticationService) {
-  
-  
+
+
 
 
   }
@@ -47,6 +63,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getUserData();
 
 
     }

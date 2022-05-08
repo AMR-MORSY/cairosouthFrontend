@@ -1,45 +1,62 @@
-#create-nur{
-
+#create-nur {
   margin-top: 8rem;
-  .container{
+  .container {
     margin: auto;
-    .siteName-code{
-      display: flex;
-
-      margin: auto;
-      color: white;
-      justify-content: space-around;
-      align-items: center;
-      width: 50%;
+    .siteName-code {
       padding-bottom: 2rem;
-      .form-group{
+      .form-group {
+        color: white;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        input{
+        input {
           text-align: center;
           color: red;
         }
-
       }
-
-
-
-
     }
+  }
+}
+#table
+{
+  .container-xl
+  {
+    .table-container {
+      margin-top: 2rem;
 
-
-
+      table {
+        font-size: 0.75rem;
+        thead {
+          background-color: burlywood;
+          tr {
+            td {
+              text-align: center;
+            }
+          }
+        }
+        tbody {
+          tr {
+            background-color: cornsilk;
+            border-bottom: 2px solid black;
+            color: black;
+            td {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
 
   }
 }
 
-#navigation-export
-{
-  .container{
+
+#navigation-export {
+  margin-top: 2rem;
+  .container {
     margin: auto;
-    .buttun-container{
+    .buttun-container {
       margin: auto;
       width: 70%;
       display: flex;

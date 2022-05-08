@@ -18,25 +18,31 @@ export class CreateNewModificationComponent implements OnInit {
   datePickerConfig?: Partial<BsDatepickerConfig>;
   public requestdatepicker: any;
   public finishdatepicker: any;
-  public oldSite:any;
-  public site_code:any;
-  public site_id:any;
-  public site_name:any;
-  public token:any;
-  public id:any;
+  public oldSite: any;
+  public site_code: any;
+  public site_id: any;
+  public site_name: any;
+  public token: any;
+  public id: any;
+  public error: any = '';
+  public isError: boolean = false;
+  public isSuccess:boolean=false;
+  public success:any=false;
+  public isTokenExpired:boolean=false;
 
-  public createModForm=new FormGroup({
+
+  public createModForm = new FormGroup({
 
 
-    "subcontractor":new FormControl(null,[Validators.required]),
-    "requester":new FormControl(null,[Validators.required]),
-    "status":new FormControl("in progress"),
-    "request_date":new FormControl(null,[Validators.required]),
-    "finish_date":new FormControl(null),
-    "cost":new FormControl(null),
-    "materials":new FormControl(null),
-    "action":new FormControl(null,[Validators.required]),
-    "project":new FormControl(null,[Validators.required]),
+    "subcontractor": new FormControl(null, [Validators.required]),
+    "requester": new FormControl(null, [Validators.required]),
+    "status": new FormControl("in progress"),
+    "request_date": new FormControl(null, [Validators.required]),
+    "finish_date": new FormControl(null),
+    "cost": new FormControl(null),
+    "materials": new FormControl(null),
+    "action": new FormControl(null, [Validators.required]),
+    "project": new FormControl(null, [Validators.required]),
 
 
 
@@ -55,48 +61,88 @@ export class CreateNewModificationComponent implements OnInit {
   }
 
 
+  public closeErrorNotification(data: any) {
+    this.isError = data;
 
-  private sendNewModTODB(mod:any,token:any,id:any)
+  }
+
+  closeSuccessNotification(data:any)
+
   {
+    this.isSuccess=data;
+
+  }
+  closeTokenExpirationNotification(data:any)
+  {this. isTokenExpired=data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
+  private sendNewModTODB(mod: any, token: any, id: any) {
     let data = {
       'mod': mod,
       "token": token,
       "id": id
     }
-    this._ModificationService.creatSiteModification(data).subscribe((response:any)=>{
+    this._ModificationService.creatSiteModification(data).subscribe((response: any) => {
       console.log(response);
       if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+        this.isError = false;
+
       }
-     else if (response.message=="success")
-      {
-        alert ("Modification inserted Successfully")
-        this._Router.navigate(['/modifications/show-site-modifications'])
+      else if (response.message == "success") {
+        this.success = "Modification inserted Successfully";
+        this.isSuccess = true;
+        this.isError=false
+        this.createModForm=new FormGroup({
+
+
+          "subcontractor": new FormControl(null, [Validators.required]),
+          "requester": new FormControl(null, [Validators.required]),
+          "status": new FormControl("in progress"),
+          "request_date": new FormControl(null, [Validators.required]),
+          "finish_date": new FormControl(null),
+          "cost": new FormControl(null),
+          "materials": new FormControl(null),
+          "action": new FormControl(null, [Validators.required]),
+          "project": new FormControl(null, [Validators.required]),
+
+
+
+        })
+
       }
-      else if (response.message=="failed")
-      {
-        let error=response.errors;
-        alert(JSON.stringify(error));
+      else if (response.message == "failed") {
+        this.isError = true;
+        this.isSuccess=false;
+        this.isTokenExpired=false;
+
+        let error = response.errors
+        error = JSON.stringify(error);
+
+        this.error = error
+
       }
     })
 
 
   }
 
-  constructor(private _SitesServices: SitesService,public datepipe: DatePipe,private _ModificationService:ModificationsService, private _AuthServices: AuthenticationService, private _Router:Router) {
+  constructor(private _SitesServices: SitesService, public datepipe: DatePipe, private _ModificationService: ModificationsService, private _AuthServices: AuthenticationService, private _Router: Router) {
     this.datePickerConfig = Object.assign({}, { containerClass: 'theme-orange' }, { dateInputFormat: 'YYYY-MM-DD' }, { isAnimated: true });
-   }
+  }
 
-  public submitCreateModificationForm(data:any)
-  {
+  public submitCreateModificationForm(data: any) {
     let createdMod: any = data.value;
 
-    let newRequestdate=this.datepipe.transform(this.requestdatepicker, 'yyyy-MM-dd');
-    let newFinishdate=this.datepipe.transform(this.finishdatepicker, 'yyyy-MM-dd')
+    let newRequestdate = this.datepipe.transform(this.requestdatepicker, 'yyyy-MM-dd');
+    let newFinishdate = this.datepipe.transform(this.finishdatepicker, 'yyyy-MM-dd')
     createdMod.request_date = newRequestdate;
     createdMod.finish_date = newFinishdate;
-    createdMod.site_id=this.site_id;
+    createdMod.site_id = this.site_id;
     console.log(createdMod);
 
     createdMod = JSON.stringify(createdMod);
@@ -112,8 +158,8 @@ export class CreateNewModificationComponent implements OnInit {
       this.oldSite = this._SitesServices.site.getValue();
       console.log(this.oldSite);
       this.site_id = this.oldSite.id
-      this.site_code=this.oldSite.site_code;
-      this.site_name=this.oldSite.site_name;
+      this.site_code = this.oldSite.site_code;
+      this.site_name = this.oldSite.site_name;
 
     })
   }

@@ -4,6 +4,7 @@ import { NurService } from '../nur.service';
 import jwt_decode from "jwt-decode";
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-nur-index',
@@ -26,9 +27,13 @@ export class NurIndexComponent implements OnInit {
   public weeks_year:any;
   public technologies:any;
 
+  public isError:boolean=false;
+  public error:any='';
+  public isTokenExpired:boolean=false;
 
 
   public indexFormMonth:any;
+  public id:any;
 
 
   constructor(private _AuthServices: AuthenticationService,private _NURService: NurService,private _Router:Router) { }
@@ -63,6 +68,18 @@ public submitWeek(e:any)
 
 
 }
+public closeErrorNotification(data: any) {
+  this.isError = data;
+
+}
+public closeTokenExpirationNotification(data:any)
+{
+  this. isTokenExpired=data;
+  localStorage.clear();
+  this._Router.navigate(['/auth/login']);
+
+
+}
  public submitIndexFormMonth(Form:any)
   {
 
@@ -71,12 +88,15 @@ public submitWeek(e:any)
     this._NURService.getAllNUR(data,this.token).subscribe((response)=>{
 
       if (response.message == "token expired, please login") {
-        localStorage.clear();
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+        this.isError = false;
+
       }
     else if (response.message=='success')
     {
+      this.isError=false;
+      this.isTokenExpired=false
       let statestics:any=response.statestics;
       console.log(statestics);
       this.SendNURTOShowComponent(statestics,data);
@@ -84,8 +104,14 @@ public submitWeek(e:any)
     }
     else
     {
+      let error=response.errors
+      error=JSON.stringify(error)
+      this.error=error;
+      this.isError=true;
+      this.isTokenExpired=false;
 
-      alert(response.errors)
+
+      // alert(response.errors)
     }
       this.indexFormMonth=new FormGroup({
         year:new FormControl(null,[Validators.required]),
@@ -122,14 +148,49 @@ public submitWeek(e:any)
     this._Router.navigate(['/nur/show-nur']);
 
   }
+  private decodeToken(token: any) {
+    let decToken = jwt_decode(token);
+    return decToken;
+
+  }
 
   private getUserData() {
     this._AuthServices.currentUser.subscribe(() => {
-      this.token = this._AuthServices.currentUser.getValue();
+      if(this._AuthServices.currentUser.getValue()!=null)
+      {
+        this.token = this._AuthServices.currentUser.getValue();
+        let decToken: any = this.decodeToken(this.token);
+        this.id = decToken.id;
+
+      }
+
 
     })
   }
 
+
+  public export(data:any)
+
+  {
+    let fileName='';
+    let siteType=data;
+    if (data=='NDL')
+    {
+       fileName ="NDLSitesNUR.xlsx";
+
+    }
+    else 
+    {
+       fileName='vipSitesNUR.xlsx'
+    }
+
+    this._NURService.download_NDL_VIP_NUR({ 'filename': fileName },this.id,siteType, this.token).subscribe((data) => {
+
+      saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), fileName)
+
+    });
+
+  }
   private getNURIndex()
   {
     this._NURService.getNURIndex(this.token).subscribe((response:any)=>{

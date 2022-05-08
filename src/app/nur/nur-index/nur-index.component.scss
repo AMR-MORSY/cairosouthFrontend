@@ -22,3 +22,33 @@
     }
   }
 }
+#buttons-sec
+{
+  margin-top: 8rem;
+  .create-btn-cont{
+    padding-bottom: 3rem;
+
+
+    margin: auto;
+    color: white;
+    display: flex;
+    // justify-content: space-evenly;
+     align-items: center;
+    button {
+      font-size: 0.75rem;
+      i{
+        padding: 0;
+      }
+
+    }
+
+  }
+
+}
+
+.display-flex{
+  display: flex;
+}
+.display-none{
+  display: none;
+}

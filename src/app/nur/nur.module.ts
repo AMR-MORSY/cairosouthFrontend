@@ -10,7 +10,8 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { NurIndexComponent } from './nur-index/nur-index.component';
 import { ShowNurComponent } from './show-nur/show-nur.component';
 import {NgChartsModule} from 'ng2-charts';
-import { BackNavigationDirective } from './back-navigation.directive';
+import { SharedModuleModule } from '../shared-module/shared-module.module';
+
 
 
 
@@ -21,12 +22,12 @@ import { BackNavigationDirective } from './back-navigation.directive';
     ShowSiteNurComponent,
     NurIndexComponent,
     ShowNurComponent,
-    BackNavigationDirective,
+
 
   ],
   imports: [
     CommonModule,
-    NgChartsModule,
+    NgChartsModule,SharedModuleModule,
     NurModuleRoutingModule, HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),BsDatepickerModule.forRoot()
   ],
   providers:[DatePipe]

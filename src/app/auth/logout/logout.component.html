@@ -1,1 +1,4 @@
 
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)" ></app-error-notification>
+
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired' (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

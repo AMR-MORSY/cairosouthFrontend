@@ -10,13 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
-import { UserComponent } from './user/user.component';
+import { StatesticsComponent } from './statestics/statestics.component';
 import { FooterComponent } from './footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HttpInterceptorService } from './http-interceptor.service';
 import {NgChartsModule} from 'ng2-charts';
+import { SharedModuleModule } from './shared-module/shared-module.module';
+
 
 
 
@@ -27,9 +29,10 @@ import {NgChartsModule} from 'ng2-charts';
     NavbarComponent,
     HomeComponent,
     LoadingScreenComponent,
-    UserComponent,
+    StatesticsComponent,
     FooterComponent,
     NotFoundComponent,
+
 
 
   ],
@@ -37,7 +40,7 @@ import {NgChartsModule} from 'ng2-charts';
     BrowserModule,
     CommonModule,
     NgChartsModule,
-    
+SharedModuleModule,
     AppRoutingModule,HttpClientModule,FormsModule,ReactiveFormsModule, NgxPaginationModule, NgxTypedJsModule, BrowserAnimationsModule
   ],
   providers: [{

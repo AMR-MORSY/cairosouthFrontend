@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PasswordResetFormComponent } from './password-reset-form/password-reset-form.component';
 import { PasswordResetRequestComponent } from './password-reset-request/password-reset-request.component';
+import { SharedModuleModule } from '../shared-module/shared-module.module';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { PasswordResetRequestComponent } from './password-reset-request/password
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule,FormsModule, ReactiveFormsModule,HttpClientModule
+    AuthRoutingModule,FormsModule, ReactiveFormsModule,HttpClientModule,SharedModuleModule
   ]
 })
 export class AuthModule { }

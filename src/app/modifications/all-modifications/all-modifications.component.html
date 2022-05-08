@@ -1,93 +1,14 @@
 
 
-<section id="analysis">
-  <div class="container">
-    <div class="form-container">
-      <form [formGroup]="filterForm" (ngSubmit)="submitFilterForm(filterForm)">
-        <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label for="column">Filter By:</label>
-              <select class="form-control" formControlName="column" (change)="submitColumn($event)" id="column">
-                <option value=""></option>
-                <option [value]="column" *ngFor="let column of columns">{{column}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="form-group">
-              <label ></label>
-              <select class="form-control" formControlName="columnValue" id="columnValue">
-                <option value=""></option>
-                <option [value]="column" *ngFor="let column of columnValues">{{column}}</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <div class="button-container">
-              <button class="btn btn-primary" [disabled]='filterForm.status=="INVALID"' type="submit">submit</button>
-               <button class="btn btn-primary"[disabled]='!isDataFound'  (click)="downloadsites()">Excel Export</button>
-
-
-            </div>
-
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
-
-
-<!-- <section id="selection">
-
-  <div class="container">
-
-    <div class="form-container">
-
-      <form [formGroup]="statusForm" (ngSubmit)="submitStatusForm(statusForm)">
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label for="choose">Choose Status: </label>
-              <select class="form-control" formControlName="status" id="choose">
-                <option value=""></option>
-                <option value="in progress">in progress</option>
-                <option value="done">done</option>
-                <option value="waiting D6">Waiting D6</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <div class="button-container">
-              <button class="btn btn-primary" [disabled]='statusForm.status=="INVALID"' type="submit">submit</button>
-              <button class="btn btn-primary" [disabled]='statusForm.status=="INVALID"'
-                (click)="downloadsites(statusForm)">download</button>
-
-
-            </div>
-
-          </div>
-        </div>
-      </form>
-
-
-    </div>
-  </div>
-
-</section> -->
-
 <section id="table-section">
-  <div class="container">
+  <div class="container-xl">
 
     <div class="no-data-caption" *ngIf="!isDataFound">
       <p>No Data Found</p>
     </div>
 
 
-    <div class="table-container table-responsive ">
+    <div class="table-container  table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl">
       <table *ngIf="isDataFound" class=" table table-warning  table-bordered">
         <thead>
           <tr class=" table-danger align-middle text-center">
@@ -135,12 +56,22 @@
   <div class="container ">
     <div class="create-btn-cont ">
 
-      <button class="btn btn-danger " (click)="goToCreateNew()">Create Modification</button>
-      <button class="btn btn-primary " [disabled]="!isModificationClicked"
+      <app-back-button-component></app-back-button-component>
+
+
+      <button class="btn btn-success " [disabled]="!isModificationClicked"
         (click)="goToUpdateModification()">Update</button>
+        <button class="btn btn-primary"[disabled]='!isDataFound'  (click)="downloadsites()">Excel Export</button>
+
 
 
     </div>
 
   </div>
 </section>
+
+
+
+
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)" ></app-error-notification>>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired' (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

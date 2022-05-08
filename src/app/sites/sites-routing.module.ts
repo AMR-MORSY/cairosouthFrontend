@@ -6,15 +6,17 @@ import { SiteDetailsComponent } from './site-details/site-details.component';
 import { CreateNewSiteComponent } from './create-new-site/create-new-site.component';
 import { AllSitesComponent } from './all-sites/all-sites.component';
 import { UpdateSiteComponent } from './update-site/update-site.component';
+import { AdminGuardGuard } from '../auth/admin-guard.guard';
+import { AuthGuardGuard } from '../auth/auth-guard.guard';
 
 
 const routes: Routes = [
-  { path: 'update-cascades', component: UpdateCascadesComponent },
-  { path: 'search-results', component: SearchResultsComponent },
-  { path: 'site-details', component: SiteDetailsComponent },
-  { path: 'create-new-site', component: CreateNewSiteComponent },
-  { path: 'allSites', component: AllSitesComponent },
-  { path: 'update-site', component: UpdateSiteComponent},
+  { path: 'update-cascades',canActivate:[AuthGuardGuard,AdminGuardGuard] , component: UpdateCascadesComponent },
+  { path: 'search-results',canActivate:[AuthGuardGuard], component: SearchResultsComponent },
+  { path: 'site-details',canActivate:[AuthGuardGuard], component: SiteDetailsComponent },
+  { path: 'create-new-site',canActivate:[AuthGuardGuard,AdminGuardGuard] , component: CreateNewSiteComponent },
+  { path: 'allSites',canActivate:[AuthGuardGuard], component: AllSitesComponent },
+  { path: 'update-site',canActivate:[AuthGuardGuard,AdminGuardGuard] , component: UpdateSiteComponent},
 
 ];
 

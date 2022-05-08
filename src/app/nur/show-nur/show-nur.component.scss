@@ -1,221 +1,214 @@
 #statestics {
-margin-top: 4em;
+  margin-top: 4em;
   .container {
     margin: auto;
-    .statestics-container {
-      width: 90%;
-      margin: auto;
-      table{
-        font-size: .75rem;
-      }
 
-      .title-basics {
-        .title {
-          .dashboard-caption {
-            width: 100%;
+    .duration {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding-top: 0.5rem;
+      .duration-img {
+        margin: 0;
+        padding: 0;
 
-            h1 {
-              color: #ff6600;
-              text-align: center;
-              span {
-                color: white;
-                font-size: 2rem;
-              }
-            }
-          }
-        }
-        .basics {
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-          .duration {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding-top: 0.5rem;
-            .duration-img {
-              margin: 0;
-              padding: 0;
-
-              i{
-                font-size: 3rem;
-                color: #ff6600;
-              }
-            }
-            .duration-caption{
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              margin: 0;
-              padding: 0;
-              p {
-                margin: 0;
-                padding: 0;
-                text-align: center;
-                color: white;
-                font-size: 0.75rem;
-              }
-            }
-
-
-
-
-          }
-
-
-
-
-
-        }
-      }
-      .tickets-img,
-      .NUR-img {
-        position: relative;
-        width: 120px;
-        height: 120px;
-        color: white;
-        font-size: 5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        i {
+        i{
+          font-size: 3rem;
           color: #ff6600;
         }
-        .tickets-caption,
-        .NUR-caption {
-          position: absolute;
-          display: flex;
-          justify-content: center;
-          // align-items: center;
-          align-content: center;
-          flex-direction: column;
-          top: 50%;
-          transform: translateY(-50%);
-          color: white;
-          font-size: 0.75rem;
-          p {
-            padding: 0;
-            margin: 0;
-            text-align: center;
-          }
-        }
-
       }
-
-
-
-
-        .chart{
-          width: 100%;
-        }
-        .BSC-title,.sub-title,.vip-title{
-          p{
-            font-size: 1.5rem;
-            color: #ff6600;
-            text-align: center;
-           padding-top: 3rem;
-          }
-
-        }
-
-      .generator,.BSC,.subsystem,.vip{
-        position: relative;
-        padding: 0 1rem 1rem 1rem;
-        margin-bottom: 1rem;
-
+      .duration-caption{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border: solid 2px #ff6600;
-        border-radius: 10px;
-        .NUR,.tickets{
-          position: absolute;
-          top: 4px;
-        }
-        .NUR{
-          left:0;
-        }
-        .tickets{
-          right: 0;
-        }
-        .gen-title{
-
-          p{
-            font-size: 1.5rem;
-            color: #ff6600;
-            text-align: center;
-           padding-top: 6rem;
-          }
-        }
-        .gen-caption{
-          position: relative;
-          margin-bottom: 0.5rem;
-
-          p{
-            text-align: center;
-            color: #ff6600;
-          }
-
-        }
-        .gen-caption::after{
-
-          content: '';
-          position: absolute;
-          width: 50%;
-          height: 1px;
-          border: #ff6600 1px solid;
-          left: 50%;
-          bottom: 0;
-          transform: translateX(-50%);
-        }
-        .table-container{
-          width: 100%;
-
+        margin: 0;
+        padding: 0;
+        p {
+          margin: 0;
+          padding: 0;
+          text-align: center;
+          color: white;
+          font-size: 0.75rem;
         }
       }
 
-      .microwave {
+
+
+
+    }
+
+    table {
+      font-size: 0.75rem;
+    }
+
+    .title-basics {
+      .title {
+        .dashboard-caption {
+          width: 100%;
+
+          h3 {
+            color: #ff6600;
+            text-align: center;
+            span {
+              color: white;
+              font-size: 2rem;
+            }
+          }
+          h6{
+            text-align: center;
+            color: red;
+          }
+        }
+      }
+      .basics {
         display: flex;
         justify-content: space-around;
         align-items: center;
-
-        .microwave-img {
-          width: 80px;
-          height: 80px;
-
-          img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-          }
-        }
-        .microwave-nur {
-          color: white;
+      }
+    }
+    .tickets-img,
+    .NUR-img {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      color: white;
+      font-size: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      i {
+        color: #ff6600;
+      }
+      .tickets-caption,
+      .NUR-caption {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+        align-content: center;
+        flex-direction: column;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        font-size: 0.75rem;
+        p {
+          padding: 0;
+          margin: 0;
+          text-align: center;
         }
       }
+    }
 
-      .subSystem {
-        width: 70%;
-        margin: auto;
+    .chart {
+      width: 100%;
+    }
+    .BSC-title,
+    .sub-title,
+    .vip-title {
+      p {
+        font-size: 1.5rem;
+        color: #ff6600;
+        text-align: center;
+        padding-top: 3rem;
       }
+    }
+
+    .generator,
+    .BSC,
+    .subsystem,
+    .vip,
+    .microwave {
+      position: relative;
+      padding: 0 1rem 1rem 1rem;
+      margin-bottom: 1rem;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: solid 2px #ff6600;
+      border-radius: 10px;
+      .NUR,
+      .tickets {
+        position: absolute;
+        top: 4px;
+      }
+      .NUR {
+        left: 0;
+      }
+      .tickets {
+        right: 0;
+      }
+      .gen-title {
+        p {
+          font-size: 1.5rem;
+          color: #ff6600;
+          text-align: center;
+          padding-top: 6rem;
+        }
+      }
+      .gen-caption {
+        position: relative;
+        margin-bottom: 0.5rem;
+
+        p {
+          text-align: center;
+          color: #ff6600;
+        }
+      }
+      .gen-caption::after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 1px;
+        border: #ff6600 1px solid;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+      }
+      .table-container {
+        width: 100%;
+      }
+    }
+
+    .microwave {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .microwave-img {
+        width: 80px;
+        height: 80px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .microwave-nur {
+        color: white;
+      }
+    }
+
+    .subSystem {
+      width: 70%;
+      margin: auto;
     }
   }
 }
 
-
-#navigation-export
-{
-  .container{
+#navigation-export {
+  .container {
     margin: auto;
-    .buttun-container{
-      margin: auto;
-      width: 70%;
+    .buttun-container {
+
+      width: 100%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
       align-items: center;
     }
   }

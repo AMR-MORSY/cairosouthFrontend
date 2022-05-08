@@ -1,19 +1,33 @@
 <section id="create-nur">
   <div class="container">
 
-    <div class="siteName-code">
-      <div class="form-group">
-        <label for="siteCode">Site Code</label>
-        <input type="text" id="siteCode" value="{{siteCode}}">
+    <div class="siteName-code" [hidden]="!isNURFound">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-6 col-sm-6 col-lg-3 mt-2">
+          <div class="form-group">
+            <label for="siteCode">Site Code</label>
+            <input type="text" class="form-control " id="siteCode" value="{{siteCode}}">
+          </div>
+
+        </div>
+        <div class="col-6 col-sm-6 col-lg-3 mt-2">
+          <div class="form-group">
+            <label for="siteName">Site Name</label>
+            <input type="text" class="form-control " id="siteName" value="{{siteName}}">
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="siteName">Site Name</label>
-        <input type="text" id="siteName" value="{{siteName}}">
-      </div>
+
+
     </div>
 
-    <div class="table-container table-responsive ">
-      <table class=" table table-warning table-hover table-bordered">
+  </div>
+</section>
+
+<section id="table">
+  <div class="container-xl">
+    <div class="table-container  table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl" [hidden]="!isNURFound">
+      <table class="table table-warning table-hover table-bordered">
         <thead>
           <tr class=" table-danger align-middle text-center">
             <th scope="col">Impacted Sites</th>
@@ -47,8 +61,8 @@
       </table>
     </div>
 
-
   </div>
+
 </section>
 
 <section id="navigation-export">
@@ -56,8 +70,8 @@
     <div class="row">
       <div class="col-12">
         <div class="buttun-container">
-          <button appBackNavigation class="btn btn-primary mt-4">Back</button>
-          <button class="btn btn-danger" (click)="downloadSiteNur()">Excel Export</button>
+
+          <button class="btn btn-danger" [hidden]="!isNURFound" (click)="downloadSiteNur()">Excel Export</button>
 
         </div>
       </div>
@@ -65,3 +79,7 @@
   </div>
 </section>
 
+
+<app-back-button-component></app-back-button-component>
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)" ></app-error-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired' (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

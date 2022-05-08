@@ -3,7 +3,7 @@
 #insert-cascades {
   margin-top: 100px;
 
-  .container{
+  .container-xl{
     margin: auto;
 
     label {
@@ -34,6 +34,7 @@
           font-size: 1rem;
       }
       table {
+        font-size: 0.75rem;
           thead {
               background-color:#ff6600;
 
@@ -48,6 +49,9 @@
 
                   text-align: center;
                   color: white;
+                  button{
+                    font-size: 0.75rem;
+                  }
               }
           }
       }

@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class ModificationsService {
 
-  public modification=new BehaviorSubject(null)
+  public modification=new BehaviorSubject(null);
+  public modificationIndex=new BehaviorSubject(null);
 
   private  getModification()
   {
@@ -72,9 +73,9 @@ export class ModificationsService {
     return this._HttpClient.post('https://cairo-south.herokuapp.com/api/updateMod',data)
 
   };
-  getModificationsAnalysis( token:any):Observable<any>
+  getModificationsAnalysis(id:any, token:any):Observable<any>
   {
-    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/analysis/${token}`)
+    return this._HttpClient.get(`https://cairo-south.herokuapp.com/api/analysis/${id}/${token}`)
 
   };
 }

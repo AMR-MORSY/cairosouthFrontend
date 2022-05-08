@@ -1,75 +1,72 @@
 // * {
-  // padding: 0;
-  // margin: 0;
+// padding: 0;
+// margin: 0;
 // }
-.container {
-  margin: auto;
-}
+// .container {
+//   margin: auto;
+// }
 
+// #hello-container {
+//   position: fixed;
+//   background-color: rgba($color: #000000, $alpha: 0.3);
+//   width: 100%;
+//   height: 100%;
+//   z-index: 999999;
+//   display: none;
+//   justify-content: center;
+//   align-items: center;
 
+//   .hello {
+//     width: 300px;
+//     height: 150px;
+//     background-color: blanchedalmond;
+//     border-radius: 10px;
+//     position: relative;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-direction: column;
+//     .close{
+//       position: absolute;
+//       top: 10px;
+//       right: 15px;
+//       cursor: pointer;
+//       font-size: 1.5rem;
 
+//     }
 
-#hello-container {
-  position: fixed;
-  background-color: rgba($color: #000000, $alpha: 0.3);
-  width: 100%;
-  height: 100%;
-  z-index: 999999;
-  display: none;
-  justify-content: center;
-  align-items: center;
+//   }
+// }
 
-
-  .hello {
-    width: 300px;
-    height: 150px;
-    background-color: blanchedalmond;
-    border-radius: 10px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    .close{
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      cursor: pointer;
-      font-size: 1.5rem;
-
-    }
-
-  }
-}
-
-#home {
-  height: 100vh;
-  margin-bottom: 50px;
-}
+// #home {
+//   height: 100vh;
+//   margin-bottom: 50px;
+// }
 .slider {
   position: relative;
 }
 .all-slides {
   height: 100vh;
+  width: 100vw;
   position: relative;
 }
-.slide-1,.slide-2,.slide-3 {
+.slide-1,
+.slide-2,
+.slide-3 {
   width: 100%;
-  background-position:100% ;
-  background-clip: border-box;
-  background-size:cover;
+  // height: 100%;
+  background-position: 100% 100%;
+  // background-clip: border-box;
+  background-size: cover;
 }
-.slide-1{
+.slide-1 {
   background-image: url(../../assets/antenna-g386ae48ce_1920.jpg);
 }
 .slide-2 {
-
   background-image: url(../../assets/telecommunication-antennas-gbdc4a48cf_1920.jpg);
 }
 .slide-3 {
-
   background-image: url(../../assets/tower-g0927f5ae8_1920.jpg);
-
 }
 .all-slides h1 {
   font-size: 70px !important;
@@ -87,14 +84,15 @@
 }
 @keyframes returnback {
   0% {
-      right: -50%;
+    right: -50%;
   }
   100% {
-      right: 20%;
+    right: 20%;
   }
 }
 
-.carousel-control-prev, .carousel-control-next {
+.carousel-control-prev,
+.carousel-control-next {
   z-index: 9 !important;
   top: 50%;
   left: 0;
@@ -108,15 +106,54 @@
 .carousel-control-next {
   margin-top: 60px;
 }
-.typed
-{
-  position:absolute;
-  color: red;
-  text-align: center;
-  width: 100%;
-  top: 80%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 99999;
 
+@media screen and (max-width: 575px) {
+  .all-slides h1 {
+    display: none;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 30px;
+    height: 30px;
+  }
+
+  .carousel-control-next {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .all-slides h1 {
+    display: none;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 30px;
+    height: 30px;
+  }
+
+  .carousel-control-next {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .all-slides h1 {
+    display: none;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 30px;
+    height: 30px;
+  }
+
+  .carousel-control-next {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+
+@media (min-width: 1200px) and (max-width: 1500px) /* extra large windows*/ {
 }

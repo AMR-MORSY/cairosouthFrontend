@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
   error: any;
   isError: boolean = false;
+  public isTokenExpired :boolean=false;
 
 
 
@@ -27,21 +28,32 @@ export class LoginComponent implements OnInit {
     }
   )
 
-  disableEmailNotfication()
+
+  public disableNotfication()
   {
     this.isError=false;
+    this.isTokenExpired = false;
+
   }
-  disablePassNotfication()
-  {
-    this.isError=false;
+  public closeTokenExpirationNotification(data: any) {
+    this.isTokenExpired = data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
   }
 
 submitLogin(submitData: any) {
 
   this._AuthService.signIn(submitData.value).subscribe((response:any) => {
-    console.log(response);
+    if (response.message == "token expired, please login") {
+      this.error = "token expired, please login";
+      this.isTokenExpired = true;
+    }
 
-    if (response.message =="success") {
+
+
+   else if (response.message =="success") {
 
       this._AuthService.saveCurrentUser(response.access_token);
 
@@ -49,7 +61,7 @@ submitLogin(submitData: any) {
     }
     else {
       this.error=response.error;
-      console.log(this.error);
+
 
 
          this.isError=true;

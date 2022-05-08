@@ -1,60 +1,83 @@
 <section id="table-section">
-  <div class="container">
+  <div class="container-xl">
 
-    <div class="no-data-caption"  *ngIf="!isDataFound">
+    <div class="no-data-caption" *ngIf="!isDataFound">
       <p>No Data Found</p>
     </div>
 
 
-    <div class="table-container table-responsive ">
-      <table *ngIf="isDataFound" class=" table table-warning table-hover table-bordered">
-        <thead>
-          <tr class=" table-danger align-middle text-center">
-            <th scope="col">Site Code</th>
-            <th scope="col">Site Name</th>
-            <th scope="col">BSC/RNC</th>
-            <th scope="col">Site Category</th>
-            <th scope="col">Office</th>
-            <th scope="col">Build date </th>
-            <th scope="col">Sharing</th>
-            <th scope="col">Host</th>
-            <th scope="col">Severity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
-            (mouseover)="shadeElement($event)" (click)=" sendSiteId(site.id) ">
-            <td class=" text-center align-middle">{{site.site_code}}</td>
-            <td  class=" text-center align-middle">{{site.site_name}}</td>
-            <td  class=" text-center align-middle">{{site.BSC_RNC}}</td>
-            <td  class=" text-center align-middle">{{site.site_category}}</td>
-            <td  class=" text-center align-middle">{{site.office}}</td>
-            <td  class=" text-center align-middle">{{site.build_date}}</td>
-            <td  class=" text-center align-middle">{{site.sharing}}</td>
-            <td  class=" text-center align-middle">{{site.host}}</td>
-            <td  class=" text-center align-middle">{{site.severity}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+          <div class="table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl ">
+            <table *ngIf="isDataFound" class=" table table-warning table-hover table-bordered">
+              <thead>
+                <tr class=" table-danger align-middle text-center">
+                  <th scope="col">Site Code</th>
+                  <th scope="col">Site Name</th>
+                  <th scope="col">BSC/RNC</th>
+                  <th scope="col">Site Category</th>
+                  <th scope="col">Office</th>
+                  <th scope="col">Build date </th>
+                  <th scope="col">Sharing</th>
+                  <th scope="col">Host</th>
+                  <th scope="col">Severity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let site of sites|paginate:config; let i=index" class="hambozo" [attr.data-index]="i"
+                  (mouseover)="shadeElement($event)" (click)=" sendSiteId(site.id) ">
+                  <td class=" text-center align-middle">{{site.site_code}}</td>
+                  <td class=" text-center align-middle">{{site.site_name}}</td>
+                  <td class=" text-center align-middle">{{site.BSC_RNC}}</td>
+                  <td class=" text-center align-middle">{{site.site_category}}</td>
+                  <td class=" text-center align-middle">{{site.office}}</td>
+                  <td class=" text-center align-middle">{{site.build_date}}</td>
+                  <td class=" text-center align-middle">{{site.sharing}}</td>
+                  <td class=" text-center align-middle">{{site.host}}</td>
+                  <td class=" text-center align-middle">{{site.severity}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+
+
+
+
+
+
     <div *ngIf="isDataFound " class="pagination-container" style="color: white; ">
       <pagination-controls (pageChange)="pageChange($event) " class="pagination"></pagination-controls>
     </div>
 
-
-
   </div>
+
 </section>
 
 <section id="create-site" [hidden]="!isDataFound">
   <div class="container ">
     <div class="create-btn-cont ">
 
-      <button class="btn btn-danger " (click)="goToCreateNew()">Create New Site</button>
-      <button class="btn btn-primary " (click)="downloadsites()">Download</button>
+      <button class="btn btn-danger "[disabled]='!isAdmin' (click)="goToCreateNew()">Create New Site</button>
+      <button class="btn btn-primary " [hidden]='!isDataFound' [disabled]='!isAdmin' (click)="downloadsites()"><i
+          class="fa-solid fa-file-excel"></i> Export All Sites</button>
+      <button class="btn btn-primary " [disabled]='!isAdmin' [hidden]='!isDataFound' (click)="downloadAllNodals()"><i
+          class="fa-solid fa-file-excel"></i> Export All Nodals</button>
 
 
     </div>
 
   </div>
 </section>
+
+
+<app-back-button-component [hidden]="!showBackButton"></app-back-button-component>
+
+
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)">
+</app-error-notification>
+<app-success-notification [hidden]="!isSuccess" [successMessage]="success"
+  (closeNotification)="closeSuccessNotification($event)"></app-success-notification>
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired'
+  (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

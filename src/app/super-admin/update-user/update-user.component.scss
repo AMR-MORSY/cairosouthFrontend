@@ -1,10 +1,33 @@
 #user-data {
   margin-top: 200px;
-  .container {
+  .container-xl {
     margin: auto;
     .table-container {
-      width: 50%;
-      margin: auto;
+
+      .table {
+        font-size: 0.75rem;
+        thead {
+          background-color: burlywood;
+          tr {
+            td {
+              text-align: center;
+            }
+          }
+        }
+        tbody {
+          tr {
+            background-color: cornsilk;
+            border-bottom: 2px solid black;
+            color: black;
+            td {
+              text-align: center;
+            }
+          }
+        }
+      }
+
+
+
       .form-container {
         color: white;
         input {

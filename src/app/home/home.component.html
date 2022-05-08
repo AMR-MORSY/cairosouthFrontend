@@ -1,35 +1,17 @@
-<div id="hello-container">
-    <div class="hello">
-        <div class="close" (click)="closeloginMessage()">
-            <i class="fas fa-times"></i>
-        </div>
-        <p>Please Login to search sites</p>
-
-    </div>
 
 
-</div>
-
-
-<!--  -->
-<!-- <div class="" *ngFor="let site of sites"> -->
-<!--  -->
-<!-- <p>{{site.site_Code}}</p> -->
-<!-- <p>{{site.site_name}}</p> -->
-<!-- <hr> -->
-<!-- </div> -->
-<!--  -->
+<app-error-notification [errorMessage]="error" [hidden]='!isError' (closeNotification)="closeErrorNotification($event)" ></app-error-notification>
 
 
 
 <div class="slider">
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <!-- <span class="sr-only">Previous</span> -->
+
   </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <!-- <span class="sr-only">Next</span> -->
+
   </button>
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner ">

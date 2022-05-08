@@ -14,8 +14,8 @@
         <form [formGroup]="loginForm" (ngSubmit)="submitLogin(loginForm)" class="requires-validation" novalidate>
 
           <div class="form-group">
-           
-            <input class="form-control" type="email" formControlName='email' (keyup)="disableEmailNotfication()"
+
+            <input class="form-control" type="email" formControlName='email' (keyup)="disableNotfication()"
               placeholder="E-mail Address" id="email" required>
             <div class="valid-feedback"
               *ngIf="loginForm.get('email')?.errors!=null && loginForm.get('email')?.errors?.email">Email field is
@@ -30,7 +30,7 @@
           <div class="form-group">
 
             <input class="form-control" type="password" formControlName='password'
-              (keyup)="disablePassNotfication()" id="password" placeholder="Password" required>
+              (keyup)="disableNotfication()" id="password" placeholder="Password" required>
             <div class="valid-feedback"
               *ngIf="loginForm.get('password')?.errors!=null && loginForm.get('password')?.errors?.pattern">
               Password field is invalid!</div>
@@ -54,3 +54,5 @@
 
 
 </section>
+
+<app-token-expire-notification [errorMessage]="error" [hidden]='!isTokenExpired' (closeNotification)="closeTokenExpirationNotification($event)"></app-token-expire-notification>

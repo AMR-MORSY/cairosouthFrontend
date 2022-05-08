@@ -5,6 +5,7 @@ import { NurService } from '../nur.service';
 import {saveAs} from 'file-saver';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
+import jwt_decode from "jwt-decode";
 
 
 
@@ -36,7 +37,14 @@ export class ShowNurComponent implements OnInit {
   public topSitesNUR:any[]=[];
   private NURIndex:any=null;
   private token:any;
-
+public isTokenExpired:boolean=false;
+public error:any='';
+public id:any='';
+public isAdmin:boolean=false;
+public isSuperAdmin:boolean=false;
+public microwaveTicketsCount:number=0;
+public microwaveTopSitesNUR:any[]=[];
+public technology:any='';
 
   public BSCChartType: any = 'bar';
   public BSCChartOptions = {
@@ -239,16 +247,23 @@ public goToShowSiteNUR(siteCode:any)
 
   private getMicrowaveNur(subsystem: any) {
     let microwave = subsystem['MW PDH E'];
+    console.log(microwave)
     if (microwave != null) {
       this.microwaveNUR = microwave.sum_nur;
-      this.isMicrowaveNur = true
+      this.isMicrowaveNur = true;
+      this.microwaveTicketsCount=microwave.No_tickets;
+      this.microwaveTopSitesNUR=microwave.top_site_nur;
+
+
+average_tickets_duration: "6:13"
+
     }
     else {
       this.microwaveNUR = '';
       this.isMicrowaveNur = false;
     }
 
-    console.log(microwave);
+
 
   }
   private getTotalNUR() {
@@ -257,6 +272,11 @@ public goToShowSiteNUR(siteCode:any)
   }
   private getTotalTickets() {
     this.tickets = this.statestics.No_tickets;
+
+  }
+  private getTechnology()
+  {
+    this.technology=this.statestics.technology;
 
   }
 
@@ -289,18 +309,54 @@ public goToShowSiteNUR(siteCode:any)
       }
 
   }
+  private decodeToken(token: any) {
+    let decToken = jwt_decode(token);
+    return decToken;
+  }
+
   private getUserData() {
     this._AuthServices.currentUser.subscribe(() => {
       if(this._AuthServices.currentUser.getValue()!=null)
       this.token = this._AuthServices.currentUser.getValue();
+      let decToken: any = this.decodeToken(this.token);
+      this.id = decToken.id;
+      if(decToken.role=='super admin')
+      {
+        this.isAdmin=true;
+        this.isSuperAdmin=true
+      }
+      else if(decToken.role=='admin')
+      {
+        this.isAdmin=true;
+        this.isSuperAdmin=false;
+      }
+      else
+      {
+        this.isAdmin=false;
+        this.isSuperAdmin=false;
+      }
     })
   }
 
 
+
+  public closeTokenExpirationNotification(data:any)
+  {
+    this. isTokenExpired=data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
   public downloadNur() {
     let filename = "Nur.xlsx";
     this._NURService.downloadNur({ 'filename': filename }, this.NURIndex,this.token).subscribe((data) => {
       console.log(data);
+      if (data.message == "token expired, please login") {
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+
+      }
       saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
 
     });
@@ -405,6 +461,7 @@ public goToShowSiteNUR(siteCode:any)
   }
 
   private getNURStatestics() {
+    this.getTechnology();
     this.getTimeSpan();
     this.getTotalNUR();
     this.getTotalTickets();

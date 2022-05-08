@@ -28,6 +28,11 @@ export class UpdateCascadesComponent implements OnInit {
   public nodalName: any = "";
   public newCascades: any = [];
   public isInsertedToList: boolean = false;
+  public isSuccess: boolean = false;
+  public isTokenExpired: boolean = false;
+  public error: any = '';
+  public success: any = '';
+  public isError: boolean = false;
 
 
 
@@ -96,12 +101,15 @@ export class UpdateCascadesComponent implements OnInit {
       this.newCascades.push(casc)
     }
     else
-      alert('already in the list');
+     this.success= 'already in the list';
+      this.isSuccess=true;
+      this.isError=false;
+      this.isTokenExpired=false;
   }
   public displaySearchedCascades() {
     this.isCascadesAvailable = true;
     this.checkTheCascadesCont(this.cascade)
-    // console.log(this.cascadesContainer);
+
     this.searchRecivedSiteCode = '';
     this.searchRecivedSiteName = '';
     this.isSearchOk = true;
@@ -111,18 +119,17 @@ export class UpdateCascadesComponent implements OnInit {
 
   public deleteSite(index: any) {
     this.isInsertedToList = true;
-    // console.log(this.cascadesContainer);
-    // console.log(this.deletedCascades)
+
     let deleted = this.cascadesContainer.splice(index, 1);
     let deletedindex = this.newCascades.indexOf(deleted[0]);
-    // console.log(deletedindex);
+
     if (deletedindex != -1) {
       this.newCascades.splice(deletedindex, 1);
     }
     else {
       let deletedCascade:any=this.makeDeletedNodalObject(deleted[0])
       this.deletedCascades.push(deletedCascade);
-      // console.log(this.deletedCascades)
+
 
     }
 
@@ -141,7 +148,12 @@ export class UpdateCascadesComponent implements OnInit {
     if (this.newCascades.length != 0) {
       let cascades = this.fillCascadesArray(this.newCascades)
 
-      alert(`This will Add ${JSON.stringify(cascades)} to list of cascades of this site`)
+
+
+     this.success= `This will Add ${JSON.stringify(cascades)} to list of cascades of this site`;
+      this.isSuccess=true;
+      this.isError=false;
+      this.isTokenExpired=false;
 
 
     }
@@ -153,7 +165,11 @@ export class UpdateCascadesComponent implements OnInit {
   private displayDeletedCascadesAlert() {
     if (this.deletedCascades.length != 0) {
       let deletedCascades = this.fillCascadesArray(this.deletedCascades)
-      alert(`This will remove ${JSON.stringify(deletedCascades)} from the list of cascades of this site`)
+      this.success=`This will remove ${JSON.stringify(deletedCascades)} from the list of cascades of this site`;
+      this.isSuccess=true;
+      this.isError=false;
+      this.isTokenExpired=false;
+
     }
   }
   private formateCascadesData(data_arr: any) {
@@ -172,11 +188,11 @@ export class UpdateCascadesComponent implements OnInit {
 
   private insertNewcascades(data: any) {
     this._siteService.updateCascades(data).subscribe((response: any) => {
-      // console.log(response);
+
 
       if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
       }
       if (response.message == "failed") {
         let errors = [];
@@ -213,8 +229,11 @@ export class UpdateCascadesComponent implements OnInit {
         }
       }
       else if (response.message == "success") {
-        alert("Cascedes inserted Successfully")
-        this._Router.navigate(['sites/site-details']);
+       this.success= "Cascedes inserted Successfully";
+       this.isSuccess=true;
+       this.isError=false;
+       this.isTokenExpired=false;
+        // this._Router.navigate(['sites/site-details']);
       }
     })
 
@@ -224,17 +243,25 @@ export class UpdateCascadesComponent implements OnInit {
     this._siteService.deleteCascades(data).subscribe((response) => {
       // console.log(response);
       if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
       }
 
       if (response.message == "success") {
         alert("sites deleted successfully")
-        this._Router.navigate(['/sites/site-details'])
+        this.success= "sites deleted successfully";
+        this.isSuccess=true;
+        this.isError=false;
+        this.isTokenExpired=false;
+        // this._Router.navigate(['/sites/site-details'])
       }
       if (response.message == "failed") {
         let error = response.errors;
-        alert(JSON.stringify(error))
+        error=JSON.stringify(error);
+        this.error=error;
+        this.isError=true;
+        this.isTokenExpired=false;
+        this.isSuccess=false;
         this.deletedCascades = [];
       }
     })
@@ -276,17 +303,26 @@ export class UpdateCascadesComponent implements OnInit {
     this._siteService.searchSites(data.value.search, this.token).subscribe((response: any) => {
 
       if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
+        this.isError = false;
+        this.isSuccess=false;
       }
       else if (response.message == "failed") {
         let error: any = response.errors.search[0];
         if (error == null) {
           error = response.errors;
-          alert(error)
+          this.error=error;
+          this.isError=true;
+          this.isSuccess=false;
+          this.isTokenExpired=false;
+
         }
         else
-          alert(error);
+        this.error=error;
+        this.isError=true;
+        this.isSuccess=false;
+        this.isTokenExpired=false;;
       }
       else {
         let searchRecivedSite: any = response.data[0]
@@ -343,6 +379,21 @@ export class UpdateCascadesComponent implements OnInit {
 
   }
 
+  closeSuccessNotification(data: any) {
+    this.isSuccess = data;
+
+  }
+  public closeTokenExpirationNotification(data: any) {
+    this.isTokenExpired = data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
 
   ngOnInit(): void {
     this.fillCascadesContainer();

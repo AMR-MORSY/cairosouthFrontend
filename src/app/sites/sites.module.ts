@@ -9,12 +9,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SitesRoutingModule } from './sites-routing.module';
 import { CommonModule } from '@angular/common';
 import { CreateNewSiteComponent } from './create-new-site/create-new-site.component';
-import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DatePipe } from '@angular/common';
 import { AllSitesComponent } from './all-sites/all-sites.component';
 import { UpdateSiteComponent } from './update-site/update-site.component';
-import { BackNavigateDirective } from './back-navigate.directive';
+import { SharedModuleModule } from '../shared-module/shared-module.module';
+
 
 
 
@@ -29,7 +29,6 @@ import { BackNavigateDirective } from './back-navigate.directive';
     SiteDetailsComponent,
     SearchResultsComponent,
     CreateNewSiteComponent,
-    BackNavigateDirective,
     AllSitesComponent,
     UpdateSiteComponent,
 
@@ -39,7 +38,7 @@ import { BackNavigateDirective } from './back-navigate.directive';
   imports: [
 
     CommonModule,
-  HttpClientModule,FormsModule,ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}), NgxPaginationModule,SitesRoutingModule,BsDatepickerModule.forRoot(),
+    HttpClientModule, FormsModule, ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }), NgxPaginationModule, SitesRoutingModule, BsDatepickerModule.forRoot(), SharedModuleModule
   ],
   providers: [DatePipe],
 })

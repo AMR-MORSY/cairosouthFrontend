@@ -9,12 +9,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent implements OnInit {
-  public token:any;
+  public token: any;
 
-  constructor(private _AuthService:AuthenticationService, private _Router:Router) {
+  public isTokenExpired: boolean = false;
+  public error: any = '';
+
+  public isError: boolean = false;
+
+
+  constructor(private _AuthService: AuthenticationService, private _Router: Router) {
 
     this.getUserData()
-    this.signOut()  }
+    this.signOut()
+  }
+
+
+  public closeTokenExpirationNotification(data: any) {
+    this.isTokenExpired = data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
 
 
 
@@ -23,28 +43,23 @@ export class LogoutComponent implements OnInit {
 
 
 
+  private signOut() {
+    this._AuthService.signOut(this.token).subscribe((response: any) => {
 
-
-   private signOut()
-   {
-    this._AuthService.signOut(this.token).subscribe((response:any)=>{
-
-      if (response.message=="Successfully logged out")
-      {
+      if (response.message == "Successfully logged out") {
         this._AuthService.currentUser.next(null);
 
         localStorage.clear();
 
         this._Router.navigate(["/home"]);
       }
-      else
-      {
-        alert('You already signed out');
+      else {
+         this.error='You already signed out';
+         this.isError=true;
       }
-       if  (response.message == "token expired, please login") {
-        localStorage.clear();
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+      if (response.message == "token expired, please login") {
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
       }
 
 
@@ -52,13 +67,13 @@ export class LogoutComponent implements OnInit {
 
     });
 
-   }
+  }
 
 
 
 
 
-   private getUserData() {
+  private getUserData() {
     this._AuthService.currentUser.subscribe(() => {
       this.token = this._AuthService.currentUser.getValue();
 

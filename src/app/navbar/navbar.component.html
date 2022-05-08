@@ -1,4 +1,4 @@
-<nav class="navbar  mb-5 navbar-expand-lg ">
+<nav class="navbar   mb-5 navbar-expand-lg " [ngClass]="[isAtHomePage?'transparent-background': 'black-background']">
   <a class="navbar-brand font-weight-bolder" routerLink='home'>CairoSouth</a>
   <div class=" form-group">
     <form [formGroup]="searchForm" class="form-inline   ml-5" (ngSubmit)="SubmitSearchForm(searchForm)">
@@ -8,10 +8,10 @@
     </form>
   </div>
 
-  <a class="ofcan-btn" (click)="animateBtn($event)"   data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+  <a class="ofcan-btn" (click)="animateBtn($event)"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
     aria-controls="offcanvasExample">
 
-    <div class="menue-btn" >
+    <div class="menue-btn">
       <div class="menue-btn-burger"></div>
     </div>
   </a>
@@ -41,22 +41,24 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <li class="nav-item">
             <div class="test">
-              <a class="dropdown-item">Sites</a>
+              <a class="dropdown-item" *ngIf="isLogin">Sites</a>
               <div class="test2">
-                <a class="dropdown-item " routerLink='sites/allSites'>All Sites</a>
-                <a class="dropdown-item " routerLink='sites/create-new-site'>Create New</a>
+                <a class="dropdown-item " *ngIf="isLogin"  routerLink='sites/allSites'>All Sites</a>
+                <a class="dropdown-item "[hidden]='!isAdmin' routerLink='sites/create-new-site'>Create New</a>
               </div>
             </div>
 
           </li>
-          <li><a class="dropdown-item" *ngIf="isAdmin" routerLink='modifications/all-modifications'>Modifications</a>
+          <li><a class="dropdown-item" *ngIf="isAdmin" routerLink='modifications/modification-index'>Modifications</a>
+          </li>
+          <li><a class="dropdown-item"*ngIf="isLogin" routerLink='/statestics'>Statestics</a>
           </li>
           <li class="nav-item">
             <div class="test">
-              <a class="dropdown-item ">NUR</a>
+              <a class="dropdown-item "*ngIf="isLogin">NUR</a>
               <div class="test2">
-                <a class="dropdown-item " routerLink='nur/nur-index'>Show NUR</a>
-                <a class="dropdown-item " routerLink='nur/create-site-nur'>Add NUR</a>
+                <a class="dropdown-item "*ngIf="isLogin" routerLink='nur/nur-index'>Show NUR</a>
+                <a class="dropdown-item " [hidden]="!isAdmin" routerLink='nur/create-site-nur'>Add NUR</a>
 
               </div>
 
@@ -96,7 +98,8 @@
 
 
 
-<div class="offcanvas offcanvas-start"  data-bs-backdrop="false" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas offcanvas-start" data-bs-backdrop="false" tabindex="-1" id="offcanvasExample"
+  aria-labelledby="offcanvasExampleLabel">
 
   <div class="offcanvas-body">
 
@@ -109,16 +112,47 @@
       <ul class="list-unstyled components">
         <p class="nav-link" *ngIf="isLogin">{{userName}}</p>
         <li class="active nav-item">
-          <a class="nav-link" *ngIf="isLogin "  Active routerLink='home'>Home </a>
+          <a class="nav-link" *ngIf="isLogin " Active routerLink='home'>Home </a>
         </li>
 
         <li class=" nav-item dropdown">
 
 
-          <a class=" nav-link " *ngIf="isLogin" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          <!-- <a class=" nav-link " *ngIf="isLogin" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin </a> -->
+          <a class=" nav-link " *ngIf="isLogin" id="dropdownMenuLink" data-bs-toggle="collapse" href="#collapseExample"
+            role="button" aria-expanded="false" aria-controls="collapseExample">
             Admin </a>
 
-          <ul class=" dropdown-menu " aria-labelledby="dropdownMenuLink ">
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              <a class="dropdown-item" *ngIf="isLogin" id="dropdownMenuLinkSites" data-bs-toggle="collapse" href="#collapseSites"
+                role="button" aria-expanded="false" aria-controls="collapseSites">
+                Sites </a>
+              <div class="collapse" id="collapseSites">
+                <div class="card card-body">
+                  <a class="dropdown-item " *ngIf="isLogin" routerLink='sites/allSites'>All Sites</a>
+                  <a class="dropdown-item" [hidden]="!isAdmin" routerLink='sites/create-new-site'>Create New</a>
+                </div>
+              </div>
+              <a class="dropdown-item " *ngIf="isAdmin "
+                routerLink='modifications/modification-index'>Modifications</a>
+                <a class="dropdown-item" *ngIf="isLogin" routerLink='/statestics'>Statestics</a>
+                <a class="dropdown-item " id="dropdownMenuLinkNUR" data-bs-toggle="collapse" href="#collapseNUR"
+                role="button" aria-expanded="false" *ngIf="isLogin" aria-controls="collapseNUR">NUR</a>
+                <div class="collapse" id="collapseNUR">
+                  <div class="card card-body">
+                    <a class="dropdown-item " *ngIf="isLogin" routerLink='nur/nur-index'>Show NUR</a>
+                    <a class="dropdown-item " [hidden]="!isAdmin" routerLink='nur/create-site-nur'>Add NUR</a>
+                  </div>
+                </div>
+                <a class="dropdown-item " [hidden]="!isSuperAdmin" routerLink='super-admin/users'>Users</a>
+
+            </div>
+          </div>
+
+
+          <!-- <ul class=" dropdown-menu " aria-labelledby="dropdownMenuLink ">
 
             <li class=" nav-item">
 
@@ -144,7 +178,7 @@
 
             </li>
             <li> <a class="dropdown-item " *ngIf="isSuperAdmin " routerLink='super-admin/users'>Users</a></li>
-          </ul>
+          </ul> -->
 
 
 

@@ -5,6 +5,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { UpdateUserComponent } from './update-user/update-user.component';
+import { SharedModuleModule } from '../shared-module/shared-module.module';
 
 
 
@@ -14,7 +15,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     UpdateUserComponent
   ],
   imports: [
-    CommonModule,NgxPaginationModule,FormsModule,ReactiveFormsModule,SuperAdminRoutingModule
+    CommonModule,NgxPaginationModule,FormsModule,ReactiveFormsModule,SuperAdminRoutingModule,SharedModuleModule
   ]
 })
 export class SuperAdminModule { }

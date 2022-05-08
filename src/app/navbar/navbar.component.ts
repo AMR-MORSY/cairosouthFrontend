@@ -2,14 +2,17 @@ import jwt_decode from "jwt-decode";
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from './../auth/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SitesService } from '../sites/sites.service';
+import { NavigationServiceService } from "../shared-module/navigation-service.service";
+
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'
+  ]
 })
 export class NavbarComponent implements OnInit {
 
@@ -21,14 +24,16 @@ export class NavbarComponent implements OnInit {
   public profilePic: any;
   public isAdmin: boolean = false;
   private menueOpen: boolean = false;
-  // public menueBtn:any;
   public asset_url: string = './assets/grey_avatar_2.png';
   public image_url: any;
   public url: string = "http://localhost:8000/api/login";
   public profile_picture_path: any;
-  public backgroundColor: any;
 
-  constructor(private _AuthService: AuthenticationService, private _sitesService: SitesService, private _Router: Router) {
+  public isAtHomePage: boolean = false;
+  public showOffcanvas:boolean=false;
+
+
+  constructor(private _NavigationService: NavigationServiceService, private _AuthService: AuthenticationService, private _sitesService: SitesService, private _Router: Router) {
 
   }
   searchForm = new FormGroup({
@@ -51,10 +56,8 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  
-  
-  
-  
+
+
 
   public animateBtn(e: any) {
 
@@ -84,13 +87,12 @@ export class NavbarComponent implements OnInit {
 
 
 
-
-
   public showUserProperties(decodedToken: any) {
 
     this.userName = decodedToken.name;
 
     let role: any = decodedToken.role;
+    console.log(role)
 
     if (role == "super admin") {
       this.isAdmin = true;
@@ -101,13 +103,15 @@ export class NavbarComponent implements OnInit {
     else if (role == 'admin') {
 
       this.isAdmin = true;
+      this.isSuperAdmin=false;
 
     }
-
-    else {
-      this.isAdmin = false;
-      this.isSuperAdmin = false;
+    else{
+      this.isAdmin=false;
+      this.isSuperAdmin=false;
     }
+
+
     let picture = decodedToken.picture;
     if (picture == null) {
       this.image_url = this.asset_url;
@@ -121,15 +125,30 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  private getNavigationUrl() {
+    this._NavigationService.urlAfterRedirect.subscribe(() => {
 
+      if (this._NavigationService.urlAfterRedirect.getValue() == '/home' || this._NavigationService.urlAfterRedirect.getValue() =='') {
+        this.isAtHomePage = true;
+
+      }
+      else {
+        this.isAtHomePage = false;
+
+      }
+
+    })
+
+  }
+
+
+  private getUserData()
+  {
     this._AuthService.currentUser.subscribe(() => {
       if (this._AuthService.currentUser.getValue() != null) {
         let token: any = this._AuthService.currentUser.getValue();
         this.isLogin = true;
-        this.backgroundColor = {
-          backgroundColor: 'none'
-        }
+
         let decodedToken = jwt_decode(token)
         console.log(decodedToken);
         this.showUserProperties(decodedToken);
@@ -144,7 +163,16 @@ export class NavbarComponent implements OnInit {
 
 
       }
-    })
+    });
+
+  }
+
+  ngOnInit(): void {
+
+
+    this.getUserData()
+
+    this.getNavigationUrl();
 
 
   }

@@ -29,6 +29,11 @@ export class CreateSiteNurComponent implements OnInit {
   public createNurForm: any
   public years:number[]=[];
 
+  public isError:boolean=false;
+  public error:any='';
+  public isSuccess:boolean=false;
+  public success:any=false;
+  public isTokenExpired:boolean=false;
 
 
 
@@ -60,6 +65,24 @@ export class CreateSiteNurComponent implements OnInit {
 
   }
 
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
+  closeSuccessNotification(data:any)
+
+  {
+    this.isSuccess=data;
+
+  }
+  public closeTokenExpirationNotification(data:any)
+  {
+    this. isTokenExpired=data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
   private sendNewSiteNURTODB(nur: any) {
 
 
@@ -67,22 +90,30 @@ export class CreateSiteNurComponent implements OnInit {
 
 
     this._NURService.createNUR(data).subscribe((response: any) => {
-      console.log(response);
+
       if (response.message == 'failed') {
         let errors = response.errors;
-        alert(JSON.stringify(errors));
+        // alert(JSON.stringify(errors));
+        this.error=errors;
+        this.isError=true;
+        this.isSuccess=false;
 
       }
       else if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
-
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+        this.isError = false;
+        this.isSuccess=false;
       }
       else {
-        alert("NUR inserted Successfully");
-        
-        
-        
+        // alert("NUR inserted Successfully");
+        this.success='NUR inserted Successfully';
+        this.isSuccess=true;
+        this.isError=false;
+        this.isTokenExpired=false
+
+
+
 
 
       }

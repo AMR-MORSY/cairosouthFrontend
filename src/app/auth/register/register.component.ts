@@ -46,6 +46,13 @@ export class RegisterComponent implements OnInit {
     this.isError_email= false;
 
   }
+  dissableNotifications()
+  {
+    this. isError_pass = false;
+    this. isError_user_name=false;
+    this.isError_email= false;
+
+  }
 
   submitRegisterForm(registerForm: FormGroup) {
     this._AuthService.makeRegisteration(registerForm.value).subscribe((feedback) => {
@@ -63,18 +70,24 @@ export class RegisterComponent implements OnInit {
         let error:any=feedback.errors;
         console.log(error);
         if (error.email != null) {
-          this.error_email = error.email;
+          this.error_email = error.email[0];
            this.isError_email=true;
+           this.isError_pass=false;
+           this.isError_user_name=false;
            console.log(this.error_email);
 
          }
          if (error.password != null) {
            this.error_pass = error.password;
            this.isError_pass=true;
+           this.isError_email=false;
+           this.isError_user_name=false;
            }
            if (error.user_name != null) {
             this.error_user_name = error.user_name;
              this.isError_user_name=true;
+             this.isError_pass=false;
+             this.isError_email=false;
             }
 
 

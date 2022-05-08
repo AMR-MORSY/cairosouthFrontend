@@ -80,6 +80,14 @@ export class NurService {
     return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
   };
 
+  download_NDL_VIP_NUR(data:any,id:any,siteType:any,token:any):Observable<any>
+  {
+    const REQUEST_PARAMS=new HttpParams().set('fileName',data.filename);
+    const REQUEST_URI=`https://cairo-south.herokuapp.com/api/vipNDLSitesNUR/${id}/${siteType}/${token}`;
+    return this._HttpClient.get(REQUEST_URI,{responseType:'arraybuffer',params:REQUEST_PARAMS});
+  };
+
+
 
 
 

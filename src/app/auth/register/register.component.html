@@ -10,12 +10,11 @@
 
       </div>
       <div class="form-items">
-        <form [formGroup]='registerForm' (ngSubmit)='submitRegisterForm(registerForm)' class="requires-validation"
-          novalidate>
+        <form [formGroup]='registerForm' (ngSubmit)='submitRegisterForm(registerForm)' >
 
           <div class="form-group">
-            <input class="form-control" formControlName='name' (keyup)=" dissableUserNotifications()" type="text"
-              placeholder="Full Name" required>
+            <input class="form-control" formControlName='name' (keyup)="dissableNotifications()" type="text"
+              placeholder="First and Family Name" required>
             <div class="valid-feedback"
               *ngIf="registerForm.get('name')?.errors!=null && registerForm.get('name')?.errors?.minlength ">Username
               field is valid! min 3 letters</div>
@@ -27,7 +26,7 @@
           </div>
 
           <div class="form-group">
-            <input class="form-control" type="email" formControlName='email' (keyup)="dissableemailNotifications()"
+            <input class="form-control" type="email" formControlName='email' (keyup)="dissableNotifications()"
               placeholder="E-mail Address" required>
             <div class="valid-feedback"
               *ngIf="registerForm.get('email')?.errors!=null && registerForm.get('email')?.errors?.email">Email field is
@@ -35,18 +34,18 @@
             <div class="invalid-feedback"
               *ngIf="registerForm.get('email')?.errors!=null && registerForm.get('email')?.errors?.required &&  registerForm.get('email')?.touched">
               Email field cannot be blank!</div>
-            <div class="invalid-feedback " *ngIf="isError_email">{{error_email}}
+            <div class=" alert-danger text-center font-weight-bolder alert " [hidden]="!isError_email">{{error_email}}
             </div>
           </div>
 
           <div class="form-group">
-            <input class="form-control" type="password" formControlName='password' (keyup)="dissablePassNotifications()"
+            <input class="form-control" type="password" formControlName='password' (keyup)="dissableNotifications()"
               placeholder="Password" required>
             <div class="requirements">
-              <p>password 8 digits include:upper case letter,[@$!%*?&],Numbers[0-9]</p>
-            
+              <p>password is 8 chars includes: an upper case char,one char from[@$!%*?&],Numbers[0-9]</p>
+
             </div>
-            <div class="valid-feedback"
+            <div class="invalid-feedback"
               *ngIf="registerForm.get('password')?.errors!=null && registerForm.get('password')?.errors?.pattern">
               Password field is invalid!</div>
             <div class="invalid-feedback" *ngIf="registerForm.get('password')?.errors!=null &&
@@ -55,8 +54,8 @@
 
           <div class="form-group">
             <input class="form-control" type="password" formControlName='password_confirmation'
-              (keyup)=" dissableconfPassNotifications()" placeholder="Password-Confirmation" required>
-            <div class="valid-feedback">Password field is invalid!</div>
+              (keyup)=" dissableNotifications()" placeholder="Password-Confirmation" required>
+            <div class="invalid-feedback">Password field is invalid!</div>
             <div class="invalid-feedback" *ngIf="registerForm.get('password')?.errors!=null &&
                        registerForm.get('password')?.errors?.required">Password Confirmation field cannot be blank!
             </div>

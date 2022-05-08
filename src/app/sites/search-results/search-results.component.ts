@@ -3,6 +3,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthenticationService } from '../../auth/authentication.service';
 import { SitesService } from '../sites.service';
 
+
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
@@ -17,6 +18,10 @@ export class SearchResultsComponent implements OnInit {
   public isDataFound: boolean = false;
   public token: any;
   public fadefinished: boolean = false;
+  public error:any='';
+  public isError:boolean=false;
+  public isTokenExpired:boolean=false;
+  public showBackButton:boolean=false;
 
   constructor(private _sitesService: SitesService, private _Router: Router, private _AuthServices: AuthenticationService) { }
 
@@ -63,6 +68,21 @@ private getSearchString()
 
   }
 
+  public closeErrorNotification(data:any)
+  {
+    this.isError=data;
+    this.showBackButton=true;
+
+  }
+
+
+  closeTokenExpirationNotification(data:any)
+  {this. isTokenExpired=data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
 
   private getToken() {
     let token: any = this._AuthServices.currentUser.getValue();
@@ -84,15 +104,18 @@ private getSearchString()
 
 
           if (response.message == "token expired, please login") {
-            localStorage.clear();
-            alert("token expired, please login");
-            this._Router.navigate(['/auth/login']);
+            this.error="token expired, please login";
+            this.isTokenExpired=true;
+            this.isError=false
+
 
           }
          else if (response.data!=null) {
             this.isDataFound = true;
+            this.isError=false;
+            this.isTokenExpired=false;
             this.sites = response.data;
-            console.log(this.sites)
+
             this.pagination_link = response.links.first;
 
             this.config = {
@@ -100,16 +123,24 @@ private getSearchString()
               itemsPerPage: response.meta.per_page,
               totalItems: response.meta.total
             }
+            this.showBackButton=true;
 
           }
           else if(response.message == "failed")
           {
+            this.isDataFound=false;
+            this.isError=true;
+            this.isTokenExpired=false;
 
             let error=response.errors
-            alert(JSON.stringify(error))
+            error=JSON.stringify(error);
+
+             this.error=error;
 
 
-            this.isDataFound=false;
+
+
+
 
 
 

@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { SitesService } from '../sites.service';
 import {saveAs} from 'file-saver';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-all-sites',
@@ -17,15 +18,57 @@ export class AllSitesComponent implements OnInit {
   public config: any;
   public pagination_link: any;
   public fadefinished: boolean = false;
+  public id:any;
+  public isSuccess: boolean = false;
+  public isTokenExpired: boolean = false;
+  public error: any = '';
+  public success: any = '';
+  public isError: boolean = false;
+  public showBackButton:boolean=false;
+  public isAdmin:boolean=false;
+  public isSuperAdmin:boolean=false;
+
 
 
 
   constructor(private _AuthServices: AuthenticationService, private _Router: Router, private _sitesService: SitesService) {
 
-    this.displaySites();
+
 
   }
 
+  closeSuccessNotification(data: any) {
+    this.isSuccess = data;
+
+
+  }
+  public closeTokenExpirationNotification(data: any) {
+    this.isTokenExpired = data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
+
+
+  public downloadAllNodals()
+  {
+    let filename = "allNodals.xlsx";
+    this._sitesService.downloadAllNodals({ 'filename': filename },this.id,this.token).subscribe((data) => {
+      console.log(data);
+      saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
+
+    });
+
+  }
+  private decodeToken(token: any) {
+    let decToken = jwt_decode(token);
+    return decToken;
+  }
 
 
   private getToken() {
@@ -36,6 +79,23 @@ export class AllSitesComponent implements OnInit {
     }
     else {
       this.token = token;
+      let decToken: any = this.decodeToken(this.token);
+      this.id = decToken.id;
+      if(decToken.role=='super admin')
+      {
+        this.isAdmin=true;
+        this.isSuperAdmin=true;
+      }
+      else if(decToken.role=='admin')
+      {
+        this.isAdmin=true;
+        this.isSuperAdmin=false;
+      }
+      else
+      {
+        this.isAdmin=false;
+        this.isSuperAdmin=false;
+      }
 
 
     }
@@ -83,7 +143,7 @@ export class AllSitesComponent implements OnInit {
   public downloadsites() {
     let filename = "allSites.xlsx";
     this._sitesService.download({ 'filename': filename }).subscribe((data) => {
-      console.log(data);
+
       saveAs(new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), filename)
 
     });
@@ -96,7 +156,7 @@ export class AllSitesComponent implements OnInit {
     this.sites=[];
 
     this._sitesService.getAllSites(this.token).subscribe((response) => {
-      console.log(response)
+
 
       if (response.data != null) {
         this.sites = response.data;
@@ -108,14 +168,17 @@ export class AllSitesComponent implements OnInit {
           totalItems: response.meta.total
         }
         this.isDataFound = true;
+        this.showBackButton=true;
       }
       else if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
+        this.isDataFound = false;
 
       }
       else {
         this.isDataFound = false;
+        this.showBackButton=true;
       }
 
     })
@@ -135,9 +198,9 @@ export class AllSitesComponent implements OnInit {
     this.config.currentPage = newpage;
     this._sitesService.allSitesPagination(this.token, newpage).subscribe((response) => {
       if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
-
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
+        this.isDataFound=false;
       }
       else
 
@@ -148,6 +211,7 @@ export class AllSitesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.displaySites();
   }
 
 }

@@ -19,11 +19,15 @@ export class UpdateSiteComponent implements OnInit {
   public hidden: boolean = true;
   public token: any;
   public id: any;
-  public isSiteNotInserted: boolean = true;
+
   public newSite:any;
   public site_id:any;
   public oldSite:any;
-  
+  public isSuccess: boolean = false;
+  public isTokenExpired: boolean = false;
+  public error: any = '';
+  public success: any = '';
+  public isError: boolean = false;
 
 
 public createSiteForm:any;
@@ -49,21 +53,34 @@ public createSiteForm:any;
     })
 
   }
-  public closeNotification() {
-    this.isSiteNotInserted = true;
 
-
-  }
   public goToUpdateCascades()
   {
     this._SitesServices.site.next(this.newSite);
     localStorage.setItem('site',JSON.stringify( this.newSite));
     this._Router.navigate(['/sites/update-cascades']);
-    this.isSiteNotInserted=true;
 
 
 
   }
+
+  closeSuccessNotification(data: any) {
+    this.isSuccess = data;
+    this._Router.navigate(['/sites/site-details']);
+
+  }
+  public closeTokenExpirationNotification(data: any) {
+    this.isTokenExpired = data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
+  public closeErrorNotification(data: any) {
+    this.isError = data;
+
+  }
+
 
   private sendNewSiteTODB(site: any, token: any, id: any) {
     let data = {
@@ -76,20 +93,32 @@ public createSiteForm:any;
       console.log(response);
       if (response.message == 'failed') {
         let errors = response.errors;
-        alert(JSON.stringify(errors));
-        this.isSiteNotInserted=true;
+        errors=JSON.stringify(errors);
+
+        this.isError=true;
+        this.isTokenExpired=false;
+        this.isSuccess=false;
+        this.error=errors;
       }
       else if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error = "token expired, please login";
+        this.isTokenExpired = true;
+
+        this.isError = false;
+        this.isSuccess=false;
 
       }
       else
-      {this.isSiteNotInserted=false;
+      {
         this.oldSite=response.site;
         this._SitesServices.site.next(this.oldSite);
         localStorage.setItem("site", JSON.stringify(this.oldSite))
-        this._Router.navigate(['/sites/site-details']);
+        this.isSuccess=true;
+        this.success='Site Updated Successfully';
+        this.isError=false;
+        this.isTokenExpired=false;
+
+
       }
     })
 

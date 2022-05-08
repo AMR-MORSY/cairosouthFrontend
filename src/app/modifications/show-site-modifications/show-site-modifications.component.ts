@@ -20,7 +20,12 @@ export class ShowSiteModificationsComponent implements OnInit {
   public data: any;
   public isModificationFound: boolean = false;
   public isModificationClicked: boolean = false;
-  public isNotificationShown:boolean=false;
+  public isNotificationShown: boolean = false;
+  public isError:boolean=false;
+  public error:any='';
+  public isTokenExpired:boolean=false;
+  public isSuccess:boolean=false;
+  public success:any='';
 
   constructor(private _siteService: SitesService, private _Router: Router, private _ModificationsServices: ModificationsService, private _AuthServices: AuthenticationService) { }
 
@@ -29,13 +34,32 @@ export class ShowSiteModificationsComponent implements OnInit {
       this.site = this._siteService.site.getValue();
 
       this.site_id = this.site.id
-      console.log(this.site_id)
+
     });
   }
 
 
 
+  public closeErrorNotification(data: any) {
+    this.isError = data;
 
+
+  }
+  closeSuccessNotification(data:any)
+
+  {
+    this.isSuccess=data;
+    this.getSiteModifications();
+
+  }
+  public closeTokenExpirationNotification(data:any)
+  {
+    this. isTokenExpired=data;
+    localStorage.clear();
+    this._Router.navigate(['/auth/login']);
+
+
+  }
   private shadeElement(e: any) {
 
     let elementId: any = e.currentTarget.dataset.index;
@@ -62,22 +86,20 @@ export class ShowSiteModificationsComponent implements OnInit {
     return data;
   }
 
-  private getChosenMod()
-  {
-    let chosenMod=this.data.filter((mod:any)=>{
-      return mod.id==this.modificationId
+  private getChosenMod() {
+    let chosenMod = this.data.filter((mod: any) => {
+      return mod.id == this.modificationId
     });
 
     return chosenMod[0];
 
   }
 
-  goToUpdateModification()
-  {
-    let chosenMod=this.getChosenMod();
-     this._ModificationsServices.modification.next(chosenMod);
-     localStorage.setItem('modification',JSON.stringify( chosenMod))
-     this._Router.navigate(['/modifications/update-modifications'])
+  goToUpdateModification() {
+    let chosenMod = this.getChosenMod();
+    this._ModificationsServices.modification.next(chosenMod);
+    localStorage.setItem('modification', JSON.stringify(chosenMod))
+    this._Router.navigate(['/modifications/update-modifications'])
   }
 
   private generateDeleteRequestData() {
@@ -88,8 +110,8 @@ export class ShowSiteModificationsComponent implements OnInit {
     }
     return data;
   }
-public  sendSiteId(index: any,e:any) {
-  this. shadeElement(e);
+  public sendSiteId(index: any, e: any) {
+    this.shadeElement(e);
     this.modificationId = index;
 
     this.isModificationClicked = true;
@@ -104,22 +126,35 @@ public  sendSiteId(index: any,e:any) {
     let data = this.generateShowRequestData();
 
     this._ModificationsServices.getSiteModifications(data).subscribe((response: any) => {
-console.log(response);
 
 
       if (response.message == "failed") {
-      let  error = JSON.stringify(response.errors);
-        alert(error);
+        this.isModificationFound=false;
+
+        this.isError = true;
+        this.isTokenExpired=false;
+
+        let error = response.errors
+        error = JSON.stringify(error);
+
+        this.error = error
+
 
       }
       else if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+        this.isError = false;
+        this.isModificationFound=false;
+
+
       }
-      else  {
+      else {
         this.data = response.data;
         this.isModificationFound = true;
-        console.log(this.data)
+        this.isError=false;
+        this.isTokenExpired=false
+
 
       }
 
@@ -128,44 +163,51 @@ console.log(response);
 
   }
 
-  public deleteModification()
-  {
-    let data=this.generateDeleteRequestData()
-    this._ModificationsServices.deleteSiteModifications(data).subscribe((response)=>{
-      console.log(response)
+  public deleteModification() {
+    let data = this.generateDeleteRequestData()
+    this._ModificationsServices.deleteSiteModifications(data).subscribe((response) => {
+
       if (response.message == "token expired, please login") {
-        alert("token expired, please login");
-        this._Router.navigate(['/auth/login']);
-      }
-      else if (response.message=="success")
-      {
-        alert ("Modification deleted Successfully");
-        this.isNotificationShown=false;
-        this.getSiteModifications();
-
+        this.error="token expired, please login";
+        this.isTokenExpired=true;
+        this.isError = false;
 
       }
+      else if (response.message == "success") {
+        this.success='Modification deleted Successfully';
+        this.isSuccess = true;
+        this.isTokenExpired=false;
 
-      else if (response.message=="failed")
-      {
-        let error=response.errors
-        alert(JSON.stringify(error));
-        this.isNotificationShown=false;
+        this.isNotificationShown = false;
+
+
+
+      }
+
+      else if (response.message == "failed") {
+
+        this.isNotificationShown = false;
+        this.isError = true;
+        this.isTokenExpired=false;
+
+        let error = response.errors
+        error = JSON.stringify(error);
+
+        this.error = error
+
 
       }
 
     })
 
   }
-  public showNotification()
-  {
-    this.isNotificationShown=true;
+  public showNotification() {
+    this.isNotificationShown = true;
 
   }
 
-  public closeNotification()
-  {
-    this.isNotificationShown=false;
+  public closeNotification() {
+    this.isNotificationShown = false;
 
   }
   private decodeToken(token: any) {

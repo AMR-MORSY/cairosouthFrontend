@@ -147,7 +147,6 @@
 
 #login {
   margin-top: 10em;
-
   .container {
     margin: auto;
 
@@ -189,27 +188,24 @@
         p{
           color: #ff6600;
           font-size: .75rem;
-          padding: 1rem 0 ;
+          padding-top: 1rem;
 
         }
 
       }
 
       .form-items {
-        display: inline block;
+        // display: inline block;
         width: 100%;
 
         .form-group {
           margin-bottom: 10px;
-
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+         
         }
-        .invalid-feedback{
-          color: #ff606e;
-        }
 
-       .valid-feedback{
-          color: #2acc80;
-       }
 
         .form-button {
             display: flex;
@@ -225,8 +221,6 @@
     }
   }
 }
-
-
 @media screen and (max-width: 575px) {
   #login {
     height: 100vh;
@@ -243,11 +237,30 @@
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
+  #login {
+    height: 100vh;
+
+    .container {
+      .form-holder{
+        width: 100%;
+        font-size: .75rem;
+      }
+    }
+  }
 }
 @media (min-width: 768px) and (max-width: 991px) {
+  #login {
+    height: 100vh;
+
+    .container {
+      .form-holder{
+        width: 80%;
+        font-size: .75rem;
+      }
+    }
+  }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
 }
 @media (min-width: 1200px) and (max-width: 1500px) /* extra large windows*/ {
 }
-

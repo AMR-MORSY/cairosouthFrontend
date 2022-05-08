@@ -1,0 +1,47 @@
+
+<section id="analysis">
+  <div class="container">
+    <div class="form-container">
+      <form [formGroup]="filterForm" (ngSubmit)="submitFilterForm(filterForm)">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="column">Filter By:</label>
+              <select class="form-control" formControlName="column" (change)="submitColumn($event)" id="column">
+                <option value=""></option>
+                <option [value]="column" *ngFor="let column of columns">{{column}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label ></label>
+              <select class="form-control" formControlName="columnValue" id="columnValue">
+                <option value=""></option>
+                <option [value]="column" *ngFor="let column of columnValues">{{column}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="button-container">
+              <button class="btn btn-primary" [disabled]='filterForm.status=="INVALID"' type="submit">submit</button>
+               <!-- <button class="btn btn-primary"[disabled]='!isDataFound'  (click)="downloadsites()">Excel Export</button> -->
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+<app-back-button-component></app-back-button-component>

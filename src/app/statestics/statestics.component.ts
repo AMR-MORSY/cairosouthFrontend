@@ -8,10 +8,10 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  templateUrl: './statestics.component.html',
+  styleUrls: ['./statestics.component.scss']
 })
-export class UserComponent implements OnInit {
+export class StatesticsComponent implements OnInit {
 
   public token: any;
 
@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
         },
       }
     },
-   
+
     plugins: {
       legend: {
         position: 'top'
@@ -244,7 +244,7 @@ export class UserComponent implements OnInit {
 
     scales: {
       yAxis: {
-       
+
         grid: {
           tickWidth: 1,
           tickColor: 'blue',

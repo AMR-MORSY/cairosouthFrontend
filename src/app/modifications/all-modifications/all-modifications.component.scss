@@ -1,26 +1,20 @@
-
-#selection,#analysis{
+#analysis {
   margin-top: 200px;
-  .container{
+  .container {
     margin: auto;
-    .form-container{
-
-       width: 60%;
-       margin: auto;
-      .form-group{
+    .form-container {
+      width: 60%;
+      margin: auto;
+      .form-group {
         // width: 50%;
         // margin: auto;
-        label{
+        label {
           color: white;
-
         }
-
       }
-
-
     }
 
-    .button-container{
+    .button-container {
       width: 50%;
       margin: auto;
       padding-top: 2rem;
@@ -28,43 +22,36 @@
       align-items: center;
       justify-content: space-around;
     }
-
   }
-
-
 }
 
 #table-section {
-  margin-top: 4rem;
+  margin-top: 8rem;
 
-
-  .container {
+  .container-xl {
     margin: auto;
 
-  .pagination-container{
-    width: 100%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .pagination-container {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    .pagination{
-      padding-top: 3rem;
-      color: white;
+      .pagination {
+        padding-top: 3rem;
+        color: white;
+      }
     }
-
-
-
-  }
-  .table-container{
-    table{
-      tr{
-        cursor: pointer;
+    .table-container {
+      table {
+        font-size: 0.75rem;
+        tr {
+          cursor: pointer;
+        }
       }
     }
   }
-
-   }
 }
 
 #create-site {
@@ -74,7 +61,6 @@
   .container {
     margin: auto;
     .create-btn-cont {
-
       width: 50%;
       margin: auto;
       color: white;
@@ -85,225 +71,109 @@
   }
 }
 
-
 @media screen and (max-width: 575px) {
-
-  #selection{
-
-    .container{
-
-      .form-container{
-
+  #analysis {
+    .container {
+      .form-container {
         width: 100%;
-
-        .form-group{
-          width: 50%;
-
-
-        }
-
-
       }
 
-      .button-container{
+      .button-container {
         width: 100%;
-
       }
-
     }
-
-
   }
 
   #table-section {
-
-
-
     .container {
-
-      .pagination-container{
+      .pagination-container {
         width: 100%;
         margin: auto;
 
-
-        .pagination{
+        .pagination {
           width: 100%;
-
-
-
-
-
-
         }
-
-
-
-
-
-
       }
     }
   }
-
 
   #create-site {
-
     .container {
-
       .create-btn-cont {
-
         width: 100%;
-
       }
     }
   }
-
-
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
-
-  #selection{
-
-    .container{
-
-      .form-container{
-
+  #analysis {
+    .container {
+      .form-container {
         width: 100%;
-
-        .form-group{
-          width: 50%;
-
-
-        }
-
-
       }
 
-      .button-container{
+      .button-container {
         width: 100%;
-
       }
-
     }
-
-
   }
 
   #table-section {
-
-
-
     .container {
-
-      .pagination-container{
+      .pagination-container {
         width: 100%;
         margin: auto;
 
-
-        .pagination{
+        .pagination {
           width: 100%;
-
-
-
-
-
-
         }
-
-
-
-
-
-
       }
     }
   }
 
-
   #create-site {
-
     .container {
-
       .create-btn-cont {
-
         width: 100%;
-
       }
     }
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  #selection{
-
-    .container{
-
-      .form-container{
-
+  #analysis {
+    .container {
+      .form-container {
         width: 100%;
-
-        .form-group{
-          width: 50%;
-
-
-        }
-
-
       }
 
-      .button-container{
+      .button-container {
         width: 100%;
 
         display: flex;
         justify-content: space-around;
         align-items: center;
-
       }
-
     }
-
-
   }
 
   #table-section {
-
-
-
     .container {
-
-      .pagination-container{
+      .pagination-container {
         width: 100%;
         margin: auto;
 
-
-        .pagination{
+        .pagination {
           width: 100%;
-
-
-
-
-
-
         }
-
-
-
-
-
-
       }
     }
   }
 
-
   #create-site {
-
     .container {
-
       .create-btn-cont {
-
         width: 100%;
-
       }
     }
   }
